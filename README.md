@@ -95,9 +95,35 @@ An iOS application that will allow users to keep track of books/movies that they
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+User (in addition to the automatically included properties)
+ | Property        | Type     | Description |
+ | -------------   | -------- | ------------|
+ | toReadArray     | Array    | array of Books the user has added to their to-read list |
+ | readingArray    | Array    | array of Books the user has added to their currently reading list |
+ | haveReadArray   | Array    | array of Books the user has read |
+ | profileImage    | File     | image that user has uploaded as their profile picture |
+ | uploadedContent | Array    | array of Uploads that the user has uploaded to the app |
+ 
+ Book
+ | Property        | Type     | Description |
+ | ------------    | -------- | ----------- |
+ | title           | String   | title of the book |
+ | author          | String   | author of the book |
+ | coverArt        | File     | the cover art information of a book, if aplicable |
+ | synopsis        | String   | synopsis of the book |
+ | isbn            | String   | unique identifier for the book, potentially useful for retrieving information about it |
+ 
+ Upload
+ | Property        | Type     | Description |
+ | ------------    | -------- | ----------- |
+ | uploadedBy      | Pointer to User | user who uploaded the content
+ | uploadImage     | File     | image that has been uploaded |
+ | bookAssociated  | Pointer to Book | the book that the user has uploaded the content in relation to |
+ | createdAt       | DateTime | date when the upload was created |
+ | pageNum         | Number   | page number that the upload is associated with (optional) |
+ | comment         | String   | any comments by the user regarding the upload (optional) |
+ 
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
