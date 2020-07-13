@@ -76,9 +76,10 @@ An iOS application that will allow users to keep track of books/movies that they
 
 **Tab Navigation** (Tab to Screen)
 
-* Search title
+* Search title / feed view
 * 'Shelves' list
 * Profile
+* Favorites
 
 **Flow Navigation** (Screen to Screen)
 
