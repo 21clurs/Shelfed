@@ -3,16 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0BADA4431D46DFF844FFF7FB /* Pods_ShelfedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE12C4EFED5A138105020060 /* Pods_ShelfedTests.framework */; };
 		434F7B9BDEA65313D1EED90C /* Pods_Shelfed_ShelfedUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58E2FEA062B78B990B7094E9 /* Pods_Shelfed_ShelfedUITests.framework */; };
 		68C7CDB4D59C562081866973 /* Pods_Shelfed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42A54FC1AE561A189AF9A3 /* Pods_Shelfed.framework */; };
+		F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4524BD0EFF0073FA7C /* HomeViewController.m */; };
+		F9400F4924BD0F240073FA7C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */; };
+		F9400F4D24BD10BC0073FA7C /* BookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4C24BD10BC0073FA7C /* BookCell.m */; };
 		F9BCCAB124BCEB3900B3CE42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */; };
 		F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAB324BCEB3900B3CE42 /* SceneDelegate.m */; };
-		F9BCCAB724BCEB3900B3CE42 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAB624BCEB3900B3CE42 /* ViewController.m */; };
 		F9BCCABA24BCEB3900B3CE42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9BCCAB824BCEB3900B3CE42 /* Main.storyboard */; };
 		F9BCCABC24BCEB3A00B3CE42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9BCCABB24BCEB3A00B3CE42 /* Assets.xcassets */; };
 		F9BCCABF24BCEB3A00B3CE42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9BCCABD24BCEB3A00B3CE42 /* LaunchScreen.storyboard */; };
@@ -48,13 +50,17 @@
 		BE12C4EFED5A138105020060 /* Pods_ShelfedTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShelfedTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A46A4B37BCDC555A045F36 /* Pods-Shelfed-ShelfedUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shelfed-ShelfedUITests.debug.xcconfig"; path = "Target Support Files/Pods-Shelfed-ShelfedUITests/Pods-Shelfed-ShelfedUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E6B75F4FF66A753EF558001E /* Pods-ShelfedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShelfedTests.debug.xcconfig"; path = "Target Support Files/Pods-ShelfedTests/Pods-ShelfedTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F9400F4424BD0EFF0073FA7C /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		F9400F4524BD0EFF0073FA7C /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		F9400F4724BD0F240073FA7C /* BookDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookDetailsViewController.h; sourceTree = "<group>"; };
+		F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookDetailsViewController.m; sourceTree = "<group>"; };
+		F9400F4B24BD10BC0073FA7C /* BookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookCell.h; sourceTree = "<group>"; };
+		F9400F4C24BD10BC0073FA7C /* BookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookCell.m; sourceTree = "<group>"; };
 		F9BCCAAC24BCEB3900B3CE42 /* Shelfed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelfed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9BCCAAF24BCEB3900B3CE42 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F9BCCAB224BCEB3900B3CE42 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		F9BCCAB324BCEB3900B3CE42 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		F9BCCAB524BCEB3900B3CE42 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F9BCCAB624BCEB3900B3CE42 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F9BCCAB924BCEB3900B3CE42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F9BCCABB24BCEB3A00B3CE42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9BCCABE24BCEB3A00B3CE42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -116,8 +122,27 @@
 				E6B75F4FF66A753EF558001E /* Pods-ShelfedTests.debug.xcconfig */,
 				9AC5F3F45BDE39C7362260CE /* Pods-ShelfedTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F9400F4324BD0EDA0073FA7C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F9400F4424BD0EFF0073FA7C /* HomeViewController.h */,
+				F9400F4524BD0EFF0073FA7C /* HomeViewController.m */,
+				F9400F4724BD0F240073FA7C /* BookDetailsViewController.h */,
+				F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		F9400F4A24BD10990073FA7C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F9400F4B24BD10BC0073FA7C /* BookCell.h */,
+				F9400F4C24BD10BC0073FA7C /* BookCell.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F9BCCAA324BCEB3900B3CE42 = {
@@ -145,12 +170,12 @@
 		F9BCCAAE24BCEB3900B3CE42 /* Shelfed */ = {
 			isa = PBXGroup;
 			children = (
+				F9400F4A24BD10990073FA7C /* Views */,
+				F9400F4324BD0EDA0073FA7C /* View Controllers */,
 				F9BCCAAF24BCEB3900B3CE42 /* AppDelegate.h */,
 				F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */,
 				F9BCCAB224BCEB3900B3CE42 /* SceneDelegate.h */,
 				F9BCCAB324BCEB3900B3CE42 /* SceneDelegate.m */,
-				F9BCCAB524BCEB3900B3CE42 /* ViewController.h */,
-				F9BCCAB624BCEB3900B3CE42 /* ViewController.m */,
 				F9BCCAB824BCEB3900B3CE42 /* Main.storyboard */,
 				F9BCCABB24BCEB3A00B3CE42 /* Assets.xcassets */,
 				F9BCCABD24BCEB3A00B3CE42 /* LaunchScreen.storyboard */,
@@ -416,10 +441,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9BCCAB724BCEB3900B3CE42 /* ViewController.m in Sources */,
 				F9BCCAB124BCEB3900B3CE42 /* AppDelegate.m in Sources */,
+				F9400F4924BD0F240073FA7C /* BookDetailsViewController.m in Sources */,
 				F9BCCAC224BCEB3A00B3CE42 /* main.m in Sources */,
 				F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */,
+				F9400F4D24BD10BC0073FA7C /* BookCell.m in Sources */,
+				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
