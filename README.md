@@ -1,4 +1,7 @@
-# Shelfed - README
+Original App Design Project - README
+===
+
+# Shelfed
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -8,7 +11,7 @@
 
 ## Overview
 ### Description
-An iOS application that will allow users to keep track of books/movies that they have read/watched and those they would like to see in the future. Users will be able to upload photos of their favorite quotes and moments as they progress through the book/movie and save these to their account, for easy personal reference.
+An iOS application that will allow users to keep track of books/movies that they have read/watched and those they would like to see in the future. Users will be ableto upload photos of their favorite quotes and moments as they progress through the book/movie and save these to their account, for easy reference in the future.
 
 ### App Evaluation
 - **Category:** Lifestyle
@@ -24,18 +27,22 @@ An iOS application that will allow users to keep track of books/movies that they
 
 **Required Must-have Stories**
 
-* Users can create a new account
 * Users can login to their account
-* Users can add and remove books to a 'have read' list
-* Users can add and remove books to a 'to read' list
-* Users can search for books within the app to add to these lists
+* After Login/Create users see feed of book
+* Users will see a shelf tab displaying three categories Read, Reading & Want to read
+*  Users can search for books within the app to add to these lists
     * Users will be able to add books to the lists and have relevant information added automatically without needing to input the data themselves (author, synopsis, etc.)
+* Users can add and remove books from the categories mentioned above
 * Users can mark books as 'favorites'
 * Users can upload photos and save them in association to the book they are related to
+* Users can view their uploaded photos by tapping on a button in the book details page 
 * Users can sort the view of their lists (e.g. by date added)
+* Users can access their favorites  as a separate tab
+* Users can remove favorites.
 
 **Optional Nice-to-have Stories**
-
+* Filter books based on Author, theme, or publication etc.
+* Add metadata to the bookmark photos
 * Users can have all of the Must-have Story functionalities with movies and TV shows, in addition to books
 * Users can rate titles (potentially also sort by these ratings)
 * Users can see related books/movies/shows when accessing a certain entry
@@ -44,6 +51,8 @@ An iOS application that will allow users to keep track of books/movies that they
 * Users can see recommendations based on their preferences
 * Users can edit photos before uploading them in-app (cropping, rotating)
 * Users can browse genres
+* Users can view their uploaded photos embedded in the book details page 
+
 
 ### 2. Screen Archetypes
 
@@ -68,8 +77,7 @@ An iOS application that will allow users to keep track of books/movies that they
 **Tab Navigation** (Tab to Screen)
 
 * Search title
-* To read list
-* Have read list
+* 'Shelves' list
 * Profile
 
 **Flow Navigation** (Screen to Screen)
@@ -86,9 +94,19 @@ An iOS application that will allow users to keep track of books/movies that they
     * => Detail (with created content uploaded)
 * Profile
     * => Creation (still attach it to the book that goes along with it)
+* 'Shelves' list
+    * => To-read list
+    * => Current-reading list
+    * => Haver-read list
+* Reading list
+    * => Detail Screen
 
 ## Wireframes
-<img src="https://i.imgur.com/NUAmMzk.jpg" width=600>
+<!-- <img src="https://i.imgur.com/NUAmMzk.jpg" width=600> -->
+<img src = "https://i.imgur.com/dV6TG7U.jpg" width = 600>
+
+
+* May change this to have 'home' screen set as the 'currently reading' list, for content uploading convenience
 
 ### [BONUS] Digital Wireframes & Mockups
 
@@ -124,7 +142,39 @@ User (in addition to the automatically included properties)
  | pageNum         | Number   | page number that the upload is associated with (optional) |
  | comment         | String   | any comments by the user regarding the upload (optional) |
  
+  
 ### Networking
-- [Add list of network requests by screen ]
+#### List of network requests by screen
+* Any of the lists (reading/to-read/have-read)
+    * (Read/GET) query books that are in the specified list for the user
+    * (Update/POST) Update 'status' of a book in relation to the User by deleting/moving it between lists
+    * (Update/POST) Add a book to list
+* Upload Content (Creation)
+    * (Create/POST) Create a new Upload object
+* Profile Screen
+    * (Read/GET) Query logged in User object
+    * (Update/PUT) Update user profile image
+    * (Update/PUT) Update user's uploaded content
+    * (Update/PUT) Update user statistics
+* Login/register Screen
+    * (Update/POST) Create a user
+    * (Update/POST) Login a user
+
 - [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+#### [OPTIONAL:] Existing API Endpoints
+##### goodreads API
+* Base URL - [https://www.goodreads.com](https://www.goodreads.com/api)
+
+  HTTP Verb | Endpoint | Description
+   ----------|----------|------------
+    `GET`    | /search | search books by title, author, or ISBN
+    `GET`    | /series/show | get information about a series 
+    
+##### Google Books
+* Base URL - [https://developers.google.com/books](https://developers.google.com/books)
+
+  HTTP Verb | Endpoint | Description
+   ----------|----------|------------
+    `GET`    | /volumes | performs a book search
+    
+
