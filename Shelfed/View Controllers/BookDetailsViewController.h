@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Book.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BookDetailsViewController : UIViewController
 
-@property (strong,nonatomic) NSDictionary *book;
+@property (strong,nonatomic) Book *book;
 
 @end
 

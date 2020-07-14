@@ -7,6 +7,7 @@
 //
 
 #import "BookDetailsViewController.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface BookDetailsViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -20,7 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.titleLabel.text = self.book.title;
+    self.authorLabel.text = self.book.authorsString;
+    if(self.book.coverArtThumbnail!=nil){
+        [self.coverArtView setImageWithURL:self.book.coverArtThumbnail];
+    }
     
 }
 
