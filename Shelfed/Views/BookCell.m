@@ -22,9 +22,15 @@
     // Configure the view for the selected state
 }
 
-- (void)setBook:(NSDictionary *)book{
+- (void)setBook:(Book *)book{
     _book = book;
     
+    self.titleLabel.text = book.title;
+    self.authorLabel.text = book.authorsString;
+    if(book.coverArtThumbnail!=nil){
+        [self.coverArtView setImageWithURL:book.coverArtThumbnail];
+    }
+    /*
     NSDictionary *volumeInfo = book[@"volumeInfo"];
     self.titleLabel.text = volumeInfo[@"title"];
     
@@ -41,6 +47,7 @@
         [imageURLString insertString:@"s" atIndex:4];
         [self.coverArtView setImageWithURL:[NSURL URLWithString:imageURLString]];
     }
+     */
 }
 
 @end

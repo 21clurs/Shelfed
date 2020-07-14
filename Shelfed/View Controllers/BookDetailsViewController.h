@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BookDetailsViewController : UIViewController
 
+@property (strong,nonatomic) NSDictionary *book;
+
 @end
 
 NS_ASSUME_NONNULL_END

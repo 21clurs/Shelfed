@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Book.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIButton *seeMoreButton;
 
-@property (strong, nonatomic) NSDictionary *book;
+@property (strong, nonatomic) Book *book;
 
 @end
 

@@ -10,6 +10,7 @@
 #import "Parse/Parse.h"
 #import "BookCell.h"
 #import "GoogleBooksAPIManager.h"
+#import "BookDetailsViewController.h"
 //#import "GoodreadsAPIManager.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -44,14 +45,20 @@
     cell.book = self.books[indexPath.row];
     return cell;
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    BookCell *tappedCell =  sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+    NSDictionary *book = self.books[indexPath.row];
+    
+    BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
+    bookDetailsViewController.book = book;
 }
-*/
+
 
 @end

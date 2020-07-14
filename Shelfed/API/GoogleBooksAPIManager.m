@@ -7,6 +7,7 @@
 //
 
 #import "GoogleBooksAPIManager.h"
+#import "Book.h"
 
 static NSString *const baseURLString = @"https://www.googleapis.com/books/v1/";
 static NSString *const apiKey = @"AIzaSyCrGgWjsndS7vfcYaC-CpyqlktNDSnVnzE";
@@ -34,8 +35,9 @@ static NSString *const apiKey = @"AIzaSyCrGgWjsndS7vfcYaC-CpyqlktNDSnVnzE";
         else{
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSArray *items = dataDictionary[@"items"];
+            NSArray *booksArray = [Book booksWithDictionaries:items];
             //NSLog(@"%@",items);
-            completion(items,nil);
+            completion(booksArray,nil);
         }
     }];
     [task resume];
@@ -55,7 +57,8 @@ static NSString *const apiKey = @"AIzaSyCrGgWjsndS7vfcYaC-CpyqlktNDSnVnzE";
         else{
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSArray *items = dataDictionary[@"items"];
-            completion(items,nil);
+            NSArray *booksArray = [Book booksWithDictionaries:items];
+            completion(booksArray,nil);
         }
     }];
     [task resume];

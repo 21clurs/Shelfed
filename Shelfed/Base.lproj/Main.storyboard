@@ -62,7 +62,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ga6-Mg-aRF">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ga6-Mg-aRF">
                                                     <rect key="frame" x="0.0" y="0.0" width="60" height="96"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="96" id="Ag3-N8-e9V"/>
@@ -146,14 +146,50 @@
                     <view key="view" contentMode="scaleToFill" id="Grn-OO-fS9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5wU-Je-fSY">
+                                <rect key="frame" x="314" y="108" width="80" height="112"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="d3v-Dy-LZK"/>
+                                    <constraint firstAttribute="height" constant="112" id="g3q-KX-zdQ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdF-Ay-kPI">
+                                <rect key="frame" x="20" y="108" width="47" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZI7-La-jt7">
+                                <rect key="frame" x="20" y="145" width="51.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="5wU-Je-fSY" firstAttribute="trailing" secondItem="Grn-OO-fS9" secondAttribute="trailingMargin" id="10G-SD-Eyp"/>
+                            <constraint firstItem="5wU-Je-fSY" firstAttribute="top" secondItem="Grn-OO-fS9" secondAttribute="topMargin" constant="20" id="4U1-G0-fld"/>
+                            <constraint firstItem="5wU-Je-fSY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kdF-Ay-kPI" secondAttribute="trailing" constant="16" id="5dK-Ys-W5G"/>
+                            <constraint firstItem="kdF-Ay-kPI" firstAttribute="leading" secondItem="Grn-OO-fS9" secondAttribute="leadingMargin" id="VfR-Hc-q26"/>
+                            <constraint firstItem="ZI7-La-jt7" firstAttribute="leading" secondItem="Grn-OO-fS9" secondAttribute="leadingMargin" id="Y0o-hF-uEz"/>
+                            <constraint firstItem="kdF-Ay-kPI" firstAttribute="top" secondItem="YRg-Vg-Tek" secondAttribute="top" constant="20" id="a1o-Ra-wx7"/>
+                            <constraint firstItem="5wU-Je-fSY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZI7-La-jt7" secondAttribute="trailing" constant="16" id="lpU-kI-FCh"/>
+                            <constraint firstItem="ZI7-La-jt7" firstAttribute="top" secondItem="kdF-Ay-kPI" secondAttribute="bottom" constant="8" id="x8K-8Q-7Zr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="YRg-Vg-Tek"/>
                     </view>
                     <navigationItem key="navigationItem" id="cYQ-dD-Kqh"/>
+                    <connections>
+                        <outlet property="authorLabel" destination="ZI7-La-jt7" id="h7f-gR-W6E"/>
+                        <outlet property="coverArtView" destination="5wU-Je-fSY" id="MU1-dn-xRh"/>
+                        <outlet property="titleLabel" destination="kdF-Ay-kPI" id="ob3-VL-zVW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YEb-4X-D0L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1897" y="1183"/>
+            <point key="canvasLocation" x="-1897.1014492753625" y="1182.5892857142856"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NfP-1s-cU1">
