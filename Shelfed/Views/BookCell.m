@@ -21,4 +21,20 @@
     // Configure the view for the selected state
 }
 
+- (void)setBook:(NSDictionary *)book{
+    _book = book;
+    
+    NSDictionary *volumeInfo = book[@"volumeInfo"];
+    self.titleLabel.text = volumeInfo[@"title"];
+    
+    NSMutableString *authorsString = [NSMutableString string];
+    if(volumeInfo[@"authors"]!=nil){
+        for( NSString *author in volumeInfo[@"authors"]){
+            [authorsString appendString:author];
+            [authorsString appendString:@", "];
+        }
+        self.authorLabel.text = authorsString;
+    }
+}
+
 @end

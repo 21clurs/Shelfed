@@ -9,7 +9,8 @@
 #import "HomeViewController.h"
 #import "Parse/Parse.h"
 #import "BookCell.h"
-#import "GoodreadsAPIManager.h"
+#import "GoogleBooksAPIManager.h"
+//#import "GoodreadsAPIManager.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -26,9 +27,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    GoodreadsAPIManager *manager = [GoodreadsAPIManager new];
-    [manager defaultHomeQuery:^(NSArray * _Nonnull works, NSError * _Nonnull error) {
-        self.books = works;
+    GoogleBooksAPIManager *manager = [GoogleBooksAPIManager new];
+    [manager defaultHomeQuery:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+        self.books = books;
         [self.tableView reloadData];
     }];
     
@@ -36,12 +37,11 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 20;
+    return self.books.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BookCell"];
-    cell.titleLabel.text = self.books[indexPath.row][@"title"];
-    cell.authorLabel.text = self.books[indexPath.row][@"name"];
+    cell.book = self.books[indexPath.row];
     return cell;
 }
 /*
