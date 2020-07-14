@@ -7,6 +7,7 @@ target 'Shelfed' do
 
   # Pods for Shelfed
   pod 'Parse'
+  pod 'AFNetworking'
 
   target 'ShelfedTests' do
     inherit! :search_paths

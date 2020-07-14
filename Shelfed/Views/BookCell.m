@@ -7,6 +7,7 @@
 //
 
 #import "BookCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation BookCell
 
@@ -27,13 +28,18 @@
     NSDictionary *volumeInfo = book[@"volumeInfo"];
     self.titleLabel.text = volumeInfo[@"title"];
     
-    NSMutableString *authorsString = [NSMutableString string];
     if(volumeInfo[@"authors"]!=nil){
-        for( NSString *author in volumeInfo[@"authors"]){
-            [authorsString appendString:author];
-            [authorsString appendString:@", "];
-        }
+        NSString *authorsString = [volumeInfo[@"authors"] componentsJoinedByString:@", "];
         self.authorLabel.text = authorsString;
+    }
+    else{
+        self.authorLabel.text = @"";
+    }
+    
+    if([volumeInfo valueForKeyPath:@"imageLinks.smallThumbnail"]!=nil){
+        NSMutableString *imageURLString = [NSMutableString stringWithString:[volumeInfo valueForKeyPath:@"imageLinks.smallThumbnail"]];
+        [imageURLString insertString:@"s" atIndex:4];
+        [self.coverArtView setImageWithURL:[NSURL URLWithString:imageURLString]];
     }
 }
 

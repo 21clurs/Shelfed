@@ -69,7 +69,7 @@
                                                         <constraint firstAttribute="width" constant="60" id="Au5-Y7-FF2"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tY5-Ks-kSt">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tY5-Ks-kSt">
                                                     <rect key="frame" x="68" y="36.5" width="49" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
@@ -98,6 +98,7 @@
                                                 <constraint firstItem="T3A-YS-paB" firstAttribute="leading" secondItem="ga6-Mg-aRF" secondAttribute="trailing" constant="8" id="Kfd-sn-eIu"/>
                                                 <constraint firstItem="eG9-Mg-Qjc" firstAttribute="leading" secondItem="rCo-wZ-dEX" secondAttribute="trailing" constant="8" id="QYz-r6-sNL"/>
                                                 <constraint firstItem="eG9-Mg-Qjc" firstAttribute="top" secondItem="hjN-H5-8EE" secondAttribute="topMargin" id="Qiw-h0-kmc"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="tY5-Ks-kSt" secondAttribute="trailing" constant="8" id="Qkd-cf-GPg"/>
                                                 <constraint firstItem="ga6-Mg-aRF" firstAttribute="top" secondItem="hjN-H5-8EE" secondAttribute="top" id="RWS-b9-yFg"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ga6-Mg-aRF" secondAttribute="bottom" id="ReH-Da-IMR"/>
                                                 <constraint firstItem="tY5-Ks-kSt" firstAttribute="leading" secondItem="ga6-Mg-aRF" secondAttribute="trailing" constant="8" id="adw-Ub-kiT"/>

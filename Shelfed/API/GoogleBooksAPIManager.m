@@ -21,7 +21,8 @@ static NSString *const apiKey = @"AIzaSyCrGgWjsndS7vfcYaC-CpyqlktNDSnVnzE";
 -(void)defaultHomeQuery: (void(^)(NSArray *books, NSError *error))completion{
     NSString *defaultSearchString = @"the";
     
-    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&key=%@", baseURLString, defaultSearchString, apiKey];
+    //things to think about: &projection=lite
+    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&key=%@", baseURLString, defaultSearchString, apiKey];
     NSURL *url = [NSURL URLWithString:queryString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     
@@ -33,7 +34,27 @@ static NSString *const apiKey = @"AIzaSyCrGgWjsndS7vfcYaC-CpyqlktNDSnVnzE";
         else{
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSArray *items = dataDictionary[@"items"];
-            NSLog(@"%@",items);
+            //NSLog(@"%@",items);
+            completion(items,nil);
+        }
+    }];
+    [task resume];
+}
+
+-(void)searchBooks: (NSString *)searchString andCompletion:(void(^)(NSArray *books, NSError *error))completion{
+    
+    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&key=%@", baseURLString, searchString, apiKey];
+    NSURL *url = [NSURL URLWithString:queryString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(error!=nil){
+            NSLog(@"%@", [error localizedDescription]);
+            completion(nil, error);
+        }
+        else{
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSArray *items = dataDictionary[@"items"];
             completion(items,nil);
         }
     }];
