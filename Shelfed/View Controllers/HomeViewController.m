@@ -9,8 +9,12 @@
 #import "HomeViewController.h"
 #import "Parse/Parse.h"
 #import "BookCell.h"
+#import "GoodreadsAPIManager.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSArray *books;
 
 @end
 
@@ -18,7 +22,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    GoodreadsAPIManager *manager = [GoodreadsAPIManager new];
+    [manager defaultHomeQuery:^(NSArray * _Nonnull works, NSError * _Nonnull error) {
+        self.books = works;
+        [self.tableView reloadData];
+    }];
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -27,6 +40,8 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BookCell"];
+    cell.titleLabel.text = self.books[indexPath.row][@"title"];
+    cell.authorLabel.text = self.books[indexPath.row][@"name"];
     return cell;
 }
 /*

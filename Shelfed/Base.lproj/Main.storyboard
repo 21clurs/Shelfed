@@ -75,7 +75,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3A-YS-paB">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3A-YS-paB">
                                                     <rect key="frame" x="68" y="11" width="43" height="26.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                                     <nil key="textColor"/>
@@ -108,6 +108,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="authorLabel" destination="tY5-Ks-kSt" id="j51-BA-URW"/>
+                                            <outlet property="coverArtView" destination="ga6-Mg-aRF" id="QGz-1t-ey3"/>
+                                            <outlet property="favoriteButton" destination="rCo-wZ-dEX" id="JG7-yG-HQ7"/>
+                                            <outlet property="seeMoreButton" destination="eG9-Mg-Qjc" id="aa4-7O-yJd"/>
+                                            <outlet property="titleLabel" destination="T3A-YS-paB" id="7Vf-ef-3Va"/>
                                             <segue destination="jQ3-HB-y6c" kind="show" id="A7n-tq-zk9"/>
                                         </connections>
                                     </tableViewCell>
@@ -124,6 +129,10 @@
                         <viewLayoutGuide key="safeArea" id="cog-qe-qBB"/>
                     </view>
                     <navigationItem key="navigationItem" id="8aM-Rg-r9Z"/>
+                    <connections>
+                        <outlet property="searchBar" destination="KlU-th-e20" id="1Dm-bQ-Sna"/>
+                        <outlet property="tableView" destination="74Q-XJ-Mtw" id="bkx-SR-WKe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfa-rf-GS6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

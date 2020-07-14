@@ -13,6 +13,7 @@
 		F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4524BD0EFF0073FA7C /* HomeViewController.m */; };
 		F9400F4924BD0F240073FA7C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */; };
 		F9400F4D24BD10BC0073FA7C /* BookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4C24BD10BC0073FA7C /* BookCell.m */; };
+		F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */; };
 		F9BCCAB124BCEB3900B3CE42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */; };
 		F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAB324BCEB3900B3CE42 /* SceneDelegate.m */; };
 		F9BCCABA24BCEB3900B3CE42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9BCCAB824BCEB3900B3CE42 /* Main.storyboard */; };
@@ -56,6 +57,8 @@
 		F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookDetailsViewController.m; sourceTree = "<group>"; };
 		F9400F4B24BD10BC0073FA7C /* BookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookCell.h; sourceTree = "<group>"; };
 		F9400F4C24BD10BC0073FA7C /* BookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookCell.m; sourceTree = "<group>"; };
+		F9400F4F24BD18B20073FA7C /* GoodreadsAPIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodreadsAPIManager.h; sourceTree = "<group>"; };
+		F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodreadsAPIManager.m; sourceTree = "<group>"; };
 		F9BCCAAC24BCEB3900B3CE42 /* Shelfed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelfed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9BCCAAF24BCEB3900B3CE42 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -145,6 +148,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		F9400F4E24BD187E0073FA7C /* API */ = {
+			isa = PBXGroup;
+			children = (
+				F9400F4F24BD18B20073FA7C /* GoodreadsAPIManager.h */,
+				F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		F9BCCAA324BCEB3900B3CE42 = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +182,7 @@
 		F9BCCAAE24BCEB3900B3CE42 /* Shelfed */ = {
 			isa = PBXGroup;
 			children = (
+				F9400F4E24BD187E0073FA7C /* API */,
 				F9400F4A24BD10990073FA7C /* Views */,
 				F9400F4324BD0EDA0073FA7C /* View Controllers */,
 				F9BCCAAF24BCEB3900B3CE42 /* AppDelegate.h */,
@@ -446,6 +459,7 @@
 				F9BCCAC224BCEB3A00B3CE42 /* main.m in Sources */,
 				F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */,
 				F9400F4D24BD10BC0073FA7C /* BookCell.m in Sources */,
+				F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
