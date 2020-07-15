@@ -16,6 +16,8 @@
 		F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */; };
 		F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */; };
 		F9B862D524BE5D00000C2E0C /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D424BE5D00000C2E0C /* Book.m */; };
+		F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D724BF5FBC000C2E0C /* SignUpViewController.m */; };
+		F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862DA24BF6845000C2E0C /* LogInViewController.m */; };
 		F9BCCAB124BCEB3900B3CE42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */; };
 		F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAB324BCEB3900B3CE42 /* SceneDelegate.m */; };
 		F9BCCABA24BCEB3900B3CE42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9BCCAB824BCEB3900B3CE42 /* Main.storyboard */; };
@@ -65,6 +67,10 @@
 		F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleBooksAPIManager.m; sourceTree = "<group>"; };
 		F9B862D324BE5D00000C2E0C /* Book.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		F9B862D424BE5D00000C2E0C /* Book.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
+		F9B862D624BF5FBC000C2E0C /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		F9B862D724BF5FBC000C2E0C /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		F9B862D924BF6845000C2E0C /* LogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		F9B862DA24BF6845000C2E0C /* LogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		F9BCCAAC24BCEB3900B3CE42 /* Shelfed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelfed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9BCCAAF24BCEB3900B3CE42 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -141,6 +147,10 @@
 				F9400F4524BD0EFF0073FA7C /* HomeViewController.m */,
 				F9400F4724BD0F240073FA7C /* BookDetailsViewController.h */,
 				F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */,
+				F9B862D624BF5FBC000C2E0C /* SignUpViewController.h */,
+				F9B862D724BF5FBC000C2E0C /* SignUpViewController.m */,
+				F9B862D924BF6845000C2E0C /* LogInViewController.h */,
+				F9B862DA24BF6845000C2E0C /* LogInViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -470,6 +480,8 @@
 				F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */,
 				F9BCCAC224BCEB3A00B3CE42 /* main.m in Sources */,
 				F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */,
+				F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */,
+				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
 				F9400F4D24BD10BC0073FA7C /* BookCell.m in Sources */,
 				F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
