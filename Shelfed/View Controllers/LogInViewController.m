@@ -51,7 +51,7 @@
 
 - (BOOL)alertIfEmpty {
     if ([self.usernameField.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Username Required" message:@"A username is required to log in or sign up" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Username Required" message:@"A username is required to log in" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:^{}];
@@ -59,7 +59,7 @@
         return YES;
     }
     else if([self.passwordField.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Password Required" message:@"A password is required to log in or sign up" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Password Required" message:@"A password is required to log in" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:^{}];

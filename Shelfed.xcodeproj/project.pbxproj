@@ -18,6 +18,7 @@
 		F9B862D524BE5D00000C2E0C /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D424BE5D00000C2E0C /* Book.m */; };
 		F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D724BF5FBC000C2E0C /* SignUpViewController.m */; };
 		F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862DA24BF6845000C2E0C /* LogInViewController.m */; };
+		F9B862DE24BF706B000C2E0C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862DD24BF706A000C2E0C /* ProfileViewController.m */; };
 		F9BCCAB124BCEB3900B3CE42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */; };
 		F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAB324BCEB3900B3CE42 /* SceneDelegate.m */; };
 		F9BCCABA24BCEB3900B3CE42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9BCCAB824BCEB3900B3CE42 /* Main.storyboard */; };
@@ -71,6 +72,8 @@
 		F9B862D724BF5FBC000C2E0C /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		F9B862D924BF6845000C2E0C /* LogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		F9B862DA24BF6845000C2E0C /* LogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		F9B862DC24BF706A000C2E0C /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		F9B862DD24BF706A000C2E0C /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		F9BCCAAC24BCEB3900B3CE42 /* Shelfed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelfed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9BCCAAF24BCEB3900B3CE42 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 				F9B862D724BF5FBC000C2E0C /* SignUpViewController.m */,
 				F9B862D924BF6845000C2E0C /* LogInViewController.h */,
 				F9B862DA24BF6845000C2E0C /* LogInViewController.m */,
+				F9B862DC24BF706A000C2E0C /* ProfileViewController.h */,
+				F9B862DD24BF706A000C2E0C /* ProfileViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
 				F9400F4D24BD10BC0073FA7C /* BookCell.m in Sources */,
 				F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */,
+				F9B862DE24BF706B000C2E0C /* ProfileViewController.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

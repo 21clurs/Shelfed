@@ -109,7 +109,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2326" y="-322"/>
+            <point key="canvasLocation" x="-1632" y="-322"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="2pV-ao-uxo">
@@ -214,7 +214,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifa-d3-Pgt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-828" y="-753"/>
+            <point key="canvasLocation" x="-787" y="-755"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="KGR-zu-mtT">
@@ -398,13 +398,13 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdF-Ay-kPI">
-                                <rect key="frame" x="20" y="76" width="47" height="29"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <rect key="frame" x="20" y="76" width="43" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZI7-La-jt7">
-                                <rect key="frame" x="20" y="113" width="51.5" height="20.5"/>
+                                <rect key="frame" x="20" y="110.5" width="51.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -580,21 +580,22 @@
             </objects>
             <point key="canvasLocation" x="1198.5507246376812" y="432.58928571428572"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="Fja-u4-yhd">
             <objects>
-                <viewController id="vqW-Sc-EX2" sceneMemberID="viewController">
+                <viewController id="vqW-Sc-EX2" customClass="ProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iS3-Mz-0h2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="center" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mKX-qY-Q2k">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mKX-qY-Q2k">
                                 <rect key="frame" x="0.0" y="76" width="414" height="134.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cc5-eX-KUM">
-                                        <rect key="frame" x="157" y="1.5" width="100" height="97"/>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_image" translatesAutoresizingMaskIntoConstraints="NO" id="cc5-eX-KUM" customClass="PFImageView">
+                                        <rect key="frame" x="157" y="0.0" width="100" height="100"/>
                                         <color key="backgroundColor" red="0.83745467662811279" green="0.89325839281082153" blue="0.95430725812911987" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.085752494633197784" green="0.091344438493251801" blue="0.37593317031860352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="RqT-Kw-dms"/>
                                             <constraint firstAttribute="height" constant="100" id="oC7-mW-Lg2"/>
@@ -604,6 +605,9 @@
                                                 <integer key="value" value="50"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="ahB-bW-Ikt" appends="YES" id="KG7-ZK-9qr"/>
+                                        </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxA-4G-chY">
                                         <rect key="frame" x="178" y="108" width="58" height="26.5"/>
@@ -623,8 +627,17 @@
                         <viewLayoutGuide key="safeArea" id="8NZ-hW-vYy"/>
                     </view>
                     <navigationItem key="navigationItem" id="99E-6e-Fsq"/>
+                    <connections>
+                        <outlet property="nameLabel" destination="xxA-4G-chY" id="p4p-S1-sKx"/>
+                        <outlet property="profilePictureView" destination="cc5-eX-KUM" id="Feh-lt-O4v"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K7r-KF-Ibs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ahB-bW-Ikt">
+                    <connections>
+                        <action selector="didTapProfilePicture:" destination="vqW-Sc-EX2" id="cGf-RC-kJN"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2798.5507246376815" y="432.58928571428572"/>
         </scene>
@@ -672,6 +685,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="100"/>
+        <image name="default_profile_image" width="170" height="170"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
