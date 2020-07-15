@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -10,7 +10,7 @@
         <!--Log In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LogInViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogInViewController" id="BYZ-38-t0r" customClass="LogInViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -561,6 +561,9 @@
                                                 <constraint firstItem="Z8f-wq-xzq" firstAttribute="top" secondItem="DUU-nJ-w5D" secondAttribute="topMargin" id="s4Y-t3-e2y"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="coverArtView" destination="qYA-GD-Mt6" id="f2a-vt-Iny"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -626,7 +629,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8NZ-hW-vYy"/>
                     </view>
-                    <navigationItem key="navigationItem" id="99E-6e-Fsq"/>
+                    <navigationItem key="navigationItem" id="99E-6e-Fsq">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="JDI-43-qQF">
+                            <connections>
+                                <action selector="didTapLogOut:" destination="vqW-Sc-EX2" id="IE3-1Q-chL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="xxA-4G-chY" id="p4p-S1-sKx"/>
                         <outlet property="profilePictureView" destination="cc5-eX-KUM" id="Feh-lt-O4v"/>
@@ -681,7 +690,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DoT-i6-bND"/>
+        <segue reference="ei2-QH-qVv"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="100"/>

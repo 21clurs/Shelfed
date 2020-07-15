@@ -8,6 +8,8 @@
 
 #import "ProfileViewController.h"
 #import "Parse/Parse.h"
+#import "LogInViewController.h"
+#import "SceneDelegate.h"
 @import Parse;
 
 @interface ProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -85,6 +87,17 @@
             self.profilePictureView.file = PFUser.currentUser[@"profileImage"];
             [self.profilePictureView loadInBackground];
             [strongSelf dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+}
+- (IBAction)didTapLogOut:(id)sender {
+    SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LogInViewController *logInViewController = [storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
+    sceneDelegate.window.rootViewController = logInViewController;
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        if(error != nil){
+            NSLog(@"Error Logging Out: %@", error.localizedDescription);
         }
     }];
 }
