@@ -279,7 +279,7 @@
         <!--Home View Controller-->
         <scene sceneID="19B-lY-1zt">
             <objects>
-                <viewController id="r5O-N9-YTO" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="r5O-N9-YTO" customClass="HomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Zg-Ac-TlE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -437,7 +437,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="NfP-1s-cU1">
             <objects>
-                <tabBarController modalPresentationStyle="fullScreen" id="QDv-A8-lcc" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="AuthenticatedViewController" modalPresentationStyle="fullScreen" id="QDv-A8-lcc" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="VxZ-5E-k6S"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Y0g-k6-pEL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>

@@ -15,6 +15,7 @@
 		F9400F4D24BD10BC0073FA7C /* BookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4C24BD10BC0073FA7C /* BookCell.m */; };
 		F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */; };
 		F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */; };
+		F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */; };
 		F9B862D524BE5D00000C2E0C /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D424BE5D00000C2E0C /* Book.m */; };
 		F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D724BF5FBC000C2E0C /* SignUpViewController.m */; };
 		F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862DA24BF6845000C2E0C /* LogInViewController.m */; };
@@ -66,6 +67,8 @@
 		F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodreadsAPIManager.m; sourceTree = "<group>"; };
 		F9400F5224BE355D0073FA7C /* GoogleBooksAPIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleBooksAPIManager.h; sourceTree = "<group>"; };
 		F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleBooksAPIManager.m; sourceTree = "<group>"; };
+		F9A6A2E724BFBD76000FE6F0 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		F9B862D324BE5D00000C2E0C /* Book.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		F9B862D424BE5D00000C2E0C /* Book.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		F9B862D624BF5FBC000C2E0C /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				F9B862DA24BF6845000C2E0C /* LogInViewController.m */,
 				F9B862DC24BF706A000C2E0C /* ProfileViewController.h */,
 				F9B862DD24BF706A000C2E0C /* ProfileViewController.m */,
+				F9A6A2E724BFBD76000FE6F0 /* FavoritesViewController.h */,
+				F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 				F9BCCAC224BCEB3A00B3CE42 /* main.m in Sources */,
 				F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */,
 				F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */,
+				F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */,
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
 				F9400F4D24BD10BC0073FA7C /* BookCell.m in Sources */,
 				F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */,
