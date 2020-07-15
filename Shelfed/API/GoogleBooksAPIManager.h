@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSURLSession *session;
 -(id)init;
 -(void)defaultHomeQuery: (void(^)(NSArray *books, NSError *error))completion;
+-(void)searchBooks: (NSString *)searchString andCompletion:(void(^)(NSArray *books, NSError *error))completion;
 
 @end
 

@@ -13,12 +13,14 @@
 #import "BookDetailsViewController.h"
 //#import "GoodreadsAPIManager.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSArray *books;
 
 @end
+
+GoogleBooksAPIManager *manager;
 
 @implementation HomeViewController
 
@@ -27,8 +29,10 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.searchBar.delegate = self;
     
-    GoogleBooksAPIManager *manager = [GoogleBooksAPIManager new];
+    manager = [GoogleBooksAPIManager new];
+    
     [manager defaultHomeQuery:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         self.books = books;
         [self.tableView reloadData];
@@ -45,6 +49,31 @@
     cell.book = self.books[indexPath.row];
     return cell;
 }
+#pragma mark - UISearchBarDelegate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+
+    NSString *searchableText = searchText;
+    searchableText = [[searchableText componentsSeparatedByCharactersInSet:[NSCharacterSet punctuationCharacterSet]] componentsJoinedByString:@""];
+    searchableText = [[searchableText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsJoinedByString:@"+"];
+    
+    if(searchableText.length != 0){
+        [manager searchBooks:searchableText andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+            if(error!=nil){
+                NSLog(@"Error searching!");
+            }
+            else{
+                self.books = books;
+                [self.tableView reloadData];
+            }
+        }];
+    }
+    else{
+        [manager defaultHomeQuery:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+            self.books = books;
+            [self.tableView reloadData];
+        }];
+    }
+}
 
 #pragma mark - Navigation
 
@@ -54,7 +83,7 @@
     // Pass the selected object to the new view controller.
     BookCell *tappedCell =  sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    NSDictionary *book = self.books[indexPath.row];
+    Book *book = self.books[indexPath.row];
     
     BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
     bookDetailsViewController.book = book;
