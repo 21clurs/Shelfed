@@ -79,7 +79,7 @@
                                         </constraints>
                                         <state key="normal" title="Sign Up"/>
                                         <connections>
-                                            <segue destination="9DN-oE-Y1V" kind="show" id="1PJ-JC-eG6"/>
+                                            <segue destination="qxN-e6-BBA" kind="show" id="iVx-lZ-BDp"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -99,6 +99,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="YYz-WK-Cfk"/>
                     <connections>
                         <outlet property="loginButton" destination="z1t-5P-VkT" id="lfy-J6-rkh"/>
                         <outlet property="passwordField" destination="kah-mi-rsO" id="alX-hm-DKJ"/>
@@ -115,11 +116,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="qxN-e6-BBA" customClass="SignUpViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SZm-VG-yaz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="iN4-Rk-9it">
-                                <rect key="frame" x="36" y="256" width="342" height="192"/>
+                                <rect key="frame" x="36" y="244" width="342" height="225"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qz7-VZ-wbB">
                                         <rect key="frame" x="132" y="0.0" width="78.5" height="30"/>
@@ -171,6 +172,14 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="didTapSignUp:" destination="qxN-e6-BBA" eventType="touchUpInside" id="qQr-Il-7Al"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zy-go-rKM">
+                                        <rect key="frame" x="130.5" y="198" width="81" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Back to Log In"/>
+                                        <connections>
+                                            <action selector="didTapBackToLogIn:" destination="qxN-e6-BBA" eventType="touchUpInside" id="sW7-hi-0xD"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -657,28 +666,9 @@
             </objects>
             <point key="canvasLocation" x="2148" y="433"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="gKp-Mp-vgB">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9DN-oE-Y1V" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="X15-IV-l1C"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="stt-hl-6C1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="qxN-e6-BBA" kind="relationship" relationship="rootViewController" id="T9n-Xz-804"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xal-BF-JZz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1516" y="-753"/>
-        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ei2-QH-qVv"/>
+        <segue reference="DoT-i6-bND"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="100"/>

@@ -78,6 +78,9 @@
     }
     return NO;
 }
+- (IBAction)didTapBackToLogIn:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{}];
+}
 
 
 /*
