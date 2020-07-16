@@ -13,14 +13,16 @@
 #import "BookDetailsViewController.h"
 //#import "GoodreadsAPIManager.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) NSArray<Book *> *books;
+@property (strong, nonatomic) NSMutableArray<Book *> *books;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
 
 @end
 
 GoogleBooksAPIManager *manager;
+UIActivityIndicatorView *activityIndicatorView;
 
 @implementation HomeViewController
 
@@ -40,11 +42,26 @@ GoogleBooksAPIManager *manager;
             NSLog(@"Error getting default feed!");
         }
         else{
-            strongSelf.books = books;
+            strongSelf.books = [books mutableCopy];
             [strongSelf.tableView reloadData];
         }
     }];
     
+}
+
+- (void) loadMore{
+    __weak typeof(self) weakSelf = self;
+    [manager loadMoreBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+        __strong typeof(self) strongSelf = weakSelf;
+        if(books){
+            strongSelf.isMoreDataLoading = false;
+            [strongSelf.books addObjectsFromArray:books];
+            [strongSelf.tableView reloadData];
+        }
+        else{
+            NSLog(@"Error loading more data");
+        }
+    }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -56,6 +73,12 @@ GoogleBooksAPIManager *manager;
     cell.book = self.books[indexPath.row];
     return cell;
 }
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+}
+
 #pragma mark - UISearchBarDelegate
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     self.searchBar.showsCancelButton = YES;
@@ -74,7 +97,7 @@ GoogleBooksAPIManager *manager;
                 NSLog(@"Error searching!");
             }
             else{
-                strongSelf.books = books;
+                strongSelf.books = [books mutableCopy];
                 [strongSelf.tableView reloadData];
             }
         }];
@@ -86,7 +109,7 @@ GoogleBooksAPIManager *manager;
                 NSLog(@"Error getting default feed!");
             }
             else{
-                strongSelf.books = books;
+                strongSelf.books = [books mutableCopy];
                 [strongSelf.tableView reloadData];
             }
         }];
@@ -103,10 +126,26 @@ GoogleBooksAPIManager *manager;
             NSLog(@"Error getting default feed!");
         }
         else{
-            strongSelf.books = books;
+            strongSelf.books = [books mutableCopy];
             [strongSelf.tableView reloadData];
         }
     }];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if(!self.isMoreDataLoading){
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        
+        if(scrollView.contentOffset.y>scrollOffsetThreshold && self.tableView.isDragging){
+            self.isMoreDataLoading = true;
+            [self loadMore];
+        }
+
+       // ... Code to load more results ...
+
+    }
 }
 
 #pragma mark - Navigation

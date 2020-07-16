@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(id)init;
 -(void)defaultHomeQuery: (void(^)(NSArray *books, NSError *error))completion;
 -(void)searchBooks: (NSString *)searchString andCompletion:(void(^)(NSArray *books, NSError *error))completion;
-
+-(void)loadMoreBooks: (void(^)(NSArray *books, NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END
