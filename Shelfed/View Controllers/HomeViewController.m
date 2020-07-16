@@ -11,6 +11,7 @@
 #import "BookCell.h"
 #import "GoogleBooksAPIManager.h"
 #import "BookDetailsViewController.h"
+#import "InfiniteScrollActivityView.h"
 //#import "GoodreadsAPIManager.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate>
@@ -22,7 +23,7 @@
 @end
 
 GoogleBooksAPIManager *manager;
-UIActivityIndicatorView *activityIndicatorView;
+InfiniteScrollActivityView *loadingMoreView;
 
 @implementation HomeViewController
 
@@ -47,6 +48,15 @@ UIActivityIndicatorView *activityIndicatorView;
         }
     }];
     
+    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+    loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    loadingMoreView.hidden = true;
+    [self.tableView addSubview:loadingMoreView];
+    
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    self.tableView.contentInset = insets;
+    
 }
 
 - (void) loadMore{
@@ -55,6 +65,9 @@ UIActivityIndicatorView *activityIndicatorView;
         __strong typeof(self) strongSelf = weakSelf;
         if(books){
             strongSelf.isMoreDataLoading = false;
+            
+            [loadingMoreView stopAnimating];
+            
             [strongSelf.books addObjectsFromArray:books];
             [strongSelf.tableView reloadData];
         }
@@ -140,6 +153,11 @@ UIActivityIndicatorView *activityIndicatorView;
         
         if(scrollView.contentOffset.y>scrollOffsetThreshold && self.tableView.isDragging){
             self.isMoreDataLoading = true;
+            
+            CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+            loadingMoreView.frame = frame;
+            [loadingMoreView startAnimating];
+            
             [self loadMore];
         }
 
