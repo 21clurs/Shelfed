@@ -47,6 +47,8 @@
                 [self presentViewController:alert animated:YES completion:^{}];
             } else {
                 //NSLog(@"User registered successfully");
+                newUser[@"userShelves"] = [[NSMutableArray alloc] initWithObjects:@"Read", @"Reading", @"Wishlist",nil];
+                [newUser saveInBackground];
                 [weakSelf performSegueWithIdentifier:@"signedUpSegue" sender:nil];
             }
         }];

@@ -16,6 +16,10 @@
 		F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */; };
 		F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */; };
 		F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */; };
+		F9A6A2EC24BFC659000FE6F0 /* EmptyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2EB24BFC659000FE6F0 /* EmptyTableView.m */; };
+		F9A6A2EE24BFC673000FE6F0 /* EmptyTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9A6A2ED24BFC673000FE6F0 /* EmptyTableView.xib */; };
+		F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F024C0BD5F000FE6F0 /* ShelvesViewController.m */; };
+		F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F324C0C257000FE6F0 /* ShelfCell.m */; };
 		F9B862D524BE5D00000C2E0C /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D424BE5D00000C2E0C /* Book.m */; };
 		F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D724BF5FBC000C2E0C /* SignUpViewController.m */; };
 		F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862DA24BF6845000C2E0C /* LogInViewController.m */; };
@@ -69,6 +73,13 @@
 		F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleBooksAPIManager.m; sourceTree = "<group>"; };
 		F9A6A2E724BFBD76000FE6F0 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		F9A6A2EA24BFC659000FE6F0 /* EmptyTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmptyTableView.h; sourceTree = "<group>"; };
+		F9A6A2EB24BFC659000FE6F0 /* EmptyTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmptyTableView.m; sourceTree = "<group>"; };
+		F9A6A2ED24BFC673000FE6F0 /* EmptyTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyTableView.xib; sourceTree = "<group>"; };
+		F9A6A2EF24C0BD5F000FE6F0 /* ShelvesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelvesViewController.h; sourceTree = "<group>"; };
+		F9A6A2F024C0BD5F000FE6F0 /* ShelvesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelvesViewController.m; sourceTree = "<group>"; };
+		F9A6A2F224C0C257000FE6F0 /* ShelfCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelfCell.h; sourceTree = "<group>"; };
+		F9A6A2F324C0C257000FE6F0 /* ShelfCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelfCell.m; sourceTree = "<group>"; };
 		F9B862D324BE5D00000C2E0C /* Book.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		F9B862D424BE5D00000C2E0C /* Book.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		F9B862D624BF5FBC000C2E0C /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -161,6 +172,8 @@
 				F9B862DD24BF706A000C2E0C /* ProfileViewController.m */,
 				F9A6A2E724BFBD76000FE6F0 /* FavoritesViewController.h */,
 				F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */,
+				F9A6A2EF24C0BD5F000FE6F0 /* ShelvesViewController.h */,
+				F9A6A2F024C0BD5F000FE6F0 /* ShelvesViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -170,6 +183,10 @@
 			children = (
 				F9400F4B24BD10BC0073FA7C /* BookCell.h */,
 				F9400F4C24BD10BC0073FA7C /* BookCell.m */,
+				F9A6A2EA24BFC659000FE6F0 /* EmptyTableView.h */,
+				F9A6A2EB24BFC659000FE6F0 /* EmptyTableView.m */,
+				F9A6A2F224C0C257000FE6F0 /* ShelfCell.h */,
+				F9A6A2F324C0C257000FE6F0 /* ShelfCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -224,6 +241,7 @@
 				F9BCCABD24BCEB3A00B3CE42 /* LaunchScreen.storyboard */,
 				F9BCCAC024BCEB3A00B3CE42 /* Info.plist */,
 				F9BCCAC124BCEB3A00B3CE42 /* main.m */,
+				F9A6A2ED24BFC673000FE6F0 /* EmptyTableView.xib */,
 			);
 			path = Shelfed;
 			sourceTree = "<group>";
@@ -355,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9BCCABF24BCEB3A00B3CE42 /* LaunchScreen.storyboard in Resources */,
+				F9A6A2EE24BFC673000FE6F0 /* EmptyTableView.xib in Resources */,
 				F9BCCABC24BCEB3A00B3CE42 /* Assets.xcassets in Resources */,
 				F9BCCABA24BCEB3900B3CE42 /* Main.storyboard in Resources */,
 			);
@@ -492,11 +511,14 @@
 				F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */,
 				F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */,
 				F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */,
+				F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */,
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
+				F9A6A2EC24BFC659000FE6F0 /* EmptyTableView.m in Sources */,
 				F9400F4D24BD10BC0073FA7C /* BookCell.m in Sources */,
 				F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */,
 				F9B862DE24BF706B000C2E0C /* ProfileViewController.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
+				F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

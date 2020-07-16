@@ -7,8 +7,13 @@
 //
 
 #import "FavoritesViewController.h"
+#import "Parse/Parse.h"
+#import "BookCell.h"
+//#import "EmptyTableView.h"
 
-@interface FavoritesViewController ()
+@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray<Book *> *favorites;
 
 @end
 
@@ -16,9 +21,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    if(PFUser.currentUser[@"favoritesArray"]!=nil){
+        self.favorites = PFUser.currentUser[@"favoritesArray"];
+    }
+    else{
+        self.favorites = [[NSArray alloc] init];
+ //       self.tableView.backgroundView = [[EmptyTableView alloc] init];
+    }
+
+    [self.tableView reloadData];
 }
 
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.favorites.count;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    BookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BookCell"];
+    return cell;
+}
 /*
 #pragma mark - Navigation
 
