@@ -30,7 +30,13 @@
     }
     else{
         self.favorites = [[NSArray alloc] init];
+        PFUser.currentUser[@"favoritesArray"] = self.favorites;
+        [PFUser.currentUser saveInBackground];
  //       self.tableView.backgroundView = [[EmptyTableView alloc] init];
+    }
+    
+    if(self.favorites.count==0){
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
 
     [self.tableView reloadData];

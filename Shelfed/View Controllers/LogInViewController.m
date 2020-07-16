@@ -8,6 +8,7 @@
 
 #import "LogInViewController.h"
 #import "Parse/Parse.h"
+#import "MBProgressHUD/MBProgressHUD.h"
 
 @interface LogInViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -23,8 +24,10 @@
     // Do any additional setup after loading the view.
 }
 - (IBAction)didTapLogIn:(id)sender {
-    if(![self alertIfEmpty])
-    [self loginUser];
+    if(![self alertIfEmpty]){
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self loginUser];
+    }
 }
 
 - (void)loginUser{
@@ -46,6 +49,7 @@
             
             [strongSelf performSegueWithIdentifier:@"loginSegue" sender:nil];
         }
+        [MBProgressHUD hideHUDForView:strongSelf.view animated:YES];
     }];
 }
 

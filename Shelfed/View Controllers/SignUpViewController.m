@@ -8,6 +8,7 @@
 
 #import "SignUpViewController.h"
 #import "Parse/Parse.h"
+#import "MBProgressHUD/MBProgressHUD.h"
 
 @interface SignUpViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -25,6 +26,7 @@
 
 - (IBAction)didTapSignUp:(id)sender {
     if(![self alertIfEmpty]){
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [self registerUser];
     }
 }
@@ -39,25 +41,31 @@
         
         __weak typeof(self) weakSelf = self;
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+            __strong typeof(self) strongSelf = weakSelf;
             if (error != nil) {
                 //NSLog(@"Error: %@", error.localizedDescription);
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error Signing Up" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
                 [alert addAction:okAction];
-                [self presentViewController:alert animated:YES completion:^{}];
+                [strongSelf presentViewController:alert animated:YES completion:^{}];
             } else {
                 //NSLog(@"User registered successfully");
                 newUser[@"userShelves"] = [[NSMutableArray alloc] initWithObjects:@"Read", @"Reading", @"Wishlist",nil];
                 [newUser saveInBackground];
                 [weakSelf performSegueWithIdentifier:@"signedUpSegue" sender:nil];
             }
+            [MBProgressHUD hideHUDForView:strongSelf.view animated:YES];
         }];
     }
     else{
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Passwords do not match" message:@"Please confirm that your passwords match" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
         [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:^{}];
+        
+        __weak typeof(self) weakSelf = self;
+        [self presentViewController:alert animated:YES completion:^{
+            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        }];
     }
 }
 

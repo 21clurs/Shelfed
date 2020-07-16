@@ -13,7 +13,6 @@
 #import "BookDetailsViewController.h"
 #import "InfiniteScrollActivityView.h"
 #import "MBProgressHUD/MBProgressHUD.h"
-//#import "GoodreadsAPIManager.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -42,6 +41,7 @@ UIRefreshControl *refreshControl;
     [refreshControl addTarget:self action:@selector(reloadFeed) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:refreshControl atIndex:0];
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self reloadFeed];
     
     CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
@@ -64,6 +64,7 @@ UIRefreshControl *refreshControl;
             strongSelf.books = [books mutableCopy];
             [strongSelf.tableView reloadData];
         }
+        [MBProgressHUD hideHUDForView:strongSelf.view animated:YES];
     }];
     [refreshControl endRefreshing];
 }
