@@ -12,6 +12,7 @@
 #import "GoogleBooksAPIManager.h"
 #import "BookDetailsViewController.h"
 #import "InfiniteScrollActivityView.h"
+#import "MBProgressHUD/MBProgressHUD.h"
 //#import "GoodreadsAPIManager.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate>
@@ -24,6 +25,7 @@
 
 GoogleBooksAPIManager *manager;
 InfiniteScrollActivityView *loadingMoreView;
+UIRefreshControl *refreshControl;
 
 @implementation HomeViewController
 
@@ -36,8 +38,24 @@ InfiniteScrollActivityView *loadingMoreView;
     
     manager = [GoogleBooksAPIManager new];
     
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(reloadFeed) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:refreshControl atIndex:0];
+    
+    [self reloadFeed];
+    
+    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+    loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    loadingMoreView.hidden = true;
+    [self.tableView addSubview:loadingMoreView];
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    self.tableView.contentInset = insets;
+    
+}
+- (void)reloadFeed{
     __weak typeof(self) weakSelf = self;
-    [manager defaultHomeQuery:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+    [manager reloadBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         __strong typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             NSLog(@"Error getting default feed!");
@@ -47,19 +65,10 @@ InfiniteScrollActivityView *loadingMoreView;
             [strongSelf.tableView reloadData];
         }
     }];
-    
-    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
-    loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
-    loadingMoreView.hidden = true;
-    [self.tableView addSubview:loadingMoreView];
-    
-    UIEdgeInsets insets = self.tableView.contentInset;
-    insets.bottom += InfiniteScrollActivityView.defaultHeight;
-    self.tableView.contentInset = insets;
-    
+    [refreshControl endRefreshing];
 }
 
-- (void) loadMore{
+- (void)loadMore{
     __weak typeof(self) weakSelf = self;
     [manager loadMoreBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         __strong typeof(self) strongSelf = weakSelf;
@@ -97,43 +106,31 @@ InfiniteScrollActivityView *loadingMoreView;
     self.searchBar.showsCancelButton = YES;
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-
     NSString *searchableText = searchText;
     searchableText = [[searchableText componentsSeparatedByCharactersInSet:[NSCharacterSet punctuationCharacterSet]] componentsJoinedByString:@""];
     searchableText = [[searchableText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsJoinedByString:@"+"];
     
+    
     __weak typeof(self) weakSelf = self;
-    if(searchableText.length != 0){
-        [manager searchBooks:searchableText andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
-            __strong typeof(self) strongSelf = weakSelf;
-            if(error!=nil){
-                NSLog(@"Error searching!");
-            }
-            else{
-                strongSelf.books = [books mutableCopy];
-                [strongSelf.tableView reloadData];
-            }
-        }];
-    }
-    else{
-        [manager defaultHomeQuery:^(NSArray * _Nonnull books, NSError * _Nonnull error){
-            __strong typeof(self) strongSelf = weakSelf;
-            if(error!=nil){
-                NSLog(@"Error getting default feed!");
-            }
-            else{
-                strongSelf.books = [books mutableCopy];
-                [strongSelf.tableView reloadData];
-            }
-        }];
-    }
+    NSLog(@"Searching:%@",searchableText);
+    [manager searchBooks:searchableText andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+        __strong typeof(self) strongSelf = weakSelf;
+        if(error!=nil){
+            NSLog(@"Error searching!");
+        }
+        else{
+            strongSelf.books = [books mutableCopy];
+            [strongSelf.tableView reloadData];
+        }
+    }];
 }
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
     __weak typeof (self) weakSelf = self;
-    [manager defaultHomeQuery:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+    [manager reloadBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         __strong typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             NSLog(@"Error getting default feed!");

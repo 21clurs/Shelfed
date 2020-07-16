@@ -9,6 +9,7 @@ target 'Shelfed' do
   pod 'Parse'
   pod 'AFNetworking'
   pod 'Parse/UI'
+  pod 'MBProgressHUD'
 
   target 'ShelfedTests' do
     inherit! :search_paths

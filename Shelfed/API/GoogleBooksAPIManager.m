@@ -23,6 +23,7 @@ NSInteger currentSearchIndex;
     return self;
 }
 
+/*
 -(void)defaultHomeQuery: (void(^)(NSArray *books, NSError *error))completion{
     NSString *defaultSearchString = @"the";
     currentSearchString = defaultSearchString;
@@ -48,12 +49,42 @@ NSInteger currentSearchIndex;
     }];
     [task resume];
 }
-
+*/
 -(void)searchBooks: (NSString *)searchString andCompletion:(void(^)(NSArray *books, NSError *error))completion{
-    currentSearchString = searchString;
+    if([searchString isEqualToString:@""]){
+        currentSearchString = @"the";
+    }
+    else{
+        currentSearchString = searchString;
+    }
     currentSearchIndex = 0;
     
-    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&key=%@", baseURLString, searchString, apiKey];
+    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&key=%@", baseURLString, currentSearchString, apiKey];
+    NSURL *url = [NSURL URLWithString:queryString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(error!=nil){
+            NSLog(@"%@", [error localizedDescription]);
+            completion(nil, error);
+        }
+        else{
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSArray *items = dataDictionary[@"items"];
+            NSArray *booksArray = [Book booksWithDictionaries:items];
+            completion(booksArray,nil);
+        }
+    }];
+    [task resume];
+}
+
+-(void)reloadBooks:(void(^)(NSArray *books, NSError *error))completion{
+    if(currentSearchString==nil || [currentSearchString isEqualToString:@""]){
+        currentSearchString = @"the";
+    }
+    currentSearchIndex=0;
+    
+    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&key=%@", baseURLString, currentSearchString, apiKey];
     NSURL *url = [NSURL URLWithString:queryString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     
