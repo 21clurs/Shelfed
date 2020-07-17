@@ -371,7 +371,7 @@
                             <constraint firstItem="74Q-XJ-Mtw" firstAttribute="leading" secondItem="3Zg-Ac-TlE" secondAttribute="leading" id="Dwy-8f-iov"/>
                             <constraint firstAttribute="bottom" secondItem="74Q-XJ-Mtw" secondAttribute="bottom" id="WVy-hS-REm"/>
                             <constraint firstAttribute="trailing" secondItem="74Q-XJ-Mtw" secondAttribute="trailing" id="g3V-dE-6Oi"/>
-                            <constraint firstItem="74Q-XJ-Mtw" firstAttribute="top" secondItem="3Zg-Ac-TlE" secondAttribute="top" id="pHQ-zc-7oV"/>
+                            <constraint firstItem="74Q-XJ-Mtw" firstAttribute="top" secondItem="3Zg-Ac-TlE" secondAttribute="top" id="q73-0Z-60d"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cog-qe-qBB"/>
                     </view>
@@ -383,7 +383,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfa-rf-GS6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1896" y="433"/>
+            <point key="canvasLocation" x="-1897.1014492753625" y="432.58928571428572"/>
         </scene>
         <!--Book Details View Controller-->
         <scene sceneID="6sT-7U-aFj">
@@ -701,7 +701,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ei2-QH-qVv"/>
+        <segue reference="DoT-i6-bND"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="100"/>

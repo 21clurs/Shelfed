@@ -111,9 +111,7 @@ UIRefreshControl *refreshControl;
     searchableText = [[searchableText componentsSeparatedByCharactersInSet:[NSCharacterSet punctuationCharacterSet]] componentsJoinedByString:@""];
     searchableText = [[searchableText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsJoinedByString:@"+"];
     
-    
     __weak typeof(self) weakSelf = self;
-    NSLog(@"Searching:%@",searchableText);
     [manager searchBooks:searchableText andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         __strong typeof(self) strongSelf = weakSelf;
         if(error!=nil){
@@ -131,10 +129,10 @@ UIRefreshControl *refreshControl;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
     __weak typeof (self) weakSelf = self;
-    [manager reloadBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+    [manager searchBooks:@"" andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         __strong typeof(self) strongSelf = weakSelf;
         if(error!=nil){
-            NSLog(@"Error getting default feed!");
+            NSLog(@"Error searching!");
         }
         else{
             strongSelf.books = [books mutableCopy];

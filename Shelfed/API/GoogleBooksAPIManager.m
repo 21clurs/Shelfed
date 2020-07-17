@@ -23,33 +23,6 @@ NSInteger currentSearchIndex;
     return self;
 }
 
-/*
--(void)defaultHomeQuery: (void(^)(NSArray *books, NSError *error))completion{
-    NSString *defaultSearchString = @"the";
-    currentSearchString = defaultSearchString;
-    currentSearchIndex = 0;
-    
-    //things to think about: &projection=lite
-    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&key=%@", baseURLString, defaultSearchString, apiKey];
-    NSURL *url = [NSURL URLWithString:queryString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if(error!=nil){
-            NSLog(@"%@", [error localizedDescription]);
-            completion(nil, error);
-        }
-        else{
-            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSArray *items = dataDictionary[@"items"];
-            NSArray *booksArray = [Book booksWithDictionaries:items];
-            //NSLog(@"%@",items);
-            completion(booksArray,nil);
-        }
-    }];
-    [task resume];
-}
-*/
 -(void)searchBooks: (NSString *)searchString andCompletion:(void(^)(NSArray *books, NSError *error))completion{
     if([searchString isEqualToString:@""]){
         currentSearchString = @"the";
@@ -58,24 +31,7 @@ NSInteger currentSearchIndex;
         currentSearchString = searchString;
     }
     currentSearchIndex = 0;
-    
-    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&key=%@", baseURLString, currentSearchString, apiKey];
-    NSURL *url = [NSURL URLWithString:queryString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if(error!=nil){
-            NSLog(@"%@", [error localizedDescription]);
-            completion(nil, error);
-        }
-        else{
-            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSArray *items = dataDictionary[@"items"];
-            NSArray *booksArray = [Book booksWithDictionaries:items];
-            completion(booksArray,nil);
-        }
-    }];
-    [task resume];
+    [self loadHelper:completion];
 }
 
 -(void)reloadBooks:(void(^)(NSArray *books, NSError *error))completion{
@@ -83,28 +39,15 @@ NSInteger currentSearchIndex;
         currentSearchString = @"the";
     }
     currentSearchIndex=0;
-    
-    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&key=%@", baseURLString, currentSearchString, apiKey];
-    NSURL *url = [NSURL URLWithString:queryString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if(error!=nil){
-            NSLog(@"%@", [error localizedDescription]);
-            completion(nil, error);
-        }
-        else{
-            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSArray *items = dataDictionary[@"items"];
-            NSArray *booksArray = [Book booksWithDictionaries:items];
-            completion(booksArray,nil);
-        }
-    }];
-    [task resume];
+    [self loadHelper:completion];
 }
 
 -(void)loadMoreBooks: (void(^)(NSArray *books, NSError *error))completion{
     currentSearchIndex += 20;
+    [self loadHelper:completion];
+}
+
+-(void)loadHelper: (void(^)(NSArray *books, NSError *error))completion{
     
     NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&startIndex=%ld&key=%@", baseURLString, currentSearchString, currentSearchIndex, apiKey];
     NSURL *url = [NSURL URLWithString:queryString];

@@ -10,6 +10,26 @@
 
 @implementation Book
 
+/*
+@dynamic title;
+@dynamic subtitle;
+@dynamic authorsArray;
+@dynamic authorsString;
+@dynamic bookDescription;
+
+@dynamic coverArtThumbnail;
+@dynamic coverArt;
+
+@dynamic publishedDate;
+@dynamic bookID;
+@dynamic isbn13;
+@dynamic isbn10;
+@dynamic pages;
+
++ (nonnull NSString *)parseClassName {
+    return @"Book";
+}
+*/
 - (id) initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
     

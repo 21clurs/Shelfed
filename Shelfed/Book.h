@@ -5,12 +5,12 @@
 //  Created by Clara Kim on 7/14/20.
 //  Copyright © 2020 Clara Kim. All rights reserved.
 //
-
+#import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Book : NSObject
+@interface Book : NSObject //PFObject<PFSubclassing>
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *subtitle;
