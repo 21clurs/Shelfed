@@ -10,7 +10,6 @@
 
 @implementation Book
 
-/*
 @dynamic title;
 @dynamic subtitle;
 @dynamic authorsArray;
@@ -29,7 +28,7 @@
 + (nonnull NSString *)parseClassName {
     return @"Book";
 }
-*/
+
 - (id) initWithDictionary:(NSDictionary *)dictionary{
     self = [super init];
     
@@ -52,13 +51,15 @@
     // Adding an 's' as a workaround: HTTP vs HTTPS
     if([volumeInfo valueForKeyPath:@"imageLinks.smallThumbnail"]!=nil){
         NSMutableString *imageURLString = [NSMutableString stringWithString:[volumeInfo valueForKeyPath:@"imageLinks.smallThumbnail"]];
-        [imageURLString insertString:@"s" atIndex:4];
-        self.coverArtThumbnail = [NSURL URLWithString:imageURLString];
+        self.coverArtThumbnail = imageURLString;
+        //[imageURLString insertString:@"s" atIndex:4];
+        //self.coverArtThumbnail = [NSURL URLWithString:imageURLString];
     }
     if([volumeInfo valueForKeyPath:@"imageLinks.thumbnail"]!=nil){
         NSMutableString *imageURLString = [NSMutableString stringWithString:[volumeInfo valueForKeyPath:@"imageLinks.thumbnail"]];
-        [imageURLString insertString:@"s" atIndex:4];
-        self.coverArt = [NSURL URLWithString:imageURLString];
+        self.coverArt = imageURLString;
+        //[imageURLString insertString:@"s" atIndex:4];
+        //self.coverArt = [NSURL URLWithString:imageURLString];
     }
     
     if(volumeInfo[@"publishedDate"]!=nil){

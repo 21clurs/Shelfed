@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Book : NSObject //PFObject<PFSubclassing>
+@interface Book : PFObject<PFSubclassing>
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *subtitle;
@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *authorsString;
 @property (strong, nonatomic) NSString *bookDescription;
 
-@property (strong, nonatomic) NSURL *coverArtThumbnail;
-@property (strong, nonatomic) NSURL *coverArt;
+@property (strong, nonatomic) NSString *coverArtThumbnail;
+@property (strong, nonatomic) NSString *coverArt;
 
 @property (strong, nonatomic) NSString *publishedDate;
 @property (strong, nonatomic) NSString *bookID;

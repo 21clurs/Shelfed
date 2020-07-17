@@ -16,6 +16,7 @@ static NSString *const apiKey = @"AIzaSyCrGgWjsndS7vfcYaC-CpyqlktNDSnVnzE";
 
 NSString *currentSearchString;
 NSInteger currentSearchIndex;
+NSInteger loadBy = 20;
 
 -(id)init{
     self = [super init];
@@ -43,13 +44,12 @@ NSInteger currentSearchIndex;
 }
 
 -(void)loadMoreBooks: (void(^)(NSArray *books, NSError *error))completion{
-    currentSearchIndex += 20;
+    currentSearchIndex += loadBy;
     [self loadHelper:completion];
 }
 
 -(void)loadHelper: (void(^)(NSArray *books, NSError *error))completion{
-    
-    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=20&startIndex=%ld&key=%@", baseURLString, currentSearchString, currentSearchIndex, apiKey];
+    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=%ld&startIndex=%ld&key=%@", baseURLString, currentSearchString, loadBy, currentSearchIndex, apiKey];
     NSURL *url = [NSURL URLWithString:queryString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     

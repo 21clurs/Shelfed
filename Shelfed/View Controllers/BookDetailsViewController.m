@@ -24,7 +24,7 @@
     self.titleLabel.text = self.book.title;
     self.authorLabel.text = self.book.authorsString;
     if(self.book.coverArtThumbnail!=nil){
-        [self.coverArtView setImageWithURL:self.book.coverArtThumbnail];
+        [self.coverArtView setImageWithURL:[NSURL URLWithString: self.book.coverArtThumbnail]];
     }
     
 }

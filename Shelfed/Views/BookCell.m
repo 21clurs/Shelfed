@@ -28,7 +28,7 @@
     self.titleLabel.text = book.title;
     self.authorLabel.text = book.authorsString;
     if(book.coverArtThumbnail!=nil){
-        [self.coverArtView setImageWithURL:book.coverArtThumbnail];
+        [self.coverArtView setImageWithURL: [NSURL URLWithString: book.coverArtThumbnail]];
     }
     /*
     NSDictionary *volumeInfo = book[@"volumeInfo"];

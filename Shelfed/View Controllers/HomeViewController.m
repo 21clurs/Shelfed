@@ -156,9 +156,6 @@ UIRefreshControl *refreshControl;
             
             [self loadMore];
         }
-
-       // ... Code to load more results ...
-
     }
 }
 
@@ -168,6 +165,8 @@ UIRefreshControl *refreshControl;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    [self.searchBar resignFirstResponder];
+    
     BookCell *tappedCell =  sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
     Book *book = self.books[indexPath.row];
