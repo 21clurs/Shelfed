@@ -427,8 +427,8 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhZ-5X-Rap">
                                 <rect key="frame" x="344" y="196" width="21" height="22"/>
-                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="heart.fill" catalog="system"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="heart" catalog="system"/>
                                 <connections>
                                     <action selector="didTapFavorite:" destination="jQ3-HB-y6c" eventType="touchUpInside" id="IDS-p6-qd1"/>
                                 </connections>

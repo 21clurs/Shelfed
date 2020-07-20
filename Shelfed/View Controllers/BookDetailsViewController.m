@@ -39,6 +39,7 @@
         [self.coverArtView setImageWithURL:[NSURL URLWithString: self.book.coverArtThumbnail]];
     }
     if ([PFUser.currentUser[@"favoritesArray"] containsObject:self.book.bookID]){
+        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
         [self.favoriteButton setTintColor:[UIColor redColor]];
     }
 }
@@ -48,8 +49,20 @@
         PFUser.currentUser[@"favoritesArray"] = [[NSMutableArray<Book *> alloc] init];
     }
     NSMutableArray *favorites = PFUser.currentUser[@"favoritesArray"];
+    
     if ([favorites containsObject:self.book.bookID]){
-        NSLog(@"Won't add duplicates to user favorites");
+        [favorites removeObject:self.book.bookID];
+        PFUser.currentUser[@"favoritesArray"] = favorites;
+        [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error!=nil){
+                NSLog(@"Error removing from user favorites");
+            }
+            else{
+                NSLog(@"Removed");
+                [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+                [self.favoriteButton setTintColor:[UIColor blackColor]];
+            }
+        }];
     }
     else{
         [favorites addObject:self.book.bookID];
@@ -60,6 +73,7 @@
             }
             else{
                 NSLog(@"Saved");
+                [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
                 [self.favoriteButton setTintColor:[UIColor redColor]];
             }
         }];
@@ -87,9 +101,6 @@
                     NSLog(@"Saved to parse");
                 }
                 }];
-            }
-            else{
-                NSLog(@"Not saving duplicates");
             }
         }
         else {

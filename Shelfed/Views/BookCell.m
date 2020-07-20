@@ -30,6 +30,14 @@
     if(book.coverArtThumbnail!=nil){
         [self.coverArtView setImageWithURL: [NSURL URLWithString: book.coverArtThumbnail]];
     }
+    if([PFUser.currentUser[@"favoritesArray"] containsObject:book.bookID]){
+        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        [self.favoriteButton setTintColor:[UIColor redColor]];
+    }
+    else{
+        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        [self.favoriteButton setTintColor:[UIColor blackColor]];
+    }
     /*
     NSDictionary *volumeInfo = book[@"volumeInfo"];
     self.titleLabel.text = volumeInfo[@"title"];
