@@ -10,6 +10,7 @@ target 'Shelfed' do
   pod 'AFNetworking'
   pod 'Parse/UI'
   pod 'MBProgressHUD'
+  pod 'DZNEmptyDataSet'
 
   target 'ShelfedTests' do
     inherit! :search_paths
