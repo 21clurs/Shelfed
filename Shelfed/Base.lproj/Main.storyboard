@@ -339,6 +339,9 @@
                                                     <rect key="frame" x="345" y="11" width="21" height="22"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" image="heart" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="8UF-x7-QFd" eventType="touchUpInside" id="yeR-Nc-LO5"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eG9-Mg-Qjc">
                                                     <rect key="frame" x="374" y="11" width="20" height="22"/>
@@ -433,17 +436,26 @@
                                     <action selector="didTapFavorite:" destination="jQ3-HB-y6c" eventType="touchUpInside" id="IDS-p6-qd1"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KxO-K8-DfW">
+                                <rect key="frame" x="20" y="226" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="5wU-Je-fSY" firstAttribute="trailing" secondItem="Grn-OO-fS9" secondAttribute="trailingMargin" id="10G-SD-Eyp"/>
                             <constraint firstItem="5wU-Je-fSY" firstAttribute="top" secondItem="Grn-OO-fS9" secondAttribute="topMargin" constant="20" id="4U1-G0-fld"/>
                             <constraint firstItem="5wU-Je-fSY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kdF-Ay-kPI" secondAttribute="trailing" constant="16" id="5dK-Ys-W5G"/>
+                            <constraint firstItem="KxO-K8-DfW" firstAttribute="top" secondItem="rhZ-5X-Rap" secondAttribute="bottom" constant="8" id="JHt-bG-yJA"/>
                             <constraint firstItem="rhZ-5X-Rap" firstAttribute="top" secondItem="5wU-Je-fSY" secondAttribute="bottom" constant="8" id="QAJ-EM-KVR"/>
+                            <constraint firstItem="KxO-K8-DfW" firstAttribute="trailing" secondItem="Grn-OO-fS9" secondAttribute="trailingMargin" id="SY9-jo-fKl"/>
                             <constraint firstItem="kdF-Ay-kPI" firstAttribute="leading" secondItem="Grn-OO-fS9" secondAttribute="leadingMargin" id="VfR-Hc-q26"/>
                             <constraint firstItem="ZI7-La-jt7" firstAttribute="leading" secondItem="Grn-OO-fS9" secondAttribute="leadingMargin" id="Y0o-hF-uEz"/>
                             <constraint firstItem="kdF-Ay-kPI" firstAttribute="top" secondItem="YRg-Vg-Tek" secondAttribute="top" constant="20" id="a1o-Ra-wx7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rhZ-5X-Rap" secondAttribute="trailing" constant="29" id="esp-oJ-UPc"/>
+                            <constraint firstItem="KxO-K8-DfW" firstAttribute="leading" secondItem="Grn-OO-fS9" secondAttribute="leadingMargin" id="hQQ-qR-cR6"/>
                             <constraint firstItem="5wU-Je-fSY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZI7-La-jt7" secondAttribute="trailing" constant="16" id="lpU-kI-FCh"/>
                             <constraint firstItem="ZI7-La-jt7" firstAttribute="top" secondItem="kdF-Ay-kPI" secondAttribute="bottom" constant="8" id="x8K-8Q-7Zr"/>
                         </constraints>
@@ -453,13 +465,14 @@
                     <connections>
                         <outlet property="authorLabel" destination="ZI7-La-jt7" id="h7f-gR-W6E"/>
                         <outlet property="coverArtView" destination="5wU-Je-fSY" id="MU1-dn-xRh"/>
+                        <outlet property="descriptionLabel" destination="KxO-K8-DfW" id="vFS-AC-Bjh"/>
                         <outlet property="favoriteButton" destination="rhZ-5X-Rap" id="M8i-LI-U9V"/>
                         <outlet property="titleLabel" destination="kdF-Ay-kPI" id="ob3-VL-zVW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YEb-4X-D0L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1897.1014492753625" y="1182.5892857142856"/>
+            <point key="canvasLocation" x="-1897.1014492753625" y="1181.9196428571429"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NfP-1s-cU1">
@@ -592,7 +605,7 @@
                                         <connections>
                                             <outlet property="authorLabel" destination="eIy-cw-PpV" id="jY3-R4-jDu"/>
                                             <outlet property="coverArtView" destination="qYA-GD-Mt6" id="f2a-vt-Iny"/>
-                                            <outlet property="favoriteButton" destination="Iij-gc-WiE" id="WFt-NR-PjW"/>
+                                            <outlet property="favoriteButton" destination="Iij-gc-WiE" id="cZs-pg-pM0"/>
                                             <outlet property="seeMoreButton" destination="Z8f-wq-xzq" id="96Z-IW-5Yz"/>
                                             <outlet property="titleLabel" destination="4r8-6d-LMk" id="Ejn-17-NP3"/>
                                             <segue destination="jQ3-HB-y6c" kind="show" id="Ma7-Tg-KHk"/>

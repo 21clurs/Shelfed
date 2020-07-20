@@ -8,6 +8,7 @@
 
 #import "BookCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "AddRemoveBooksHelper.h"
 
 @implementation BookCell
 
@@ -38,24 +39,30 @@
         [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
         [self.favoriteButton setTintColor:[UIColor blackColor]];
     }
-    /*
-    NSDictionary *volumeInfo = book[@"volumeInfo"];
-    self.titleLabel.text = volumeInfo[@"title"];
+}
+
+- (IBAction)didTapFavorite:(id)sender {
+    NSMutableArray<NSString *> *favorites = PFUser.currentUser[@"favoritesArray"];
+    if(PFUser.currentUser[@"favoritesArray"]==nil){
+        favorites = [[NSMutableArray<NSString *> alloc] init];
+    }
     
-    if(volumeInfo[@"authors"]!=nil){
-        NSString *authorsString = [volumeInfo[@"authors"] componentsJoinedByString:@", "];
-        self.authorLabel.text = authorsString;
+    if ([favorites containsObject:self.book.bookID]){
+        [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
+            if(!error){
+                [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+                [self.favoriteButton setTintColor:[UIColor blackColor]];
+            }
+        }];
     }
     else{
-        self.authorLabel.text = @"";
+        [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
+            if(!error){
+                [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+                [self.favoriteButton setTintColor:[UIColor redColor]];
+            }
+        }];
     }
-    
-    if([volumeInfo valueForKeyPath:@"imageLinks.smallThumbnail"]!=nil){
-        NSMutableString *imageURLString = [NSMutableString stringWithString:[volumeInfo valueForKeyPath:@"imageLinks.smallThumbnail"]];
-        [imageURLString insertString:@"s" atIndex:4];
-        [self.coverArtView setImageWithURL:[NSURL URLWithString:imageURLString]];
-    }
-     */
 }
 
 @end

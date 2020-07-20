@@ -31,9 +31,6 @@
     else if([shelfName isEqualToString:@"Reading"]){
         [self.shelfIconView setImage:[UIImage systemImageNamed:@"bookmark.fill"]];
     }
-    else if([shelfName isEqualToString:@"Wishlist"]){
-        [self.shelfIconView setImage:[UIImage systemImageNamed:@"book.fill"]];
-    }
 }
 
 @end
