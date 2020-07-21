@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *publishedDate;
 @property (strong, nonatomic) NSString *bookID;
 @property (strong, nonatomic) NSString *isbn13;
-@property (strong, nonatomic) NSString *isbn10;
 @property (strong, nonatomic) NSNumber *pages;
 
 - (id) initWithDictionary:(NSDictionary *)dictionary;

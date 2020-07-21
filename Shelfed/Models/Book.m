@@ -22,7 +22,6 @@
 @dynamic publishedDate;
 @dynamic bookID;
 @dynamic isbn13;
-@dynamic isbn10;
 @dynamic pages;
 
 + (nonnull NSString *)parseClassName {
@@ -65,12 +64,14 @@
     if(volumeInfo[@"publishedDate"]!=nil){
         self.publishedDate = volumeInfo[@"publishedDate"];
     }
-    if([volumeInfo valueForKeyPath:@"industryIdentifiers.ISBN_13"]!=nil){
-        self.isbn13 = [volumeInfo valueForKeyPath:@"industryIdentifiers.ISBN_13"];
+    
+    for(NSDictionary *dict in volumeInfo[@"industryIdentifiers"]){
+        if([dict[@"type"] isEqualToString:@"ISBN_13"])
+            self.isbn13 = dict[@"identifier"];
     }
-    if([volumeInfo valueForKeyPath:@"industryIdentifiers.ISBN_10"]!=nil){
-        self.isbn10 = [volumeInfo valueForKeyPath:@"industryIdentifiers.ISBN_10"];
-    }
+    // if([volumeInfo valueForKeyPath:@"industryIdentifiers.ISBN_13.identifier"]!=nil){
+    //     self.isbn13 = [volumeInfo valueForKeyPath:@"industryIdentifiers.ISBN_13.identifier"];
+    // }
     if(volumeInfo[@"pageCount"]!=nil){
         self.pages = volumeInfo[@"pageCount"];
     }
