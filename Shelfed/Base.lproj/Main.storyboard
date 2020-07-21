@@ -237,31 +237,46 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5PW-ke-reC">
-                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="itemSize" width="196" height="197"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShelfCollectionCell" id="ikr-3V-bkY" customClass="ShelfCollectionCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="196" height="197"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kdJ-v8-KhS">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="196" height="197"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIR-93-tdb">
-                                                    <rect key="frame" x="43" y="54" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIR-93-tdb">
+                                                    <rect key="frame" x="8" y="8" width="180" height="181"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8cj-5P-HVz">
+                                                    <rect key="frame" x="0.0" y="0.0" width="196" height="197"/>
+                                                </stackView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.89076799154281616" green="0.97244244813919067" blue="0.95943862199783325" alpha="0.9990234375" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="8cj-5P-HVz" secondAttribute="bottom" id="7TJ-Tb-9J3"/>
+                                                <constraint firstAttribute="trailing" secondItem="8cj-5P-HVz" secondAttribute="trailing" id="FNf-C3-yuj"/>
+                                                <constraint firstItem="8cj-5P-HVz" firstAttribute="top" secondItem="kdJ-v8-KhS" secondAttribute="top" id="ZNW-ei-YEX"/>
+                                                <constraint firstItem="8cj-5P-HVz" firstAttribute="leading" secondItem="kdJ-v8-KhS" secondAttribute="leading" id="m1A-J3-Xij"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="shelfNameLabel" destination="qIR-93-tdb" id="G2H-Nh-seV"/>
+                                            <segue destination="a6S-vD-KNN" kind="show" id="TJa-47-UUE"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -279,6 +294,7 @@
                     <navigationItem key="navigationItem" id="l7l-wR-2Bg"/>
                     <connections>
                         <outlet property="collectionView" destination="kXA-pP-crU" id="mTo-st-aIp"/>
+                        <outlet property="flowLayout" destination="5PW-ke-reC" id="HKz-fH-1ZK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cid-Gc-OEi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -472,11 +488,11 @@
             <objects>
                 <viewController id="a6S-vD-KNN" customClass="ShelfViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cqk-Pd-bFc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fsz-Ca-Oyj">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="BookCellXIB" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mycell" rowHeight="73" id="qT9-Zs-3N3">

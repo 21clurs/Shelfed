@@ -14,7 +14,7 @@
 #import "InfiniteScrollActivityView.h"
 #import "MBProgressHUD/MBProgressHUD.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray<Book *> *books;
@@ -92,6 +92,10 @@ UIRefreshControl *refreshControl;
             NSLog(@"Error loading more data");
         }
     }];
+}
+#pragma mark - BookCellDelegate
+- (void)didRemove{
+    // No-Op
 }
 
 #pragma mark - UITableViewDataSource
