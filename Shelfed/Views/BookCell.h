@@ -10,15 +10,20 @@
 #import "Book.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol BookCellDelegate
+- (void)didRemove;
+@end
 
 @interface BookCell : UITableViewCell
+
+@property (weak, nonatomic)id<BookCellDelegate>delegate;
+@property (strong, nonatomic) Book *book;
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *coverArtView;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIButton *seeMoreButton;
-
-@property (strong, nonatomic) Book *book;
 
 @end
 

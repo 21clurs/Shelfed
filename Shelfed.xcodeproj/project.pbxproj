@@ -21,6 +21,7 @@
 		F9A6A2F724C0FA8D000FE6F0 /* InfiniteScrollActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F624C0FA8D000FE6F0 /* InfiniteScrollActivityView.m */; };
 		F9A6A2FA24C64152000FE6F0 /* AddRemoveBooksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F924C64152000FE6F0 /* AddRemoveBooksHelper.m */; };
 		F9A6A30924C7497E000FE6F0 /* ShelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A30824C7497E000FE6F0 /* ShelfViewController.m */; };
+		F9A6A30E24C770A8000FE6F0 /* ShelfCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A30D24C770A8000FE6F0 /* ShelfCollectionCell.m */; };
 		F9B862D524BE5D00000C2E0C /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D424BE5D00000C2E0C /* Book.m */; };
 		F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862D724BF5FBC000C2E0C /* SignUpViewController.m */; };
 		F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B862DA24BF6845000C2E0C /* LogInViewController.m */; };
@@ -84,6 +85,8 @@
 		F9A6A2F924C64152000FE6F0 /* AddRemoveBooksHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddRemoveBooksHelper.m; sourceTree = "<group>"; };
 		F9A6A30724C7497E000FE6F0 /* ShelfViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelfViewController.h; sourceTree = "<group>"; };
 		F9A6A30824C7497E000FE6F0 /* ShelfViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelfViewController.m; sourceTree = "<group>"; };
+		F9A6A30C24C770A8000FE6F0 /* ShelfCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelfCollectionCell.h; sourceTree = "<group>"; };
+		F9A6A30D24C770A8000FE6F0 /* ShelfCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelfCollectionCell.m; sourceTree = "<group>"; };
 		F9B862D324BE5D00000C2E0C /* Book.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		F9B862D424BE5D00000C2E0C /* Book.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		F9B862D624BF5FBC000C2E0C /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 				F9A6A2F324C0C257000FE6F0 /* ShelfCell.m */,
 				F9A6A2F524C0FA8D000FE6F0 /* InfiniteScrollActivityView.h */,
 				F9A6A2F624C0FA8D000FE6F0 /* InfiniteScrollActivityView.m */,
+				F9A6A30C24C770A8000FE6F0 /* ShelfCollectionCell.h */,
+				F9A6A30D24C770A8000FE6F0 /* ShelfCollectionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,11 +213,22 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		F9A6A30124C74290000FE6F0 /* XIBs */ = {
+		F9A6A30A24C76987000FE6F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F9B862D324BE5D00000C2E0C /* Book.h */,
+				F9B862D424BE5D00000C2E0C /* Book.m */,
 			);
-			path = XIBs;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F9A6A30B24C769A0000FE6F0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F9A6A2F824C64152000FE6F0 /* AddRemoveBooksHelper.h */,
+				F9A6A2F924C64152000FE6F0 /* AddRemoveBooksHelper.m */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		F9BCCAA324BCEB3900B3CE42 = {
@@ -240,11 +256,8 @@
 		F9BCCAAE24BCEB3900B3CE42 /* Shelfed */ = {
 			isa = PBXGroup;
 			children = (
-				F9B862D324BE5D00000C2E0C /* Book.h */,
-				F9B862D424BE5D00000C2E0C /* Book.m */,
-				F9A6A2F824C64152000FE6F0 /* AddRemoveBooksHelper.h */,
-				F9A6A2F924C64152000FE6F0 /* AddRemoveBooksHelper.m */,
-				F9A6A30124C74290000FE6F0 /* XIBs */,
+				F9A6A30B24C769A0000FE6F0 /* Helpers */,
+				F9A6A30A24C76987000FE6F0 /* Models */,
 				F9400F4E24BD187E0073FA7C /* API */,
 				F9400F4A24BD10990073FA7C /* Views */,
 				F9400F4324BD0EDA0073FA7C /* View Controllers */,
@@ -518,6 +531,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9A6A2FA24C64152000FE6F0 /* AddRemoveBooksHelper.m in Sources */,
+				F9A6A30E24C770A8000FE6F0 /* ShelfCollectionCell.m in Sources */,
 				F9A6A30924C7497E000FE6F0 /* ShelfViewController.m in Sources */,
 				F9BCCAB124BCEB3900B3CE42 /* AppDelegate.m in Sources */,
 				F9A6A2F724C0FA8D000FE6F0 /* InfiniteScrollActivityView.m in Sources */,

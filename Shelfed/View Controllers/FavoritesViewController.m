@@ -14,7 +14,7 @@
 #import "AddRemoveBooksHelper.h"
 //#import "EmptyTableView.h"
 
-@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray<NSString *> *favorites;
 
@@ -31,6 +31,7 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
     
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
@@ -68,6 +69,11 @@
     }];
 }
 
+#pragma mark - BookCellDelegate
+-(void)didRemove{
+    [self reloadFavorites];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.favorites.count;
@@ -82,7 +88,7 @@
             NSLog(@"Error getting book for ID");
         }
     }];
-    //cell.book
+    cell.delegate = self;
     return cell;
 }
 
@@ -97,7 +103,7 @@
     return placeholderImage;
 }
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
-    NSString *text = @"Mark books as favorites and see them here";
+    NSString *text = @"Mark books as favorites to see them here";
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
@@ -132,7 +138,7 @@
         [self getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
             if(!error){
                 [AddRemoveBooksHelper removeFromFavorites:book withCompletion:^(NSError * _Nonnull error) {
-                    [self.tableView reloadData];
+                    [self reloadFavorites];
                     completionHandler(YES);
                 }];
             }

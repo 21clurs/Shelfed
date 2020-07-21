@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -232,66 +233,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mgm-ZO-5AF">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kXA-pP-crU">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShelfCell" id="Xz9-Ah-zvI" customClass="ShelfCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="56.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xz9-Ah-zvI" id="9xW-uc-eNh">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56.5"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5PW-ke-reC">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShelfCollectionCell" id="ikr-3V-bkY" customClass="ShelfCollectionCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kdJ-v8-KhS">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KKO-u5-UxT">
-                                                    <rect key="frame" x="8" y="8" width="40" height="40"/>
-                                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="BMS-Uo-1Tg"/>
-                                                        <constraint firstAttribute="height" constant="40" id="OvC-wL-ytZ"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shelf Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vB0-cs-jKX">
-                                                    <rect key="frame" x="56" y="14" width="126" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIR-93-tdb">
+                                                    <rect key="frame" x="43" y="54" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="KKO-u5-UxT" secondAttribute="bottom" constant="8" id="CVD-Il-CzP"/>
-                                                <constraint firstItem="vB0-cs-jKX" firstAttribute="top" secondItem="9xW-uc-eNh" secondAttribute="topMargin" constant="3" id="Gsm-cY-WtN"/>
-                                                <constraint firstItem="KKO-u5-UxT" firstAttribute="top" secondItem="9xW-uc-eNh" secondAttribute="top" constant="8" id="PkX-hC-FjL"/>
-                                                <constraint firstItem="vB0-cs-jKX" firstAttribute="leading" secondItem="KKO-u5-UxT" secondAttribute="trailing" constant="8" id="bs4-Pe-UpP"/>
-                                                <constraint firstItem="KKO-u5-UxT" firstAttribute="leading" secondItem="9xW-uc-eNh" secondAttribute="leading" constant="8" id="prM-Mj-vsz"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
+                                            <color key="backgroundColor" red="0.89076799154281616" green="0.97244244813919067" blue="0.95943862199783325" alpha="0.9990234375" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="shelfIconView" destination="KKO-u5-UxT" id="VQU-8G-iww"/>
-                                            <outlet property="shelfNameLabel" destination="vB0-cs-jKX" id="gsM-FN-TdI"/>
-                                            <segue destination="a6S-vD-KNN" kind="show" id="uOf-mt-Hls"/>
+                                            <outlet property="shelfNameLabel" destination="qIR-93-tdb" id="G2H-Nh-seV"/>
                                         </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="mgm-ZO-5AF" firstAttribute="leading" secondItem="N3b-Dp-8OP" secondAttribute="leading" id="L0R-Lb-fJh"/>
-                            <constraint firstItem="mgm-ZO-5AF" firstAttribute="top" secondItem="N3b-Dp-8OP" secondAttribute="top" id="hra-Du-5FR"/>
-                            <constraint firstAttribute="trailing" secondItem="mgm-ZO-5AF" secondAttribute="trailing" id="xdW-I1-0vH"/>
-                            <constraint firstAttribute="bottom" secondItem="mgm-ZO-5AF" secondAttribute="bottom" id="yPk-93-o4x"/>
+                            <constraint firstItem="kXA-pP-crU" firstAttribute="top" secondItem="N3b-Dp-8OP" secondAttribute="top" id="2hf-I6-OV0"/>
+                            <constraint firstAttribute="trailing" secondItem="kXA-pP-crU" secondAttribute="trailing" id="7NB-oh-7XC"/>
+                            <constraint firstItem="kXA-pP-crU" firstAttribute="leading" secondItem="N3b-Dp-8OP" secondAttribute="leading" id="arr-cq-BgY"/>
+                            <constraint firstAttribute="bottom" secondItem="kXA-pP-crU" secondAttribute="bottom" id="jrr-Nz-EBd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rnP-Rm-fGS"/>
                     </view>
                     <navigationItem key="navigationItem" id="l7l-wR-2Bg"/>
                     <connections>
-                        <outlet property="tableView" destination="mgm-ZO-5AF" id="EBY-OP-Jmh"/>
+                        <outlet property="collectionView" destination="kXA-pP-crU" id="mTo-st-aIp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cid-Gc-OEi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-310.14492753623193" y="432.58928571428572"/>
+            <point key="canvasLocation" x="-242.0289855072464" y="432.58928571428572"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="19B-lY-1zt">
@@ -480,11 +472,11 @@
             <objects>
                 <viewController id="a6S-vD-KNN" customClass="ShelfViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cqk-Pd-bFc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fsz-Ca-Oyj">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="BookCellXIB" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mycell" rowHeight="73" id="qT9-Zs-3N3">
@@ -515,6 +507,65 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GBi-3l-00u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-310.14492753623193" y="1157.8125"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="bsk-my-cKL">
+            <objects>
+                <viewController id="keL-D9-v9j" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ifs-Pt-npp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mgm-ZO-5AF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShelfCell" id="Xz9-Ah-zvI" customClass="ShelfCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="56.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xz9-Ah-zvI" id="9xW-uc-eNh">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KKO-u5-UxT">
+                                                    <rect key="frame" x="8" y="8" width="40" height="40"/>
+                                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="BMS-Uo-1Tg"/>
+                                                        <constraint firstAttribute="height" constant="40" id="OvC-wL-ytZ"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shelf Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vB0-cs-jKX">
+                                                    <rect key="frame" x="56" y="14" width="126" height="29"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="KKO-u5-UxT" secondAttribute="bottom" constant="8" id="CVD-Il-CzP"/>
+                                                <constraint firstItem="vB0-cs-jKX" firstAttribute="top" secondItem="9xW-uc-eNh" secondAttribute="topMargin" constant="3" id="Gsm-cY-WtN"/>
+                                                <constraint firstItem="KKO-u5-UxT" firstAttribute="top" secondItem="9xW-uc-eNh" secondAttribute="top" constant="8" id="PkX-hC-FjL"/>
+                                                <constraint firstItem="vB0-cs-jKX" firstAttribute="leading" secondItem="KKO-u5-UxT" secondAttribute="trailing" constant="8" id="bs4-Pe-UpP"/>
+                                                <constraint firstItem="KKO-u5-UxT" firstAttribute="leading" secondItem="9xW-uc-eNh" secondAttribute="leading" constant="8" id="prM-Mj-vsz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="shelfIconView" destination="KKO-u5-UxT" id="VQU-8G-iww"/>
+                                            <outlet property="shelfNameLabel" destination="vB0-cs-jKX" id="gsM-FN-TdI"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="7ZM-k2-tYh"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dbg-J2-5PM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="581" y="1201"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NfP-1s-cU1">

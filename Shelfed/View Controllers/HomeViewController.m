@@ -31,6 +31,9 @@ UIRefreshControl *refreshControl;
 -(void)viewWillAppear:(BOOL)animated{
     [self reloadFeed];
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [self.searchBar resignFirstResponder];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -169,7 +172,6 @@ UIRefreshControl *refreshControl;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    [self.searchBar resignFirstResponder];
     
     BookCell *tappedCell =  sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];

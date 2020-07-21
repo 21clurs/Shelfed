@@ -52,6 +52,7 @@
             if(!error){
                 [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
                 [self.favoriteButton setTintColor:[UIColor blackColor]];
+                [self.delegate didRemove];
             }
         }];
     }
