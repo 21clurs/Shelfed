@@ -269,6 +269,7 @@
                                         <connections>
                                             <outlet property="shelfIconView" destination="KKO-u5-UxT" id="VQU-8G-iww"/>
                                             <outlet property="shelfNameLabel" destination="vB0-cs-jKX" id="gsM-FN-TdI"/>
+                                            <segue destination="a6S-vD-KNN" kind="show" id="uOf-mt-Hls"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -474,6 +475,47 @@
             </objects>
             <point key="canvasLocation" x="-1897.1014492753625" y="1181.9196428571429"/>
         </scene>
+        <!--Shelf View Controller-->
+        <scene sceneID="Dft-gX-atQ">
+            <objects>
+                <viewController id="a6S-vD-KNN" customClass="ShelfViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cqk-Pd-bFc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fsz-Ca-Oyj">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="BookCellXIB" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mycell" rowHeight="73" id="qT9-Zs-3N3">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="73"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qT9-Zs-3N3" id="DBN-HY-PQK">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="73"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fsz-Ca-Oyj" firstAttribute="leading" secondItem="cqk-Pd-bFc" secondAttribute="leading" id="Zmr-kG-HqC"/>
+                            <constraint firstAttribute="bottom" secondItem="fsz-Ca-Oyj" secondAttribute="bottom" id="oQt-u1-IPO"/>
+                            <constraint firstAttribute="trailing" secondItem="fsz-Ca-Oyj" secondAttribute="trailing" id="pXA-tK-wkv"/>
+                            <constraint firstItem="fsz-Ca-Oyj" firstAttribute="top" secondItem="cqk-Pd-bFc" secondAttribute="top" id="pqq-yB-tkF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="j6d-iH-ur7"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nv7-3g-PMa"/>
+                    <connections>
+                        <outlet property="tableView" destination="fsz-Ca-Oyj" id="G5U-2M-rkc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GBi-3l-00u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-310.14492753623193" y="1157.8125"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NfP-1s-cU1">
             <objects>
@@ -580,6 +622,9 @@
                                                     <rect key="frame" x="345" y="11" width="21" height="22"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" image="heart" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="zf6-yS-uwT" eventType="touchUpInside" id="TTv-ou-dhZ"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z8f-wq-xzq">
                                                     <rect key="frame" x="374" y="11" width="20" height="22"/>

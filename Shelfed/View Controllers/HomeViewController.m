@@ -28,6 +28,10 @@ UIRefreshControl *refreshControl;
 
 @implementation HomeViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self reloadFeed];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

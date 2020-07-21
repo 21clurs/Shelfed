@@ -11,31 +11,38 @@
 
 
 @implementation AddRemoveBooksHelper
-+ (void)toggleFavorites:(NSString *)bookID{
++(void)toggleFavorites:(NSString *)bookID{
     
 }
 
-+ (void)addToFavorites: (Book *)book withCompletion:(void(^)(NSError *error))completion{
-    NSMutableArray *favorites = PFUser.currentUser[@"favoritesArray"];
-    [favorites addObject:book.bookID];
-    PFUser.currentUser[@"favoritesArray"] = favorites;
++(void)addToFavorites: (Book *)book withCompletion:(void(^)(NSError *error))completion{
+    [self addBook:book toArray:@"favoritesArray" withCompletion:completion];
+}
+
++(void)removeFromFavorites: (Book *)book withCompletion:(void(^)(NSError *error))completion{
+    [self removeBook:book fromArray:@"favoritesArray" withCompletion:completion];
+}
+
++(void)addBook: (Book *)book toArray:(NSString *)arrayName withCompletion:(void(^)(NSError *error))completion{
+    [self addToParse:book];
+    NSMutableArray *temp = PFUser.currentUser[arrayName];
+    [temp addObject:book.bookID];
+    PFUser.currentUser[arrayName] = temp;
     [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error!=nil){
-            NSLog(@"Error adding tp user favorites");
+            NSLog(@"Error adding book to array");
             completion(error);
         }
         else{
             completion(nil);
         }
     }];
-    
-    [self addToParse:book];
 }
 
-+ (void)removeFromFavorites: (Book *)book withCompletion:(void(^)(NSError *error))completion{
-    NSMutableArray *favorites = PFUser.currentUser[@"favoritesArray"];
-    [favorites removeObject:book.bookID];
-    PFUser.currentUser[@"favoritesArray"] = favorites;
++(void)removeBook: (Book *)book fromArray:(NSString *)arrayName withCompletion:(void(^)(NSError *error))completion{
+    NSMutableArray *temp = PFUser.currentUser[arrayName];
+    [temp removeObject:book.bookID];
+    PFUser.currentUser[@"favoritesArray"] = temp;
     [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error!=nil){
             NSLog(@"Error removing from user favorites");
@@ -47,7 +54,7 @@
     }];
 }
 
-+ (void)addToParse:(Book *)addBook{
++(void)addToParse:(Book *)addBook{
     NSMutableArray *bookIDs = [[NSMutableArray alloc] init];
     
     PFQuery *booksQuery = [PFQuery queryWithClassName:@"Book"];

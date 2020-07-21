@@ -1,8 +1,8 @@
 //
-//  EmptyTableView.h
+//  ShelfViewController.h
 //  Shelfed
 //
-//  Created by Clara Kim on 7/15/20.
+//  Created by Clara Kim on 7/21/20.
 //  Copyright © 2020 Clara Kim. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EmptyTableView : UIView
+@interface ShelfViewController : UIViewController
 
 @end
 
