@@ -117,6 +117,7 @@ UIRefreshControl *refreshControl;
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
+    [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -182,13 +183,15 @@ UIRefreshControl *refreshControl;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
-    BookCellNib *tappedCell =  sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    Book *book = self.books[indexPath.row];
-    
-    BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
-    bookDetailsViewController.book = book;
+    if([segue.identifier isEqualToString:@"bookDetailsSegue"]){
+        //BookCellNib *tappedCell =  sender;
+        //NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        NSIndexPath *indexPath = sender;
+        Book *book = self.books[indexPath.row];
+        
+        BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
+        bookDetailsViewController.book = book;
+    }
 }
 
 

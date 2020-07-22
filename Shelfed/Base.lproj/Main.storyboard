@@ -332,6 +332,7 @@
                     <connections>
                         <outlet property="searchBar" destination="KlU-th-e20" id="1Dm-bQ-Sna"/>
                         <outlet property="tableView" destination="74Q-XJ-Mtw" id="bkx-SR-WKe"/>
+                        <segue destination="jQ3-HB-y6c" kind="show" identifier="bookDetailsSegue" id="PDl-gM-Mob"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfa-rf-GS6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -711,7 +712,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ei2-QH-qVv"/>
-        <segue reference="JI5-PX-4Hv"/>
+        <segue reference="PDl-gM-Mob"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="370.5" height="168.5"/>
