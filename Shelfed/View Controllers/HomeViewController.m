@@ -13,6 +13,7 @@
 #import "BookDetailsViewController.h"
 #import "InfiniteScrollActivityView.h"
 #import "MBProgressHUD/MBProgressHUD.h"
+#import "SelectShelfViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellNibDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -96,6 +97,9 @@ UIRefreshControl *refreshControl;
 #pragma mark - BookCellNibDelegate
 - (void)didRemove{
     // No-Op
+}
+- (void)didTapMore:(Book *)book{
+    [self performSegueWithIdentifier:@"selectShelfSegue" sender:book];
 }
 
 #pragma mark - UITableViewDataSource
@@ -191,6 +195,13 @@ UIRefreshControl *refreshControl;
         
         BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
         bookDetailsViewController.book = book;
+    }
+    else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
+        //NSString *bookID = sender;
+        Book *book = sender;
+        UINavigationController *navigationController = [segue destinationViewController];
+        SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
+        selectShelfViewController.addBook = book;
     }
 }
 

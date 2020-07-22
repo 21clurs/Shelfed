@@ -333,11 +333,80 @@
                         <outlet property="searchBar" destination="KlU-th-e20" id="1Dm-bQ-Sna"/>
                         <outlet property="tableView" destination="74Q-XJ-Mtw" id="bkx-SR-WKe"/>
                         <segue destination="jQ3-HB-y6c" kind="show" identifier="bookDetailsSegue" id="PDl-gM-Mob"/>
+                        <segue destination="BFN-Zm-dXC" kind="presentation" identifier="selectShelfSegue" id="gma-Cp-2pI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfa-rf-GS6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1897.1014492753625" y="432.58928571428572"/>
+        </scene>
+        <!--Add to My Shelves-->
+        <scene sceneID="apW-e9-837">
+            <objects>
+                <viewController id="vOq-4u-YkB" customClass="SelectShelfViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TPI-qN-Z54">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v37-Ov-lJD">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShelfCell" id="yQT-y1-u9c" customClass="ShelfCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="56.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yQT-y1-u9c" id="ySI-ai-vca">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HaK-DX-lFR">
+                                                    <rect key="frame" x="8" y="8" width="40" height="40"/>
+                                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="HpQ-FC-o8E"/>
+                                                        <constraint firstAttribute="height" constant="40" id="vaF-BU-wN0"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shelf Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Udz-4C-VHa">
+                                                    <rect key="frame" x="56" y="14" width="126" height="29"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Udz-4C-VHa" firstAttribute="top" secondItem="ySI-ai-vca" secondAttribute="topMargin" constant="3" id="4Mx-Uv-XfB"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HaK-DX-lFR" secondAttribute="bottom" constant="8" id="L4d-0F-3Nt"/>
+                                                <constraint firstItem="HaK-DX-lFR" firstAttribute="leading" secondItem="ySI-ai-vca" secondAttribute="leading" constant="8" id="NEm-vX-lV4"/>
+                                                <constraint firstItem="Udz-4C-VHa" firstAttribute="leading" secondItem="HaK-DX-lFR" secondAttribute="trailing" constant="8" id="eEl-dy-GEm"/>
+                                                <constraint firstItem="HaK-DX-lFR" firstAttribute="top" secondItem="ySI-ai-vca" secondAttribute="top" constant="8" id="hfV-fV-SbE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="shelfIconView" destination="HaK-DX-lFR" id="SSH-HU-dyV"/>
+                                            <outlet property="shelfNameLabel" destination="Udz-4C-VHa" id="4xR-IK-9x5"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="v37-Ov-lJD" firstAttribute="leading" secondItem="TPI-qN-Z54" secondAttribute="leading" id="8qC-pm-yjB"/>
+                            <constraint firstItem="v37-Ov-lJD" firstAttribute="top" secondItem="TPI-qN-Z54" secondAttribute="top" id="QzZ-dl-cNh"/>
+                            <constraint firstAttribute="trailing" secondItem="v37-Ov-lJD" secondAttribute="trailing" id="VsA-bx-j77"/>
+                            <constraint firstAttribute="bottom" secondItem="v37-Ov-lJD" secondAttribute="bottom" id="dcN-Bv-Skz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7cU-TH-6PV"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add to My Shelves" id="0XD-ID-35Z"/>
+                    <connections>
+                        <outlet property="tableView" destination="v37-Ov-lJD" id="gbr-O5-owl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cci-rk-NN6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2055.072463768116" y="1931.9196428571427"/>
         </scene>
         <!--Book Details View Controller-->
         <scene sceneID="6sT-7U-aFj">
@@ -415,7 +484,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YEb-4X-D0L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1897" y="1932"/>
+            <point key="canvasLocation" x="-986.95652173913049" y="1931.9196428571427"/>
         </scene>
         <!--Shelf View Controller-->
         <scene sceneID="Dft-gX-atQ">
@@ -448,65 +517,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GBi-3l-00u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-310.14492753623193" y="1157.8125"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="bsk-my-cKL">
-            <objects>
-                <viewController id="keL-D9-v9j" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ifs-Pt-npp">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mgm-ZO-5AF">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShelfCell" id="Xz9-Ah-zvI" customClass="ShelfCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="56.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xz9-Ah-zvI" id="9xW-uc-eNh">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KKO-u5-UxT">
-                                                    <rect key="frame" x="8" y="8" width="40" height="40"/>
-                                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="BMS-Uo-1Tg"/>
-                                                        <constraint firstAttribute="height" constant="40" id="OvC-wL-ytZ"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shelf Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vB0-cs-jKX">
-                                                    <rect key="frame" x="56" y="14" width="126" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="KKO-u5-UxT" secondAttribute="bottom" constant="8" id="CVD-Il-CzP"/>
-                                                <constraint firstItem="vB0-cs-jKX" firstAttribute="top" secondItem="9xW-uc-eNh" secondAttribute="topMargin" constant="3" id="Gsm-cY-WtN"/>
-                                                <constraint firstItem="KKO-u5-UxT" firstAttribute="top" secondItem="9xW-uc-eNh" secondAttribute="top" constant="8" id="PkX-hC-FjL"/>
-                                                <constraint firstItem="vB0-cs-jKX" firstAttribute="leading" secondItem="KKO-u5-UxT" secondAttribute="trailing" constant="8" id="bs4-Pe-UpP"/>
-                                                <constraint firstItem="KKO-u5-UxT" firstAttribute="leading" secondItem="9xW-uc-eNh" secondAttribute="leading" constant="8" id="prM-Mj-vsz"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="shelfIconView" destination="KKO-u5-UxT" id="VQU-8G-iww"/>
-                                            <outlet property="shelfNameLabel" destination="vB0-cs-jKX" id="gsM-FN-TdI"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="7ZM-k2-tYh"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dbg-J2-5PM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="581" y="1201"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NfP-1s-cU1">
@@ -708,6 +718,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PLa-E0-ioP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2148" y="433"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hJ3-jv-3Lo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BFN-Zm-dXC" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cgR-vB-Mfr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vOq-4u-YkB" kind="relationship" relationship="rootViewController" id="vfo-Sc-Ehf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dab-W5-eBG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2684.057971014493" y="1931.9196428571427"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

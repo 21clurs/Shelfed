@@ -76,4 +76,8 @@
     }
 }
 
+- (IBAction)didTapMore:(id)sender {
+    [self.delegate didTapMore:self.book];
+}
+
 @end

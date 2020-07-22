@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol BookCellNibDelegate
 - (void)didRemove;
+- (void)didTapMore:(Book *)book;
 @end
 
 @interface BookCellNib : UITableViewCell

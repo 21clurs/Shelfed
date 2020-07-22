@@ -38,6 +38,9 @@
                         <rect key="frame" x="435" y="8" width="20" height="22"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" image="ellipsis.circle" catalog="system"/>
+                        <connections>
+                            <action selector="didTapMore:" destination="nDa-K4-isw" eventType="touchUpInside" id="skF-T9-GSR"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PP8-5b-M7p">
                         <rect key="frame" x="406" y="8" width="21" height="22"/>
