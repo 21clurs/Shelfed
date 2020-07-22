@@ -12,6 +12,7 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "BookDetailsViewController.h"
 #import "AddRemoveBooksHelper.h"
+#import "SelectShelfViewController.h"
 //#import "EmptyTableView.h"
 
 @interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate>
@@ -60,6 +61,9 @@
 #pragma mark - BookCellNibDelegate
 -(void)didRemove{
     [self reloadFavorites];
+}
+- (void)didTapMore:(Book *)book{
+    [self performSegueWithIdentifier:@"selectShelfSegue" sender:book];
 }
 
 #pragma mark - UITableViewDataSource
@@ -159,6 +163,13 @@
                 NSLog(@"Error getting book for ID");
             }
         }];
+    }
+    else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
+        //NSString *bookID = sender;
+        Book *book = sender;
+        UINavigationController *navigationController = [segue destinationViewController];
+        SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
+        selectShelfViewController.addBook = book;
     }
     /*
     BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];

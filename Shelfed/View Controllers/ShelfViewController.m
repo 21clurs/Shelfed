@@ -10,6 +10,7 @@
 #import "BookCellNib.h"
 #import "AddRemoveBooksHelper.h"
 #import "BookDetailsViewController.h"
+#import "SelectShelfViewController.h"
 
 @interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, BookCellNibDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -48,7 +49,9 @@
 - (void)didRemove{
     // No-op
 }
-
+- (void)didTapMore:(Book *)book{
+    [self performSegueWithIdentifier:@"selectShelfSegue" sender:book];
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.titlesInShelf.count;
@@ -127,6 +130,13 @@
                 NSLog(@"Error getting book for ID");
             }
         }];
+    }
+    else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
+        //NSString *bookID = sender;
+        Book *book = sender;
+        UINavigationController *navigationController = [segue destinationViewController];
+        SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
+        selectShelfViewController.addBook = book;
     }
 }
 

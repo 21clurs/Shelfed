@@ -512,6 +512,7 @@
                     <connections>
                         <outlet property="tableView" destination="fsz-Ca-Oyj" id="G5U-2M-rkc"/>
                         <segue destination="jQ3-HB-y6c" kind="show" identifier="bookDetailsSegue" id="JI5-PX-4Hv"/>
+                        <segue destination="BFN-Zm-dXC" kind="presentation" identifier="selectShelfSegue" id="JAJ-4x-lDL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GBi-3l-00u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -608,6 +609,7 @@
                     <connections>
                         <outlet property="tableView" destination="VrT-BR-tg9" id="SkZ-JO-udQ"/>
                         <segue destination="jQ3-HB-y6c" kind="show" identifier="bookDetailsSegue" id="rul-JA-o80"/>
+                        <segue destination="BFN-Zm-dXC" kind="presentation" identifier="selectShelfSegue" id="0rO-90-uUl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bxF-s5-zoi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -739,8 +741,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="JAJ-4x-lDL"/>
         <segue reference="ei2-QH-qVv"/>
-        <segue reference="PDl-gM-Mob"/>
+        <segue reference="JI5-PX-4Hv"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="370.5" height="168.5"/>
