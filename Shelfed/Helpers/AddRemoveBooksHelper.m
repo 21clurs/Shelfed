@@ -11,6 +11,21 @@
 
 
 @implementation AddRemoveBooksHelper
+
++ (void)getBookForID: (NSString *)bookID withCompletion:(void(^)(Book *book, NSError * _Nullable error)) completion{
+    PFQuery *query = [PFQuery queryWithClassName:@"Book"];
+    [query whereKey:@"bookID" equalTo:bookID];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if (!error) {
+            Book *book = objects[0];
+            completion(book, nil);
+        } else {
+            NSLog(@"Could not find book in Book...");
+            completion(nil,error);
+        }
+    }];
+}
+
 +(void)toggleFavorites:(NSString *)bookID{
     
 }

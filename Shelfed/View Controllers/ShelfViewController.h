@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ShelfViewController : UIViewController
 
+@property (strong, nonatomic) NSString *shelfName;
+
 @end
 
 NS_ASSUME_NONNULL_END

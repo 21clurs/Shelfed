@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)addToFavorites: (Book *)bookID withCompletion:(void(^)(NSError *error))completion;
 + (void)removeFromFavorites: (Book *)bookID withCompletion:(void(^)(NSError *error))completion;
++ (void)getBookForID: (NSString *)bookID withCompletion:(void(^)(Book *book, NSError * _Nullable error)) completion;
 
 @end
 

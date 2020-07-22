@@ -8,15 +8,16 @@
 
 #import "FavoritesViewController.h"
 #import "Parse/Parse.h"
-#import "BookCell.h"
+#import "BookCellNib.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "BookDetailsViewController.h"
 #import "AddRemoveBooksHelper.h"
 //#import "EmptyTableView.h"
 
-@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellDelegate>
+@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray<NSString *> *favorites;
+@property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
 
 @end
 
@@ -55,21 +56,8 @@
     [self.tableView reloadData];
 }
 
-- (void)getBookForID: (NSString *)bookID withCompletion:(void(^)(Book *book, NSError * _Nullable error)) completion{
-    PFQuery *query = [PFQuery queryWithClassName:@"Book"];
-    [query whereKey:@"bookID" equalTo:bookID];
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if (!error) {
-            Book *book = objects[0];
-            completion(book, nil);
-        } else {
-            NSLog(@"Could not find book in Book...");
-            completion(nil,error);
-        }
-    }];
-}
 
-#pragma mark - BookCellDelegate
+#pragma mark - BookCellNibDelegate
 -(void)didRemove{
     [self reloadFavorites];
 }
@@ -79,10 +67,18 @@
     return self.favorites.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    BookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BookCell"];
-    [self getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
+    
+    BookCellNib *cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
+    
+    if(!cell){
+        [tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
+    }
+
+    [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
         if(!error){
             cell.book = book;
+            [self.favoriteBooks addObject:book];
         }
         else{
             NSLog(@"Error getting book for ID");
@@ -95,6 +91,7 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
+    [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
 }
 
 #pragma mark - DZNEmptyDataSetSource
@@ -117,25 +114,42 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    BookCell *tappedCell =  sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    //Book *book;
-    [self getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
-        if(!error){
-            //book = book;
-            BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
-            bookDetailsViewController.book = book;
-        }
-        else{
-            NSLog(@"Error getting book for ID");
-        }
-    }];
+    //BookCellNib *tappedCell =  sender;
+    //NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+    
+    if([segue.identifier isEqualToString:@"bookDetailsSegue"]){
+        
+        NSIndexPath *indexPath = sender;
+        [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
+            if(!error){
+                BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
+                bookDetailsViewController.book = book;
+            }
+            else{
+                NSLog(@"Error getting book for ID");
+            }
+        }];
+    }
+    /*
+    BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
+    bookDetailsViewController.book = self.favoriteBooks[indexPath.row];
+    */
+     
+     
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         NSLog(@"What is this");
-        [self getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
+        /*
+        Book *bookToRemove = self.favoriteBooks[indexPath.row];
+        [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nonnull error) {
+            [self reloadFavorites];
+            completionHandler(YES);
+        }];
+        */
+        
+        [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
             if(!error){
                 [AddRemoveBooksHelper removeFromFavorites:book withCompletion:^(NSError * _Nonnull error) {
                     [self reloadFavorites];
@@ -146,6 +160,7 @@
                 NSLog(@"Error getting book for ID");
             }
         }];
+        
     }];
     deleteAction.image = [UIImage systemImageNamed:@"trash"];
     deleteAction.backgroundColor = [UIColor systemRedColor];

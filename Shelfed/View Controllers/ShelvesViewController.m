@@ -10,12 +10,13 @@
 #import "Parse/Parse.h"
 #import "ShelfCell.h"
 #import "ShelfCollectionCell.h"
+#import "ShelfViewController.h"
 
 @interface ShelvesViewController () <UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 //@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *shelvesArray;
+@property (strong, nonatomic) NSMutableArray<NSString *> *shelvesArray;
 
 @end
 
@@ -87,14 +88,20 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
 }
 */
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    ShelfCollectionCell *tappedCell = sender;
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:tappedCell];
+    NSString *shelf = self.shelvesArray[indexPath.item];
+    
+    ShelfViewController *shelfViewController = [segue destinationViewController];
+    shelfViewController.shelfName = shelf;
 }
-*/
+
 
 @end
