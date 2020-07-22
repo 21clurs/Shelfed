@@ -78,6 +78,35 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
 }
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        /*
+        Book *bookToRemove = self.favoriteBooks[indexPath.row];
+        [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nonnull error) {
+            [self reloadFavorites];
+            completionHandler(YES);
+        }];
+        */
+        
+        [AddRemoveBooksHelper getBookForID:self.titlesInShelf[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
+            if(!error){
+                [AddRemoveBooksHelper removeBook:book fromArray:self.shelfName withCompletion:^(NSError * _Nonnull error) {
+                    [self reloadShelf];
+                    completionHandler(YES);
+                }];
+            }
+            else{
+                NSLog(@"Error getting book for ID");
+            }
+        }];
+        
+    }];
+    deleteAction.image = [UIImage systemImageNamed:@"trash"];
+    deleteAction.backgroundColor = [UIColor systemRedColor];
+    UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+    return config;
+}
+
 
 
 #pragma mark - Navigation

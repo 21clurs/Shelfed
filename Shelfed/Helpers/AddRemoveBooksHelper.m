@@ -55,18 +55,20 @@
 }
 
 +(void)removeBook: (Book *)book fromArray:(NSString *)arrayName withCompletion:(void(^)(NSError *error))completion{
-    NSMutableArray *temp = PFUser.currentUser[arrayName];
-    [temp removeObject:book.bookID];
-    PFUser.currentUser[@"favoritesArray"] = temp;
-    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error!=nil){
-            NSLog(@"Error removing from user favorites");
-            completion(error);
-        }
-        else{
-            completion(nil);
-        }
-    }];
+    if(PFUser.currentUser[arrayName]!=nil){
+        NSMutableArray *temp = PFUser.currentUser[arrayName];
+        [temp removeObject:book.bookID];
+        PFUser.currentUser[arrayName] = temp;
+        [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error!=nil){
+                NSLog(@"Error removing from user favorites");
+                completion(error);
+            }
+            else{
+                completion(nil);
+            }
+        }];
+    }
 }
 
 +(void)addToParse:(Book *)addBook{

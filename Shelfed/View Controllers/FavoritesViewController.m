@@ -94,6 +94,36 @@
     [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
 }
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        NSLog(@"What is this");
+        /*
+        Book *bookToRemove = self.favoriteBooks[indexPath.row];
+        [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nonnull error) {
+            [self reloadFavorites];
+            completionHandler(YES);
+        }];
+        */
+        
+        [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
+            if(!error){
+                [AddRemoveBooksHelper removeFromFavorites:book withCompletion:^(NSError * _Nonnull error) {
+                    [self reloadFavorites];
+                    completionHandler(YES);
+                }];
+            }
+            else{
+                NSLog(@"Error getting book for ID");
+            }
+        }];
+        
+    }];
+    deleteAction.image = [UIImage systemImageNamed:@"trash"];
+    deleteAction.backgroundColor = [UIColor systemRedColor];
+    UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+    return config;
+}
+
 #pragma mark - DZNEmptyDataSetSource
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView{
     UIImage *placeholderImage =  [[UIImage systemImageNamed:@"book"] imageWithTintColor:UIColor.darkGrayColor];
@@ -134,39 +164,6 @@
     BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
     bookDetailsViewController.book = self.favoriteBooks[indexPath.row];
     */
-     
-     
 }
-
-- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        NSLog(@"What is this");
-        /*
-        Book *bookToRemove = self.favoriteBooks[indexPath.row];
-        [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nonnull error) {
-            [self reloadFavorites];
-            completionHandler(YES);
-        }];
-        */
-        
-        [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
-            if(!error){
-                [AddRemoveBooksHelper removeFromFavorites:book withCompletion:^(NSError * _Nonnull error) {
-                    [self reloadFavorites];
-                    completionHandler(YES);
-                }];
-            }
-            else{
-                NSLog(@"Error getting book for ID");
-            }
-        }];
-        
-    }];
-    deleteAction.image = [UIImage systemImageNamed:@"trash"];
-    deleteAction.backgroundColor = [UIColor systemRedColor];
-    UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
-    return config;
-}
-
 
 @end
