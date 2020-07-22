@@ -8,13 +8,13 @@
 
 #import "HomeViewController.h"
 #import "Parse/Parse.h"
-#import "BookCell.h"
+#import "BookCellNib.h"
 #import "GoogleBooksAPIManager.h"
 #import "BookDetailsViewController.h"
 #import "InfiniteScrollActivityView.h"
 #import "MBProgressHUD/MBProgressHUD.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellNibDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray<Book *> *books;
@@ -93,7 +93,7 @@ UIRefreshControl *refreshControl;
         }
     }];
 }
-#pragma mark - BookCellDelegate
+#pragma mark - BookCellNibDelegate
 - (void)didRemove{
     // No-Op
 }
@@ -103,8 +103,14 @@ UIRefreshControl *refreshControl;
     return self.books.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    BookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BookCell"];
+    
+    BookCellNib *cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
+    if(!cell){
+        [tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
+    }
     cell.book = self.books[indexPath.row];
+    cell.delegate = self;
     return cell;
 }
 
@@ -177,7 +183,7 @@ UIRefreshControl *refreshControl;
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    BookCell *tappedCell =  sender;
+    BookCellNib *tappedCell =  sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
     Book *book = self.books[indexPath.row];
     
