@@ -31,18 +31,31 @@
 }
 
 +(void)addToFavorites: (Book *)book withCompletion:(void(^)(NSError *error))completion{
-    [self addBook:book toArray:@"favoritesArray" withCompletion:completion];
+    [self addBook:book toArray:@"favorites" withCompletion:completion];
 }
 
 +(void)removeFromFavorites: (Book *)book withCompletion:(void(^)(NSError *error))completion{
-    [self removeBook:book fromArray:@"favoritesArray" withCompletion:completion];
+    [self removeBook:book fromArray:@"favorites" withCompletion:completion];
 }
 
 +(void)addBook: (Book *)book toArray:(NSString *)arrayName withCompletion:(void(^)(NSError *error))completion{
-    [self addToParse:book];
-    NSMutableArray *temp = PFUser.currentUser[arrayName];
-    [temp addObject:book.bookID];
     
+    [self addToParse:book withCompletion:^(Book * _Nullable bookToAdd, NSError * _Nullable error) {
+
+        [self removeDuplicates:arrayName ofBook:bookToAdd];
+        
+        PFRelation *relation = [PFUser.currentUser relationForKey:arrayName];
+        if(bookToAdd !=nil){
+            [relation addObject:bookToAdd];
+        }
+        [PFUser.currentUser saveInBackground];
+        
+        completion(nil);
+    }];
+    // NSMutableArray *temp = PFUser.currentUser[arrayName];
+    // [temp addObject:book.bookID];
+    
+    /*
     [self removeDuplicates:arrayName ofBook:book.bookID];
     
     PFUser.currentUser[arrayName] = temp;
@@ -55,10 +68,24 @@
             completion(nil);
         }
     }];
+     */
 }
 
 +(void)removeBook: (Book *)book fromArray:(NSString *)arrayName withCompletion:(void(^)(NSError *error))completion{
     if(PFUser.currentUser[arrayName]!=nil){
+        PFQuery *booksQuery = [PFQuery queryWithClassName:@"Book"];
+        [booksQuery whereKey:@"bookID" equalTo:book.bookID];
+        
+        [booksQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable bookToRemove, NSError * _Nullable error) {
+            if(bookToRemove != nil){
+                PFRelation *relation = [PFUser.currentUser relationForKey:arrayName];
+                [relation removeObject:bookToRemove];
+                [PFUser.currentUser saveInBackground];
+                completion(nil);
+            }
+        }];
+        
+        /*
         NSMutableArray *temp = PFUser.currentUser[arrayName];
         [temp removeObject:book.bookID];
         PFUser.currentUser[arrayName] = temp;
@@ -71,11 +98,22 @@
                 completion(nil);
             }
         }];
+        */
     }
 }
 
-+(void)removeDuplicates:(NSString *)arrayName ofBook:(NSString *)bookID{
++(void)removeDuplicates:(NSString *)arrayName ofBook:(Book *)book{
+    if([arrayName isEqualToString:@"Read"]){
+        // Remove from "Reading"
+        [self removeBook:book fromArray:@"Reading" withCompletion:^(NSError * _Nonnull error) {}];
+    }
+    else if([arrayName isEqualToString:@"Reading"]){
+        // Remove from "Read"
+        [self removeBook:book fromArray:@"Read" withCompletion:^(NSError * _Nonnull error) {}];
+    }
+    /*
     NSMutableArray *other;
+    
     if([arrayName isEqualToString:@"Read"]){
         // Remove from "Reading"
         other = PFUser.currentUser[@"Reading"];
@@ -92,32 +130,41 @@
             PFUser.currentUser[@"Read"] = other;
         }
     }
+     */
     
 }
 
-+(void)addToParse:(Book *)addBook{
-    NSMutableArray *bookIDs = [[NSMutableArray alloc] init];
++(void)addToParse:(Book *)addBook withCompletion:(void(^)(Book * _Nullable bookToAdd, NSError * _Nullable error))completion{
     
     PFQuery *booksQuery = [PFQuery queryWithClassName:@"Book"];
     [booksQuery selectKeys: @[@"bookID"]];
     
     [booksQuery findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
+        
+        Book *bookToAdd;
         if (books) {
             for (Book * book in books){
-                [bookIDs addObject:book.bookID];
+                if([book.bookID isEqualToString:addBook.bookID]){
+                    bookToAdd = book;
+                    break;
+                }
             }
-            if(![bookIDs containsObject:addBook.bookID]){
+            
+            if(bookToAdd == nil){
+                bookToAdd = addBook;
                 [addBook saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if(error!=nil){
                     NSLog(@"Error saving book to Parse");
                 }
+                else{
+                    completion(bookToAdd,nil);
+                }
                 }];
             }
-            /*
             else {
-                NSLog(@"Book is already in Parse");
+                // Book is already in Parse
+                completion(bookToAdd, nil);
             }
-             */
         }
         else {
             NSLog(@"Error getting books");

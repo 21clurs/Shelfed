@@ -12,13 +12,18 @@
 #import "BookDetailsViewController.h"
 #import "SelectShelfViewController.h"
 
-@interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, BookCellNibDelegate, SelectShelfDelegate>
+@interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray<NSString *> *titlesInShelf;
+//@property (strong, nonatomic) NSArray<NSString *> *titlesInShelf;
+@property (strong, nonatomic) NSArray<Book *> *booksInShelf;
 
 @end
 
 @implementation ShelfViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self reloadShelf];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,6 +37,7 @@
 }
 
 -(void) reloadShelf{
+    /*
     if(PFUser.currentUser[self.shelfName]!=nil){
         self.titlesInShelf = PFUser.currentUser[self.shelfName];
    }
@@ -44,8 +50,19 @@
    if(self.titlesInShelf.count==0){
        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
    }
+     [self.tableView reloadData];
+     */
+    PFRelation *relation = [PFUser.currentUser relationForKey:self.shelfName];
+    PFQuery *query = [relation query];
+    [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
+        self.booksInShelf = books;
         [self.tableView reloadData];
-    }
+        
+        if(self.booksInShelf.count==0){
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        }
+    }];
+}
 
 #pragma mark - BookCellNibDelegate
 - (void)didRemove{
@@ -55,13 +72,13 @@
     [self performSegueWithIdentifier:@"selectShelfSegue" sender:book];
 }
 
-#pragma mark - SelectShelfDelegate
+#pragma mark - SelectShelfViewControllerDelegate
 - (void)didUpdateShelf{
     [self reloadShelf];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.titlesInShelf.count;
+    return self.booksInShelf.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -70,7 +87,7 @@
         [tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
     }
-
+    /*
    [AddRemoveBooksHelper getBookForID:self.titlesInShelf[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
        if(!error){
            cell.book = book;
@@ -81,6 +98,10 @@
    }];
    cell.delegate = self;
    return cell;
+     */
+    cell.book = self.booksInShelf[indexPath.row];
+    cell.delegate = self;
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
@@ -90,13 +111,13 @@
 }
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        /*
-        Book *bookToRemove = self.favoriteBooks[indexPath.row];
-        [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nonnull error) {
-            [self reloadFavorites];
+        
+        Book *bookToRemove = self.booksInShelf[indexPath.row];
+        [AddRemoveBooksHelper removeBook:bookToRemove fromArray:self.shelfName withCompletion:^(NSError * _Nonnull error) {
+            [self reloadShelf];
             completionHandler(YES);
         }];
-        */
+        /*
         __weak typeof(self) weakSelf = self;
         [AddRemoveBooksHelper getBookForID:self.titlesInShelf[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
             if(!error){
@@ -109,6 +130,7 @@
                 NSLog(@"Error getting book for ID");
             }
         }];
+         */
         
     }];
     deleteAction.image = [UIImage systemImageNamed:@"trash"];
@@ -126,7 +148,11 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if([segue.identifier isEqualToString:@"bookDetailsSegue"]){
+        NSIndexPath *indexPath = sender;
+        BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
+        bookDetailsViewController.book = self.booksInShelf[indexPath.row];
         
+        /*
         NSIndexPath *indexPath = sender;
         [AddRemoveBooksHelper getBookForID:self.titlesInShelf[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
             if(!error){
@@ -137,6 +163,7 @@
                 NSLog(@"Error getting book for ID");
             }
         }];
+         */
     }
     else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
         

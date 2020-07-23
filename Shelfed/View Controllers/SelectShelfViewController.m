@@ -39,7 +39,6 @@
         shelvesCount = ((NSMutableArray *)PFUser.currentUser[@"userShelves"]).count;
     }
     return shelvesCount;
-//    return PFUser.currentUser[@"userShelves"].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

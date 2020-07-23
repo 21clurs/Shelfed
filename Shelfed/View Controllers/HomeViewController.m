@@ -15,7 +15,7 @@
 #import "MBProgressHUD/MBProgressHUD.h"
 #import "SelectShelfViewController.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellNibDelegate, SelectShelfDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray<Book *> *books;
@@ -101,7 +101,7 @@ UIRefreshControl *refreshControl;
 - (void)didTapMore:(Book *)book{
     [self performSegueWithIdentifier:@"selectShelfSegue" sender:book];
 }
-#pragma mark - SelectShelfDelegate
+#pragma mark - SelectShelfViewControllerDelegate
 - (void)didUpdateShelf{
     // No-Op
 }

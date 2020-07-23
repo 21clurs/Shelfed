@@ -633,10 +633,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mKX-qY-Q2k">
-                                <rect key="frame" x="0.0" y="76" width="414" height="134.5"/>
+                                <rect key="frame" x="0.0" y="76" width="414" height="242.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_image" translatesAutoresizingMaskIntoConstraints="NO" id="cc5-eX-KUM" customClass="PFImageView">
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJA-lo-gcz">
                                         <rect key="frame" x="157" y="0.0" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="P9X-yb-luj"/>
+                                            <constraint firstAttribute="width" secondItem="AJA-lo-gcz" secondAttribute="height" multiplier="1:1" id="rNV-ry-Jsc"/>
+                                        </constraints>
+                                        <connections>
+                                            <segue destination="PaO-AQ-Ydz" kind="embed" id="lZu-H2-1xT"/>
+                                        </connections>
+                                    </containerView>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_image" translatesAutoresizingMaskIntoConstraints="NO" id="cc5-eX-KUM" customClass="PFImageView">
+                                        <rect key="frame" x="157" y="108" width="100" height="100"/>
                                         <color key="backgroundColor" red="0.83745467662811279" green="0.89325839281082153" blue="0.95430725812911987" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.085752494633197784" green="0.091344438493251801" blue="0.37593317031860352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <gestureRecognizers/>
@@ -654,7 +664,7 @@
                                         </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxA-4G-chY">
-                                        <rect key="frame" x="178" y="108" width="58" height="26.5"/>
+                                        <rect key="frame" x="178" y="216" width="58" height="26.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -747,6 +757,43 @@
             </objects>
             <point key="canvasLocation" x="-2684.057971014493" y="1931.9196428571427"/>
         </scene>
+        <!--Upload Photo View Controller-->
+        <scene sceneID="FPN-HD-z0s">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7OT-mf-c13" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="uploadPhotoStoryboard" id="PaO-AQ-Ydz" customClass="UploadPhotoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cIN-Xr-APD">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Dys-ah-PEl">
+                                <rect key="frame" x="0.0" y="0.5" width="100" height="99"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="yk9-B9-eY2" appends="YES" id="8Th-Rn-lm3"/>
+                                </connections>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Dys-ah-PEl" firstAttribute="top" secondItem="cIN-Xr-APD" secondAttribute="top" id="5M8-4f-8kt"/>
+                            <constraint firstItem="Dys-ah-PEl" firstAttribute="leading" secondItem="cIN-Xr-APD" secondAttribute="leading" id="FSh-6v-a9J"/>
+                            <constraint firstAttribute="trailing" secondItem="Dys-ah-PEl" secondAttribute="trailing" id="L8A-Mu-cfa"/>
+                            <constraint firstAttribute="bottom" secondItem="Dys-ah-PEl" secondAttribute="bottom" id="xgQ-tJ-8zh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="photoView" destination="Dys-ah-PEl" id="NRE-WH-RdN"/>
+                    </connections>
+                </viewController>
+                <tapGestureRecognizer id="yk9-B9-eY2">
+                    <connections>
+                        <action selector="didTapPhoto:" destination="PaO-AQ-Ydz" id="xPB-jh-CdM"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2799" y="900"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="JAJ-4x-lDL"/>
@@ -762,6 +809,7 @@
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="house" catalog="system" width="128" height="110"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
     </resources>

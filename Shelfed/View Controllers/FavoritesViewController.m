@@ -15,9 +15,9 @@
 #import "SelectShelfViewController.h"
 //#import "EmptyTableView.h"
 
-@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfDelegate>
+@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray<NSString *> *favorites;
+//@property (strong, nonatomic) NSArray<NSString *> *favorites;
 @property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
 
 @end
@@ -42,6 +42,7 @@
 }
 
 -(void) reloadFavorites{
+    /*
     if(PFUser.currentUser[@"favoritesArray"]!=nil){
            self.favorites = PFUser.currentUser[@"favoritesArray"];
        }
@@ -54,7 +55,19 @@
        if(self.favorites.count==0){
            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
        }
-    [self.tableView reloadData];
+       [self.tableView reloadData];
+     */
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
+    PFQuery *query = [relation query];
+    [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
+        self.favoriteBooks = [books mutableCopy];
+        [self.tableView reloadData];
+        
+        if(self.favoriteBooks.count==0){
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        }
+    }];
+    
 }
 
 
@@ -65,13 +78,13 @@
 - (void)didTapMore:(Book *)book{
     [self performSegueWithIdentifier:@"selectShelfSegue" sender:book];
 }
-#pragma mark - SelectShelfDelegate
+#pragma mark - SelectShelfViewControllerDelegate
 - (void)didUpdateShelf{
     // No-Op
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.favorites.count;
+    return self.favoriteBooks.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -82,6 +95,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
     }
     
+    /*
     __weak typeof(self) weakSelf = self;
     [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
         if(!error){
@@ -94,6 +108,11 @@
     }];
     cell.delegate = self;
     return cell;
+     */
+    
+    cell.book = self.favoriteBooks[indexPath.row];
+    cell.delegate = self;
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
@@ -104,13 +123,13 @@
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        /*
+        
         Book *bookToRemove = self.favoriteBooks[indexPath.row];
         [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nonnull error) {
             [self reloadFavorites];
             completionHandler(YES);
         }];
-        */
+        /*
         __weak typeof(self) weakSelf = self;
         [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
             if(!error){
@@ -124,6 +143,7 @@
                 NSLog(@"Error getting book for ID");
             }
         }];
+         */
         
     }];
     deleteAction.image = [UIImage systemImageNamed:@"trash"];
@@ -154,6 +174,10 @@
     if([segue.identifier isEqualToString:@"bookDetailsSegue"]){
         
         NSIndexPath *indexPath = sender;
+        BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
+        bookDetailsViewController.book = self.favoriteBooks[indexPath.row];
+        
+        /*
         [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
             if(!error){
                 BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
@@ -163,6 +187,7 @@
                 NSLog(@"Error getting book for ID");
             }
         }];
+        */
     }
     else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
         //NSString *bookID = sender;
