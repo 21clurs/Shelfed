@@ -21,7 +21,7 @@
     return self;
 }
 */
-bool inFavorites;
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -50,75 +50,40 @@ bool inFavorites;
         if(object!=nil){
             [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
             [self.favoriteButton setTintColor:[UIColor redColor]];
-            inFavorites = YES;
+            self.inFavorites = YES;
         }
         else{
             [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
             [self.favoriteButton setTintColor:[UIColor blackColor]];
-            inFavorites = NO;
+            self.inFavorites = NO;
         }
     }];
-    /*
-    if([PFUser.currentUser[@"favoritesArray"] containsObject:book.bookID]){
-        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-        [self.favoriteButton setTintColor:[UIColor redColor]];
-    }
-    else{
-        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-        [self.favoriteButton setTintColor:[UIColor blackColor]];
-    }*/
 }
 
 - (IBAction)didTapFavorite:(id)sender {    
     __weak typeof(self) weakSelf = self;
-    if(inFavorites == YES){
+    if(self.inFavorites == YES){
         [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
                 __strong typeof(self) strongSelf = weakSelf;
                 [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
                 [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
                 [strongSelf.delegate didRemove];
-                inFavorites = NO;
+                self.inFavorites = NO;
+                [self.delegate didRemove];
             }
         }];
     }
-    else if(inFavorites == NO){
+    else if(self.inFavorites == NO){
         [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
                 __strong typeof(self) strongSelf = weakSelf;
                 [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
                 [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
-                inFavorites = YES;
+                self.inFavorites = YES;
             }
         }];
     }
-    /*
-    NSMutableArray<NSString *> *favorites = PFUser.currentUser[@"favoritesArray"];
-    if(PFUser.currentUser[@"favoritesArray"]==nil){
-        favorites = [[NSMutableArray<NSString *> alloc] init];
-    }
-    
-    __weak typeof(self) weakSelf = self;
-    if ([favorites containsObject:self.book.bookID]){
-        [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
-            if(!error){
-                __strong typeof(self) strongSelf = weakSelf;
-                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-                [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
-                [strongSelf.delegate didRemove];
-            }
-        }];
-    }
-    else{
-        [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
-            if(!error){
-                __strong typeof(self) strongSelf = weakSelf;
-                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-                [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
-            }
-        }];
-    }
-    */
 }
 
 - (IBAction)didTapMore:(id)sender {

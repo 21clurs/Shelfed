@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic)id<BookCellNibDelegate>delegate;
 @property (strong, nonatomic) Book *book;
+@property (nonatomic) bool inFavorites;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;

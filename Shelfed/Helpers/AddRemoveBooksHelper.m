@@ -52,23 +52,6 @@
         
         completion(nil);
     }];
-    // NSMutableArray *temp = PFUser.currentUser[arrayName];
-    // [temp addObject:book.bookID];
-    
-    /*
-    [self removeDuplicates:arrayName ofBook:book.bookID];
-    
-    PFUser.currentUser[arrayName] = temp;
-    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error!=nil){
-            NSLog(@"Error adding book to array");
-            completion(error);
-        }
-        else{
-            completion(nil);
-        }
-    }];
-     */
 }
 
 +(void)removeBook: (Book *)book fromArray:(NSString *)arrayName withCompletion:(void(^)(NSError *error))completion{
@@ -84,21 +67,6 @@
                 completion(nil);
             }
         }];
-        
-        /*
-        NSMutableArray *temp = PFUser.currentUser[arrayName];
-        [temp removeObject:book.bookID];
-        PFUser.currentUser[arrayName] = temp;
-        [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if(error!=nil){
-                NSLog(@"Error removing from user favorites");
-                completion(error);
-            }
-            else{
-                completion(nil);
-            }
-        }];
-        */
     }
 }
 
@@ -111,26 +79,6 @@
         // Remove from "Read"
         [self removeBook:book fromArray:@"Read" withCompletion:^(NSError * _Nonnull error) {}];
     }
-    /*
-    NSMutableArray *other;
-    
-    if([arrayName isEqualToString:@"Read"]){
-        // Remove from "Reading"
-        other = PFUser.currentUser[@"Reading"];
-        if([other containsObject:bookID]){
-            [other removeObject:bookID];
-            PFUser.currentUser[@"Reading"] = other;
-        }
-    }
-    else if([arrayName isEqualToString:@"Reading"]){
-        // Remove from "Read"
-        other = PFUser.currentUser[@"Read"];
-        if ([other containsObject:bookID]){
-            [other removeObject:bookID];
-            PFUser.currentUser[@"Read"] = other;
-        }
-    }
-     */
     
 }
 

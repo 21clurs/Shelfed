@@ -37,21 +37,6 @@
 }
 
 -(void) reloadShelf{
-    /*
-    if(PFUser.currentUser[self.shelfName]!=nil){
-        self.titlesInShelf = PFUser.currentUser[self.shelfName];
-   }
-   else{
-       self.titlesInShelf = [[NSArray alloc] init];
-       PFUser.currentUser[self.shelfName] = self.titlesInShelf;
-       [PFUser.currentUser saveInBackground];
-   }
-   
-   if(self.titlesInShelf.count==0){
-       self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-   }
-     [self.tableView reloadData];
-     */
     PFRelation *relation = [PFUser.currentUser relationForKey:self.shelfName];
     PFQuery *query = [relation query];
     [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
@@ -87,18 +72,6 @@
         [tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
     }
-    /*
-   [AddRemoveBooksHelper getBookForID:self.titlesInShelf[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
-       if(!error){
-           cell.book = book;
-       }
-       else{
-           NSLog(@"Error getting book for ID");
-       }
-   }];
-   cell.delegate = self;
-   return cell;
-     */
     cell.book = self.booksInShelf[indexPath.row];
     cell.delegate = self;
     return cell;
@@ -117,21 +90,6 @@
             [self reloadShelf];
             completionHandler(YES);
         }];
-        /*
-        __weak typeof(self) weakSelf = self;
-        [AddRemoveBooksHelper getBookForID:self.titlesInShelf[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
-            if(!error){
-                [AddRemoveBooksHelper removeBook:book fromArray:self.shelfName withCompletion:^(NSError * _Nonnull error) {
-                    [weakSelf reloadShelf];
-                    completionHandler(YES);
-                }];
-            }
-            else{
-                NSLog(@"Error getting book for ID");
-            }
-        }];
-         */
-        
     }];
     deleteAction.image = [UIImage systemImageNamed:@"trash"];
     deleteAction.backgroundColor = [UIColor systemRedColor];
@@ -151,19 +109,6 @@
         NSIndexPath *indexPath = sender;
         BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
         bookDetailsViewController.book = self.booksInShelf[indexPath.row];
-        
-        /*
-        NSIndexPath *indexPath = sender;
-        [AddRemoveBooksHelper getBookForID:self.titlesInShelf[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
-            if(!error){
-                BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
-                bookDetailsViewController.book = book;
-            }
-            else{
-                NSLog(@"Error getting book for ID");
-            }
-        }];
-         */
     }
     else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
         

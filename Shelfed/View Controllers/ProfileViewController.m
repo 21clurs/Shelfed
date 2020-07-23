@@ -57,21 +57,6 @@
     [self presentViewController:alert animated:YES completion:^{
         // optional code for what happens after the alert controller has finished presenting
     }];
-    /*
-    UIImagePickerController *imagePickerController = [UIImagePickerController new];
-    imagePickerController.delegate = self;
-    imagePickerController.allowsEditing = YES;
-    
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else {
-        NSLog(@"Camera 🚫 available so we will use photo library instead");
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    
-    [self presentViewController:imagePickerController animated:YES completion:nil];
-     */
 }
 
 - (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
