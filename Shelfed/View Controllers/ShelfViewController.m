@@ -26,6 +26,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
      
+    self.title = self.shelfName;
+    
     [self reloadShelf];
 }
 
@@ -95,11 +97,11 @@
             completionHandler(YES);
         }];
         */
-        
+        __weak typeof(self) weakSelf = self;
         [AddRemoveBooksHelper getBookForID:self.titlesInShelf[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
             if(!error){
                 [AddRemoveBooksHelper removeBook:book fromArray:self.shelfName withCompletion:^(NSError * _Nonnull error) {
-                    [self reloadShelf];
+                    [weakSelf reloadShelf];
                     completionHandler(YES);
                 }];
             }
@@ -136,7 +138,9 @@
             }
         }];
     }
-    else if([segue.identifier isEqualToString:@"selectShelfSegue"]){        Book *book = sender;
+    else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
+        
+        Book *book = sender;
         UINavigationController *navigationController = [segue destinationViewController];
         SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
         selectShelfViewController.addBook = book;

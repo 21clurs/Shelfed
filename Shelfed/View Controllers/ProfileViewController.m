@@ -84,8 +84,8 @@
         }
         else{
             //[self.tableView reloadData];
-            self.profilePictureView.file = PFUser.currentUser[@"profileImage"];
-            [self.profilePictureView loadInBackground];
+            strongSelf.profilePictureView.file = PFUser.currentUser[@"profileImage"];
+            [strongSelf.profilePictureView loadInBackground];
             [strongSelf dismissViewControllerAnimated:YES completion:nil];
         }
     }];

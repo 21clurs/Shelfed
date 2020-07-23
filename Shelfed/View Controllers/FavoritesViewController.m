@@ -81,11 +81,12 @@
         [tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
     }
-
+    
+    __weak typeof(self) weakSelf = self;
     [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
         if(!error){
             cell.book = book;
-            [self.favoriteBooks addObject:book];
+            [weakSelf.favoriteBooks addObject:book];
         }
         else{
             NSLog(@"Error getting book for ID");
@@ -103,7 +104,6 @@
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        NSLog(@"What is this");
         /*
         Book *bookToRemove = self.favoriteBooks[indexPath.row];
         [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nonnull error) {
@@ -111,11 +111,12 @@
             completionHandler(YES);
         }];
         */
-        
+        __weak typeof(self) weakSelf = self;
         [AddRemoveBooksHelper getBookForID:self.favorites[indexPath.row] withCompletion:^(Book *book, NSError * _Nullable error) {
             if(!error){
+                __strong typeof(self) strongSelf = weakSelf;
                 [AddRemoveBooksHelper removeFromFavorites:book withCompletion:^(NSError * _Nonnull error) {
-                    [self reloadFavorites];
+                    [strongSelf reloadFavorites];
                     completionHandler(YES);
                 }];
             }

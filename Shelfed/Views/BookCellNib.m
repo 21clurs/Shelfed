@@ -57,20 +57,23 @@
         favorites = [[NSMutableArray<NSString *> alloc] init];
     }
     
+    __weak typeof(self) weakSelf = self;
     if ([favorites containsObject:self.book.bookID]){
         [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
-                [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-                [self.favoriteButton setTintColor:[UIColor blackColor]];
-                [self.delegate didRemove];
+                __strong typeof(self) strongSelf = weakSelf;
+                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+                [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
+                [strongSelf.delegate didRemove];
             }
         }];
     }
     else{
         [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
-                [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-                [self.favoriteButton setTintColor:[UIColor redColor]];
+                __strong typeof(self) strongSelf = weakSelf;
+                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+                [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
             }
         }];
     }

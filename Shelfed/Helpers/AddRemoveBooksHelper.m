@@ -113,9 +113,11 @@
                 }
                 }];
             }
+            /*
             else {
                 NSLog(@"Book is already in Parse");
             }
+             */
         }
         else {
             NSLog(@"Error getting books");

@@ -250,6 +250,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="196" height="197"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EcS-jM-2vo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="196" height="197"/>
+                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIR-93-tdb">
                                                     <rect key="frame" x="8" y="8" width="180" height="181"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -265,8 +268,12 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="8cj-5P-HVz" secondAttribute="bottom" id="7TJ-Tb-9J3"/>
                                                 <constraint firstAttribute="trailing" secondItem="8cj-5P-HVz" secondAttribute="trailing" id="FNf-C3-yuj"/>
+                                                <constraint firstItem="EcS-jM-2vo" firstAttribute="leading" secondItem="kdJ-v8-KhS" secondAttribute="leading" id="PfK-9M-bRP"/>
+                                                <constraint firstAttribute="bottom" secondItem="EcS-jM-2vo" secondAttribute="bottom" id="Uhh-Vd-TXt"/>
                                                 <constraint firstItem="8cj-5P-HVz" firstAttribute="top" secondItem="kdJ-v8-KhS" secondAttribute="top" id="ZNW-ei-YEX"/>
+                                                <constraint firstItem="EcS-jM-2vo" firstAttribute="top" secondItem="kdJ-v8-KhS" secondAttribute="top" id="dxa-9O-kOT"/>
                                                 <constraint firstItem="8cj-5P-HVz" firstAttribute="leading" secondItem="kdJ-v8-KhS" secondAttribute="leading" id="m1A-J3-Xij"/>
+                                                <constraint firstAttribute="trailing" secondItem="EcS-jM-2vo" secondAttribute="trailing" id="qTS-ew-bXm"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <userDefinedRuntimeAttributes>
@@ -276,6 +283,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="shelfNameLabel" destination="qIR-93-tdb" id="G2H-Nh-seV"/>
+                                            <outlet property="shelfPicView" destination="EcS-jM-2vo" id="muc-kT-lz9"/>
                                             <segue destination="a6S-vD-KNN" kind="show" id="TJa-47-UUE"/>
                                         </connections>
                                     </collectionViewCell>
