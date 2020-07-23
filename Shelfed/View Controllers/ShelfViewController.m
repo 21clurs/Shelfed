@@ -12,7 +12,7 @@
 #import "BookDetailsViewController.h"
 #import "SelectShelfViewController.h"
 
-@interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, BookCellNibDelegate>
+@interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, BookCellNibDelegate, SelectShelfDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray<NSString *> *titlesInShelf;
 
@@ -51,6 +51,11 @@
 }
 - (void)didTapMore:(Book *)book{
     [self performSegueWithIdentifier:@"selectShelfSegue" sender:book];
+}
+
+#pragma mark - SelectShelfDelegate
+- (void)didUpdateShelf{
+    [self reloadShelf];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -131,12 +136,11 @@
             }
         }];
     }
-    else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
-        //NSString *bookID = sender;
-        Book *book = sender;
+    else if([segue.identifier isEqualToString:@"selectShelfSegue"]){        Book *book = sender;
         UINavigationController *navigationController = [segue destinationViewController];
         SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
         selectShelfViewController.addBook = book;
+        selectShelfViewController.delegate = self;
     }
 }
 

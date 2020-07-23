@@ -15,7 +15,7 @@
 #import "SelectShelfViewController.h"
 //#import "EmptyTableView.h"
 
-@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate>
+@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray<NSString *> *favorites;
 @property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
@@ -65,7 +65,10 @@
 - (void)didTapMore:(Book *)book{
     [self performSegueWithIdentifier:@"selectShelfSegue" sender:book];
 }
-
+#pragma mark - SelectShelfDelegate
+- (void)didUpdateShelf{
+    // No-Op
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.favorites.count;
@@ -142,11 +145,7 @@
 
 
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     
     //BookCellNib *tappedCell =  sender;
     //NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
@@ -170,6 +169,7 @@
         UINavigationController *navigationController = [segue destinationViewController];
         SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
         selectShelfViewController.addBook = book;
+        selectShelfViewController.delegate = self;
     }
     /*
     BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];

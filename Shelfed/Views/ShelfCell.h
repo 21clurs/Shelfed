@@ -11,9 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ShelfCell : UITableViewCell
+
 @property (strong,nonatomic) NSString *shelfName;
 @property (weak, nonatomic) IBOutlet UILabel *shelfNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *shelfIconView;
+
 @end
 
 NS_ASSUME_NONNULL_END

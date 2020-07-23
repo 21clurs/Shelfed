@@ -69,9 +69,7 @@
         if([dict[@"type"] isEqualToString:@"ISBN_13"])
             self.isbn13 = dict[@"identifier"];
     }
-    // if([volumeInfo valueForKeyPath:@"industryIdentifiers.ISBN_13.identifier"]!=nil){
-    //     self.isbn13 = [volumeInfo valueForKeyPath:@"industryIdentifiers.ISBN_13.identifier"];
-    // }
+    
     if(volumeInfo[@"pageCount"]!=nil){
         self.pages = volumeInfo[@"pageCount"];
     }

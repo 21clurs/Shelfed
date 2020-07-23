@@ -42,6 +42,9 @@
     [self addToParse:book];
     NSMutableArray *temp = PFUser.currentUser[arrayName];
     [temp addObject:book.bookID];
+    
+    [self removeDuplicates:arrayName ofBook:book.bookID];
+    
     PFUser.currentUser[arrayName] = temp;
     [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error!=nil){
@@ -69,6 +72,27 @@
             }
         }];
     }
+}
+
++(void)removeDuplicates:(NSString *)arrayName ofBook:(NSString *)bookID{
+    NSMutableArray *other;
+    if([arrayName isEqualToString:@"Read"]){
+        // Remove from "Reading"
+        other = PFUser.currentUser[@"Reading"];
+        if([other containsObject:bookID]){
+            [other removeObject:bookID];
+            PFUser.currentUser[@"Reading"] = other;
+        }
+    }
+    else if([arrayName isEqualToString:@"Reading"]){
+        // Remove from "Read"
+        other = PFUser.currentUser[@"Read"];
+        if ([other containsObject:bookID]){
+            [other removeObject:bookID];
+            PFUser.currentUser[@"Read"] = other;
+        }
+    }
+    
 }
 
 +(void)addToParse:(Book *)addBook{

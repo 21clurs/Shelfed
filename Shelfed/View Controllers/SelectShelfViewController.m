@@ -58,9 +58,8 @@
             NSLog(@"Error adding book to shelf");
         }
         else{
-            
+            [self.delegate didUpdateShelf];
         }
-        //dismiss this whole thingg
         [self dismissViewControllerAnimated:YES completion:^{}];
     }];
 }

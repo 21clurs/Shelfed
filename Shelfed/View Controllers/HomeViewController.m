@@ -15,7 +15,7 @@
 #import "MBProgressHUD/MBProgressHUD.h"
 #import "SelectShelfViewController.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellNibDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellNibDelegate, SelectShelfDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray<Book *> *books;
@@ -101,7 +101,10 @@ UIRefreshControl *refreshControl;
 - (void)didTapMore:(Book *)book{
     [self performSegueWithIdentifier:@"selectShelfSegue" sender:book];
 }
-
+#pragma mark - SelectShelfDelegate
+- (void)didUpdateShelf{
+    // No-Op
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.books.count;
@@ -197,11 +200,11 @@ UIRefreshControl *refreshControl;
         bookDetailsViewController.book = book;
     }
     else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
-        //NSString *bookID = sender;
         Book *book = sender;
         UINavigationController *navigationController = [segue destinationViewController];
         SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
         selectShelfViewController.addBook = book;
+        selectShelfViewController.delegate = self;
     }
 }
 

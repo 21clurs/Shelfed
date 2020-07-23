@@ -11,8 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol SelectShelfDelegate <NSObject>
+- (void)didUpdateShelf;
+@end
+
 @interface SelectShelfViewController : UIViewController
+
+@property(weak,nonatomic)id<SelectShelfDelegate>delegate;
 @property(strong,nonatomic) Book * addBook;
+
 @end
 
 NS_ASSUME_NONNULL_END

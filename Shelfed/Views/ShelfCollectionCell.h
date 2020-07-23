@@ -11,8 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ShelfCollectionCell : UICollectionViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *shelfNameLabel;
 @property (strong,nonatomic) NSString *shelfName;
+
 @end
 
 NS_ASSUME_NONNULL_END
