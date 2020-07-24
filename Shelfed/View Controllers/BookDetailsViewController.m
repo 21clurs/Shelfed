@@ -17,20 +17,19 @@
 @property (weak, nonatomic) IBOutlet UIImageView *coverArtView;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic) bool isFavorite;
 
 @end
 
 @implementation BookDetailsViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [self setFields];
-    // Do any additional setup after loading the view.
+    [super viewDidLoad];\
 }
 
 - (void)setBook:(Book *)book{
     _book = book;
-    [self setFields];
+    [self checkFavorite];
     
 }
 
@@ -40,35 +39,51 @@
     if(self.book.coverArtThumbnail!=nil){
         [self.coverArtView setImageWithURL:[NSURL URLWithString: self.book.coverArtThumbnail]];
     }
-    if ([PFUser.currentUser[@"favoritesArray"] containsObject:self.book.bookID]){
+    
+    if (self.isFavorite == YES){
         [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
         [self.favoriteButton setTintColor:[UIColor redColor]];
+    }
+    else{
+        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        [self.favoriteButton setTintColor:[UIColor blackColor]];
     }
     self.descriptionLabel.text = self.book.bookDescription;
 }
 
+-(void)checkFavorite{
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
+    PFQuery *relationQuery = [relation query];
+    [relationQuery whereKey:@"bookID" equalTo:self.book.bookID];
+    [relationQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if(object!=nil){
+            self.isFavorite = YES;
+            self.book = (Book *) object;
+        }
+        else{
+            self.isFavorite = NO;
+        }
+        [self setFields];
+    }];
+}
+
 - (IBAction)didTapFavorite:(id)sender {
-    NSMutableArray<NSString *> *favorites = PFUser.currentUser[@"favoritesArray"];
-    if(PFUser.currentUser[@"favoritesArray"]==nil){
-        favorites = [[NSMutableArray<NSString *> alloc] init];
-    }
-    
     __weak typeof(self) weakSelf = self;
-    if ([favorites containsObject:self.book.bookID]){
+    if(self.isFavorite == YES){
         [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
+            __strong typeof(self) strongSelf = weakSelf;
             if(!error){
-                __strong typeof(self) strongSelf = weakSelf;
-                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-                [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
+                strongSelf.isFavorite = NO;
+                [strongSelf setFields];
             }
         }];
     }
     else{
         [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
+            __strong typeof(self) strongSelf = weakSelf;
             if(!error){
-                __strong typeof(self) strongSelf = weakSelf;
-                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-                [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
+                strongSelf.isFavorite = YES;
+                [strongSelf setFields];
             }
         }];
     }
