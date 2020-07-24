@@ -26,10 +26,6 @@
     }];
 }
 
-+(void)toggleFavorites:(NSString *)bookID{
-    
-}
-
 +(void)addToFavorites: (Book *)book withCompletion:(void(^)(NSError *error))completion{
     [self addBook:book toArray:@"favorites" withCompletion:completion];
 }
@@ -79,7 +75,6 @@
         // Remove from "Read"
         [self removeBook:book fromArray:@"Read" withCompletion:^(NSError * _Nonnull error) {}];
     }
-    
 }
 
 +(void)addToParse:(Book *)addBook withCompletion:(void(^)(Book * _Nullable bookToAdd, NSError * _Nullable error))completion{
@@ -97,7 +92,6 @@
                     break;
                 }
             }
-            
             if(bookToAdd == nil){
                 bookToAdd = addBook;
                 [addBook saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

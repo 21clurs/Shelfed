@@ -33,7 +33,23 @@
     
 }
 
--(void)setFields{
+-(void)checkFavorite{
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
+    PFQuery *relationQuery = [relation query];
+    [relationQuery whereKey:@"bookID" equalTo:self.book.bookID];
+    [relationQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if(object!=nil){
+            self.isFavorite = YES;
+            self.book = (Book *) object;
+        }
+        else{
+            self.isFavorite = NO;
+        }
+        [self setupView];
+    }];
+}
+
+-(void)setupView{
     self.titleLabel.text = self.book.title;
     self.authorLabel.text = self.book.authorsString;
     if(self.book.coverArtThumbnail!=nil){
@@ -51,22 +67,6 @@
     self.descriptionLabel.text = self.book.bookDescription;
 }
 
--(void)checkFavorite{
-    PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
-    PFQuery *relationQuery = [relation query];
-    [relationQuery whereKey:@"bookID" equalTo:self.book.bookID];
-    [relationQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        if(object!=nil){
-            self.isFavorite = YES;
-            self.book = (Book *) object;
-        }
-        else{
-            self.isFavorite = NO;
-        }
-        [self setFields];
-    }];
-}
-
 - (IBAction)didTapFavorite:(id)sender {
     __weak typeof(self) weakSelf = self;
     if(self.isFavorite == YES){
@@ -74,7 +74,7 @@
             __strong typeof(self) strongSelf = weakSelf;
             if(!error){
                 strongSelf.isFavorite = NO;
-                [strongSelf setFields];
+                [strongSelf setupView];
             }
         }];
     }
@@ -83,7 +83,7 @@
             __strong typeof(self) strongSelf = weakSelf;
             if(!error){
                 strongSelf.isFavorite = YES;
-                [strongSelf setFields];
+                [strongSelf setupView];
             }
         }];
     }

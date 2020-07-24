@@ -15,6 +15,8 @@
 		F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */; };
 		F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */; };
 		F992B81024C9FFE50044A4CF /* UploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B80F24C9FFE50044A4CF /* UploadPhotoViewController.m */; };
+		F992B81324CB365E0044A4CF /* Upload.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81224CB365E0044A4CF /* Upload.m */; };
+		F992B81624CB43830044A4CF /* UploadCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81524CB43830044A4CF /* UploadCollectionViewController.m */; };
 		F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */; };
 		F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F024C0BD5F000FE6F0 /* ShelvesViewController.m */; };
 		F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F324C0C257000FE6F0 /* ShelfCell.m */; };
@@ -76,6 +78,10 @@
 		F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleBooksAPIManager.m; sourceTree = "<group>"; };
 		F992B80E24C9FFE50044A4CF /* UploadPhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadPhotoViewController.h; sourceTree = "<group>"; };
 		F992B80F24C9FFE50044A4CF /* UploadPhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadPhotoViewController.m; sourceTree = "<group>"; };
+		F992B81124CB365E0044A4CF /* Upload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Upload.h; sourceTree = "<group>"; };
+		F992B81224CB365E0044A4CF /* Upload.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Upload.m; sourceTree = "<group>"; };
+		F992B81424CB43830044A4CF /* UploadCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadCollectionViewController.h; sourceTree = "<group>"; };
+		F992B81524CB43830044A4CF /* UploadCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadCollectionViewController.m; sourceTree = "<group>"; };
 		F9A6A2E724BFBD76000FE6F0 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		F9A6A2EF24C0BD5F000FE6F0 /* ShelvesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelvesViewController.h; sourceTree = "<group>"; };
@@ -195,6 +201,8 @@
 				F9A6A31624C8F020000FE6F0 /* SelectShelfViewController.m */,
 				F992B80E24C9FFE50044A4CF /* UploadPhotoViewController.h */,
 				F992B80F24C9FFE50044A4CF /* UploadPhotoViewController.m */,
+				F992B81424CB43830044A4CF /* UploadCollectionViewController.h */,
+				F992B81524CB43830044A4CF /* UploadCollectionViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -230,6 +238,8 @@
 			children = (
 				F9B862D324BE5D00000C2E0C /* Book.h */,
 				F9B862D424BE5D00000C2E0C /* Book.m */,
+				F992B81124CB365E0044A4CF /* Upload.h */,
+				F992B81224CB365E0044A4CF /* Upload.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -552,6 +562,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F992B81324CB365E0044A4CF /* Upload.m in Sources */,
+				F992B81624CB43830044A4CF /* UploadCollectionViewController.m in Sources */,
 				F992B81024C9FFE50044A4CF /* UploadPhotoViewController.m in Sources */,
 				F9A6A2FA24C64152000FE6F0 /* AddRemoveBooksHelper.m in Sources */,
 				F9A6A30E24C770A8000FE6F0 /* ShelfCollectionCell.m in Sources */,

@@ -25,10 +25,7 @@
 }
 
 - (IBAction)didTapSignUp:(id)sender {
-    if(![self alertIfEmpty]){
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [self registerUser];
-    }
+    [self alertIfEmpty];
 }
 
 - (void)registerUser {
@@ -69,29 +66,30 @@
     }
 }
 
-- (BOOL)alertIfEmpty {
-    if ([self.usernameField.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Username Required" message:@"A username is required to sign up" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
-        [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:^{}];
-        
-        return YES;
+- (void)alertIfEmpty {
+    
+    if (self.usernameField.text.length > 0 && self.passwordField.text.length > 0){
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [self registerUser];
     }
-    else if([self.passwordField.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Password Required" message:@"A password is required to sign up" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
-        [alert addAction:okAction];
+    else{
+        UIAlertController *alert;
+        if (self.usernameField.text.length == 0){
+            alert = [UIAlertController alertControllerWithTitle:@"Username Required" message:@"A username is required to sign up" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+            [alert addAction:okAction];
+        }
+        else if(self.passwordField.text.length == 0){
+            alert = [UIAlertController alertControllerWithTitle:@"Password Required" message:@"A password is required to sign up" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+            [alert addAction:okAction];
+        }
         [self presentViewController:alert animated:YES completion:^{}];
-        
-        return YES;
     }
-    return NO;
 }
 - (IBAction)didTapBackToLogIn:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
-
 
 /*
 #pragma mark - Navigation

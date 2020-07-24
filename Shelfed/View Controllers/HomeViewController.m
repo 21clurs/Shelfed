@@ -113,6 +113,7 @@ UIRefreshControl *refreshControl;
     
     BookCellNib *cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
     if(!cell){
+        //this should happen in viewDidLoad
         [tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
     }

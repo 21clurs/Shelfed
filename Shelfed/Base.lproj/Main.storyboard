@@ -462,6 +462,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPx-vJ-lXO">
+                                <rect key="frame" x="20" y="254.5" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="GWp-ON-fSh" kind="presentation" id="5xg-EH-BEG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -469,6 +476,7 @@
                             <constraint firstItem="5wU-Je-fSY" firstAttribute="top" secondItem="Grn-OO-fS9" secondAttribute="topMargin" constant="20" id="4U1-G0-fld"/>
                             <constraint firstItem="5wU-Je-fSY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kdF-Ay-kPI" secondAttribute="trailing" constant="16" id="5dK-Ys-W5G"/>
                             <constraint firstItem="KxO-K8-DfW" firstAttribute="top" secondItem="rhZ-5X-Rap" secondAttribute="bottom" constant="8" id="JHt-bG-yJA"/>
+                            <constraint firstItem="NPx-vJ-lXO" firstAttribute="leading" secondItem="Grn-OO-fS9" secondAttribute="leadingMargin" id="Q4l-4f-YtH"/>
                             <constraint firstItem="rhZ-5X-Rap" firstAttribute="top" secondItem="5wU-Je-fSY" secondAttribute="bottom" constant="8" id="QAJ-EM-KVR"/>
                             <constraint firstItem="KxO-K8-DfW" firstAttribute="trailing" secondItem="Grn-OO-fS9" secondAttribute="trailingMargin" id="SY9-jo-fKl"/>
                             <constraint firstItem="kdF-Ay-kPI" firstAttribute="leading" secondItem="Grn-OO-fS9" secondAttribute="leadingMargin" id="VfR-Hc-q26"/>
@@ -476,6 +484,7 @@
                             <constraint firstItem="kdF-Ay-kPI" firstAttribute="top" secondItem="YRg-Vg-Tek" secondAttribute="top" constant="20" id="a1o-Ra-wx7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rhZ-5X-Rap" secondAttribute="trailing" constant="29" id="esp-oJ-UPc"/>
                             <constraint firstItem="KxO-K8-DfW" firstAttribute="leading" secondItem="Grn-OO-fS9" secondAttribute="leadingMargin" id="hQQ-qR-cR6"/>
+                            <constraint firstItem="NPx-vJ-lXO" firstAttribute="top" secondItem="KxO-K8-DfW" secondAttribute="bottom" constant="8" id="hbv-R7-0Mf"/>
                             <constraint firstItem="5wU-Je-fSY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZI7-La-jt7" secondAttribute="trailing" constant="16" id="lpU-kI-FCh"/>
                             <constraint firstItem="ZI7-La-jt7" firstAttribute="top" secondItem="kdF-Ay-kPI" secondAttribute="bottom" constant="8" id="x8K-8Q-7Zr"/>
                         </constraints>
@@ -493,6 +502,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YEb-4X-D0L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-986.95652173913049" y="1931.9196428571427"/>
+        </scene>
+        <!--My Uploads-->
+        <scene sceneID="1EL-He-3Gn">
+            <objects>
+                <viewController id="8nc-BO-0a2" customClass="UploadCollectionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="D8X-2H-bUw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GiT-Ga-Hy3">
+                                <rect key="frame" x="87" y="135" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="x2t-da-lM6" kind="embed" id="MUA-8l-4Vg"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="xUS-uf-zNg"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="My Uploads" id="ERZ-dv-fzu"/>
+                    <connections>
+                        <outlet property="addUploadContainerView" destination="GiT-Ga-Hy3" id="bl5-4E-ziz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tTI-D1-XMX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="486.95652173913049" y="1931.9196428571427"/>
         </scene>
         <!--Shelf View Controller-->
         <scene sceneID="Dft-gX-atQ">
@@ -798,6 +835,52 @@
             </objects>
             <point key="canvasLocation" x="2799" y="900"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lgb-8q-xx2">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GWp-ON-fSh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pGw-ZR-OUv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8nc-BO-0a2" kind="relationship" relationship="rootViewController" id="gjG-Jg-oK4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="97s-au-aoo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-152.17391304347828" y="1931.9196428571427"/>
+        </scene>
+        <!--Upload Photo View Controller-->
+        <scene sceneID="yk8-Vg-mut">
+            <objects>
+                <viewController id="x2t-da-lM6" customClass="UploadPhotoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DTY-Mn-d1L">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="uploadPhotoStoryboard" image="pencil.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aw2-fM-AOQ">
+                                <rect key="frame" x="0.0" y="0.5" width="100" height="99"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="aw2-fM-AOQ" firstAttribute="top" secondItem="DTY-Mn-d1L" secondAttribute="top" id="7vW-OO-XyP"/>
+                            <constraint firstItem="aw2-fM-AOQ" firstAttribute="leading" secondItem="DTY-Mn-d1L" secondAttribute="leading" id="DEa-OA-nff"/>
+                            <constraint firstAttribute="trailing" secondItem="aw2-fM-AOQ" secondAttribute="trailing" id="Y74-xC-crc"/>
+                            <constraint firstAttribute="bottom" secondItem="aw2-fM-AOQ" secondAttribute="bottom" id="qah-xV-NoM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="photoView" destination="aw2-fM-AOQ" id="jo7-Vr-OYl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BhT-hb-flM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1088" y="1665"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="JAJ-4x-lDL"/>
@@ -813,6 +896,7 @@
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="house" catalog="system" width="128" height="110"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
