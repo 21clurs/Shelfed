@@ -32,6 +32,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
@@ -43,13 +44,27 @@
     PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
     PFQuery *query = [relation query];
     [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
-        self.favoriteBooks = [books mutableCopy];
-        if(self.favoriteBooks.count==0){
-            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        if(error!=nil){
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error getting favorites" message:@"There was an error loading your favorites" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+            [alert addAction:okAction];
+            
+            UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self reloadFavorites];
+            }];
+            [alert addAction:retryAction];
+            
+            [self presentViewController:alert animated:YES completion:nil];
         }
-        [self.tableView reloadData];
+        else{
+            self.favoriteBooks = [books mutableCopy];
+            if(self.favoriteBooks.count>0){
+                self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            }
+            [self.tableView reloadData];
+        }
     }];
-    
 }
 
 
