@@ -87,6 +87,7 @@
         [self presentViewController:alert animated:YES completion:^{}];
     }
 }
+
 - (IBAction)didTapBackToLogIn:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{}];
 }

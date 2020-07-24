@@ -15,7 +15,9 @@
 #import "MBProgressHUD/MBProgressHUD.h"
 #import "SelectShelfViewController.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
+#import "UIScrollView+EmptyDataSet.h"
+
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray<Book *> *books;
@@ -43,7 +45,12 @@ UIRefreshControl *refreshControl;
     self.tableView.dataSource = self;
     self.searchBar.delegate = self;
     
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
+    
     manager = [GoogleBooksAPIManager new];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(reloadFeed) forControlEvents:UIControlEventValueChanged];
@@ -65,16 +72,29 @@ UIRefreshControl *refreshControl;
     __weak typeof(self) weakSelf = self;
     [manager reloadBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         __strong typeof(self) strongSelf = weakSelf;
+
+        [refreshControl endRefreshing];
         if(error!=nil){
-            NSLog(@"Error getting default feed!");
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error getting feed" message:@"There was an error loading your home feed" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+            [alert addAction:okAction];
+            
+            UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self reloadFeed];
+            }];
+            [alert addAction:retryAction];
+            
+            [self presentViewController:alert animated:YES completion:nil];
         }
         else{
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             strongSelf.books = [books mutableCopy];
             [strongSelf.tableView reloadData];
         }
         [MBProgressHUD hideHUDForView:strongSelf.view animated:YES];
     }];
-    [refreshControl endRefreshing];
 }
 
 - (void)loadMore{
@@ -183,6 +203,18 @@ UIRefreshControl *refreshControl;
             [self loadMore];
         }
     }
+}
+
+#pragma mark - DZNEmptyDataSetSource
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView{
+    UIImage *placeholderImage =  [UIImage imageNamed:@"SadFace"];
+    return placeholderImage;
+}
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
+    NSString *text = @"Could not load home feed. Please try again later.";
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
 #pragma mark - Navigation
