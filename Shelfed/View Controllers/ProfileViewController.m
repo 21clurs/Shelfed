@@ -10,11 +10,13 @@
 #import "Parse/Parse.h"
 #import "LogInViewController.h"
 #import "SceneDelegate.h"
+#import "UploadPhotoViewController.h"
 @import Parse;
 
-@interface ProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UploadPhotoViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet PFImageView *profilePictureView;
+@property (weak, nonatomic) IBOutlet UIView *updatePhotoContainerView;
 
 @end
 
@@ -24,6 +26,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.nameLabel.text = [PFUser.currentUser username];
+
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
+    [self.updatePhotoContainerView addGestureRecognizer:tapRecognizer];
+    
     
     if(PFUser.currentUser[@"profileImage"]){
         self.profilePictureView.file = PFUser.currentUser[@"profileImage"];
@@ -34,30 +40,14 @@
     [self.profilePictureView loadInBackground];
 }
 
-- (IBAction)didTapProfilePicture:(id)sender {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"Update your profile photo" preferredStyle:(UIAlertControllerStyleActionSheet)];
-    
-    // create a cancel action
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                                                             // handle cancel response here. Doing nothing will dismiss the view.
-    }];
-    [alert addAction:cancelAction];
-
-    // create an OK action
-    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                                                             // handle response here.
-    }];
-    [alert addAction:cameraAction];
-    UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:@"Choose from Photos" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                                                             // handle response here.
-        
-    }];
-    [alert addAction:libraryAction];
-    
-    [self presentViewController:alert animated:YES completion:^{
-        // optional code for what happens after the alert controller has finished presenting
-    }];
+- (void) onTap:(UITapGestureRecognizer *)sender{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UploadPhotoViewController *containerViewController = [storyboard instantiateViewControllerWithIdentifier:@"uploadPhotoStoryboard"];
+    containerViewController.delegate = self;
+    [containerViewController didMoveToParentViewController:self];
+    [containerViewController onTap];
 }
+
 
 - (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
     UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
@@ -85,32 +75,42 @@
     }];
 }
 
+- (void)didSelectPhoto:(NSData *)imageData{
+    PFUser.currentUser[@"profileImage"] = [PFFileObject fileObjectWithName:@"profile_image.png" data:imageData];
+   __weak typeof(self) weakSelf = self;
+   [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+       __strong typeof(self) strongSelf = weakSelf;
+       if(error != nil){
+           NSLog(@"Error updating profile image");
+           [strongSelf dismissViewControllerAnimated:YES completion:nil];
+       }
+       else{
+           //[self.tableView reloadData];
+           strongSelf.profilePictureView.file = PFUser.currentUser[@"profileImage"];
+           [strongSelf.profilePictureView loadInBackground];
+           [strongSelf dismissViewControllerAnimated:YES completion:nil];
+       }
+   }];
+}
+
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
     CGSize size = CGSizeMake(200, 200);
     UIImage *resizedImage = [self resizeImage:editedImage withSize:size];
     
     NSData *imageData = UIImagePNGRepresentation(resizedImage);
-    PFUser.currentUser[@"profileImage"] = [PFFileObject fileObjectWithName:@"profile_image.png" data:imageData];
+    [self didSelectPhoto:imageData];
     
-    __weak typeof(self) weakSelf = self;
-    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        __strong typeof(self) strongSelf = weakSelf;
-        if(error != nil){
-            NSLog(@"Error updating profile image");
-            [strongSelf dismissViewControllerAnimated:YES completion:nil];
-        }
-        else{
-            //[self.tableView reloadData];
-            strongSelf.profilePictureView.file = PFUser.currentUser[@"profileImage"];
-            [strongSelf.profilePictureView loadInBackground];
-            [strongSelf dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
-}
+};
 
+#pragma mark - UploadPhotoViewControllerDelegate
+- (void)presentActions:(UIAlertController *)actionSheet{
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+-(void)presentChildViewController:(UIViewController *)childViewController{
+    [self presentViewController:childViewController animated:YES completion:nil];
+}
 
 /*
 #pragma mark - Navigation
