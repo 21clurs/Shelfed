@@ -608,6 +608,22 @@
             </objects>
             <point key="canvasLocation" x="-310.14492753623193" y="1157.8125"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="9Wm-Ue-Wty">
+            <objects>
+                <viewController id="zSv-mz-66i" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u9L-ug-Fdw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="3E4-oC-Iyg"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1bm-RE-XNW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JOD-k4-K1I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1923" y="1158"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="NfP-1s-cU1">
             <objects>
@@ -694,7 +710,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9lK-nv-6eU"/>
                     </view>
-                    <navigationItem key="navigationItem" id="dtV-XO-4Ok"/>
+                    <navigationItem key="navigationItem" id="dtV-XO-4Ok">
+                        <barButtonItem key="rightBarButtonItem" title="Filters" id="bhF-YR-JXS">
+                            <connections>
+                                <segue destination="JMb-rA-RHD" kind="presentation" id="19Y-qe-jah"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="VrT-BR-tg9" id="SkZ-JO-udQ"/>
                         <segue destination="jQ3-HB-y6c" kind="show" identifier="bookDetailsSegue" id="rul-JA-o80"/>
@@ -902,14 +924,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7OT-mf-c13" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2798.5507246376815" y="900"/>
+            <point key="canvasLocation" x="3708.6956521739135" y="900"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="KFk-J3-BkW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JMb-rA-RHD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bl4-ZY-Fn1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zSv-mz-66i" kind="relationship" relationship="rootViewController" id="cPY-Vm-Zmg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8OI-BO-GpK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1198.5507246376812" y="1157.8125"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="JAJ-4x-lDL"/>
+        <segue reference="0rO-90-uUl"/>
         <segue reference="ei2-QH-qVv"/>
         <segue reference="x8N-C0-dZc"/>
-        <segue reference="JI5-PX-4Hv"/>
+        <segue reference="rul-JA-o80"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="370.5" height="168.5"/>
