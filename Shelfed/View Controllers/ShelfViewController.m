@@ -30,7 +30,9 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-     
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
+    
     self.title = self.shelfName;
     
     [self reloadShelf];
@@ -68,10 +70,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BookCellNib *cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
-    if(!cell){
-        [tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
-    }
     cell.book = self.booksInShelf[indexPath.row];
     cell.delegate = self;
     return cell;

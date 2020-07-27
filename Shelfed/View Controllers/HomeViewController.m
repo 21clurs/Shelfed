@@ -51,6 +51,7 @@ UIRefreshControl *refreshControl;
     manager = [GoogleBooksAPIManager new];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
     
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(reloadFeed) forControlEvents:UIControlEventValueChanged];
@@ -130,13 +131,7 @@ UIRefreshControl *refreshControl;
     return self.books.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     BookCellNib *cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
-    if(!cell){
-        //this should happen in viewDidLoad
-        [tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
-    }
     cell.book = self.books[indexPath.row];
     cell.delegate = self;
     return cell;

@@ -37,6 +37,8 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
+    
     [self reloadFavorites];
 }
 
@@ -86,12 +88,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     BookCellNib *cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
-    
-    if(!cell){
-        [tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
-        cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
-    }
-    
     cell.book = self.favoriteBooks[indexPath.row];
     cell.delegate = self;
     return cell;

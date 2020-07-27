@@ -25,7 +25,6 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    
     self.flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     self.flowLayout.minimumLineSpacing = 2;
     self.flowLayout.minimumInteritemSpacing = 2;
