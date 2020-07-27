@@ -511,20 +511,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GiT-Ga-Hy3">
-                                <rect key="frame" x="87" y="135" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="x2t-da-lM6" kind="embed" id="MUA-8l-4Vg"/>
-                                </connections>
-                            </containerView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="m86-2o-0iN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dN7-bu-gph">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="UploadCollectionCell" id="Dl8-MV-bLk" customClass="UploadCollectionCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="br9-ia-abb">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="O9v-sf-5n3" customClass="PFImageView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                    <color key="backgroundColor" red="0.74121493101119995" green="0.9397314190864563" blue="0.90601444244384766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="O9v-sf-5n3" firstAttribute="leading" secondItem="br9-ia-abb" secondAttribute="leading" id="E1a-fC-eNB"/>
+                                                <constraint firstAttribute="trailing" secondItem="O9v-sf-5n3" secondAttribute="trailing" id="duO-zq-HBZ"/>
+                                                <constraint firstItem="O9v-sf-5n3" firstAttribute="top" secondItem="br9-ia-abb" secondAttribute="top" id="ekH-xG-8qU"/>
+                                                <constraint firstAttribute="bottom" secondItem="O9v-sf-5n3" secondAttribute="bottom" id="fei-Qi-yom"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="uploadPhotoView" destination="O9v-sf-5n3" id="1fg-gd-POl"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="m86-2o-0iN" firstAttribute="leading" secondItem="D8X-2H-bUw" secondAttribute="leading" id="F7j-4R-fId"/>
+                            <constraint firstItem="m86-2o-0iN" firstAttribute="top" secondItem="D8X-2H-bUw" secondAttribute="top" id="GLG-KS-yt0"/>
+                            <constraint firstAttribute="trailing" secondItem="m86-2o-0iN" secondAttribute="trailing" id="KqC-N6-wgN"/>
+                            <constraint firstAttribute="bottom" secondItem="m86-2o-0iN" secondAttribute="bottom" id="rYW-PF-a5Q"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="xUS-uf-zNg"/>
                     </view>
                     <navigationItem key="navigationItem" title="My Uploads" id="ERZ-dv-fzu"/>
                     <connections>
-                        <outlet property="addUploadContainerView" destination="GiT-Ga-Hy3" id="bl5-4E-ziz"/>
+                        <outlet property="collectionView" destination="m86-2o-0iN" id="Bg8-L7-ZpA"/>
+                        <outlet property="flowLayout" destination="dN7-bu-gph" id="M5P-J8-4yq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tTI-D1-XMX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -675,25 +710,10 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vbe-R1-kMt">
                                         <rect key="frame" x="157" y="0.0" width="100" height="100"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_image" translatesAutoresizingMaskIntoConstraints="NO" id="cc5-eX-KUM" customClass="PFImageView">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                                <color key="backgroundColor" red="0.83745467662811279" green="0.89325839281082153" blue="0.95430725812911987" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="tintColor" red="0.085752494633197784" green="0.091344438493251801" blue="0.37593317031860352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <gestureRecognizers/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="100" id="RqT-Kw-dms"/>
-                                                    <constraint firstAttribute="height" constant="100" id="oC7-mW-Lg2"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="50"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </imageView>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJA-lo-gcz">
-                                                <rect key="frame" x="70" y="70" width="30" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="P9X-yb-luj"/>
+                                                    <constraint firstAttribute="width" constant="100" id="P9X-yb-luj"/>
                                                     <constraint firstAttribute="width" secondItem="AJA-lo-gcz" secondAttribute="height" multiplier="1:1" id="rNV-ry-Jsc"/>
                                                 </constraints>
                                                 <connections>
@@ -703,12 +723,10 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="AJA-lo-gcz" secondAttribute="bottom" id="GOI-Of-FCE"/>
-                                            <constraint firstItem="cc5-eX-KUM" firstAttribute="leading" secondItem="Vbe-R1-kMt" secondAttribute="leading" id="II0-Ce-YoD"/>
+                                            <constraint firstItem="AJA-lo-gcz" firstAttribute="top" secondItem="Vbe-R1-kMt" secondAttribute="top" id="6OL-el-Dcz"/>
                                             <constraint firstAttribute="trailing" secondItem="AJA-lo-gcz" secondAttribute="trailing" id="KXf-fn-J99"/>
-                                            <constraint firstAttribute="bottom" secondItem="cc5-eX-KUM" secondAttribute="bottom" id="MxZ-TX-Whk"/>
-                                            <constraint firstAttribute="trailing" secondItem="cc5-eX-KUM" secondAttribute="trailing" id="QXS-KQ-yNu"/>
-                                            <constraint firstItem="cc5-eX-KUM" firstAttribute="top" secondItem="Vbe-R1-kMt" secondAttribute="top" id="pxH-CX-mYl"/>
+                                            <constraint firstItem="AJA-lo-gcz" firstAttribute="leading" secondItem="Vbe-R1-kMt" secondAttribute="leading" id="eE2-Uo-d0g"/>
+                                            <constraint firstAttribute="bottom" secondItem="AJA-lo-gcz" secondAttribute="bottom" id="wYE-zk-ZwU"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxA-4G-chY">
@@ -737,7 +755,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="xxA-4G-chY" id="p4p-S1-sKx"/>
-                        <outlet property="profilePictureView" destination="cc5-eX-KUM" id="Feh-lt-O4v"/>
                         <outlet property="updatePhotoContainerView" destination="AJA-lo-gcz" id="RFj-SG-8Ci"/>
                     </connections>
                 </viewController>
@@ -804,24 +821,56 @@
         <!--Upload Photo View Controller-->
         <scene sceneID="FPN-HD-z0s">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7OT-mf-c13" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="uploadPhotoStoryboard" id="PaO-AQ-Ydz" customClass="UploadPhotoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cIN-Xr-APD">
-                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Dys-ah-PEl">
-                                <rect key="frame" x="0.0" y="0.5" width="30" height="29"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_profile_image" translatesAutoresizingMaskIntoConstraints="NO" id="Q7K-o2-RCw" customClass="PFImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                <color key="backgroundColor" red="0.83745467659999995" green="0.89325839279999997" blue="0.95430725810000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.085752494629999995" green="0.091344438489999999" blue="0.37593317030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="amT-aa-OFl">
+                                <rect key="frame" x="68" y="68" width="32" height="32"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Lvk-ZY-Bcd"/>
+                                    <constraint firstAttribute="width" constant="32" id="sYH-ER-wYS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Dys-ah-PEl">
+                                <rect key="frame" x="69" y="69.5" width="30" height="29"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="FOE-y0-cMJ"/>
+                                    <constraint firstAttribute="width" secondItem="Dys-ah-PEl" secondAttribute="height" multiplier="1:1" id="VVN-Wx-B4b"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Dys-ah-PEl" firstAttribute="top" secondItem="cIN-Xr-APD" secondAttribute="top" id="5M8-4f-8kt"/>
-                            <constraint firstItem="Dys-ah-PEl" firstAttribute="leading" secondItem="cIN-Xr-APD" secondAttribute="leading" id="FSh-6v-a9J"/>
-                            <constraint firstAttribute="trailing" secondItem="Dys-ah-PEl" secondAttribute="trailing" id="L8A-Mu-cfa"/>
-                            <constraint firstAttribute="bottom" secondItem="Dys-ah-PEl" secondAttribute="bottom" id="xgQ-tJ-8zh"/>
+                            <constraint firstItem="Q7K-o2-RCw" firstAttribute="top" secondItem="cIN-Xr-APD" secondAttribute="top" id="0OP-XB-BX6"/>
+                            <constraint firstAttribute="trailing" secondItem="Q7K-o2-RCw" secondAttribute="trailing" id="JTC-FU-bRo"/>
+                            <constraint firstAttribute="trailing" secondItem="Dys-ah-PEl" secondAttribute="trailing" constant="1" id="L8A-Mu-cfa"/>
+                            <constraint firstAttribute="trailing" secondItem="amT-aa-OFl" secondAttribute="trailing" id="iSU-Wi-KMW"/>
+                            <constraint firstAttribute="bottom" secondItem="Q7K-o2-RCw" secondAttribute="bottom" id="mBb-HW-dp1"/>
+                            <constraint firstAttribute="bottom" secondItem="amT-aa-OFl" secondAttribute="bottom" id="qZG-2e-GKn"/>
+                            <constraint firstItem="Q7K-o2-RCw" firstAttribute="leading" secondItem="cIN-Xr-APD" secondAttribute="leading" id="t3A-Uy-hAu"/>
+                            <constraint firstAttribute="bottom" secondItem="Dys-ah-PEl" secondAttribute="bottom" constant="1" id="xgQ-tJ-8zh"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="aQQ-X6-hNI"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                 <integer key="value" value="15"/>
@@ -829,11 +878,13 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
-                        <outlet property="photoView" destination="Dys-ah-PEl" id="NRE-WH-RdN"/>
+                        <outlet property="profilePhotoView" destination="Q7K-o2-RCw" id="ayh-fD-zJF"/>
+                        <outlet property="updateIconView" destination="Dys-ah-PEl" id="uLN-r5-HsN"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7OT-mf-c13" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2799" y="900"/>
+            <point key="canvasLocation" x="2798.5507246376815" y="900"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lgb-8q-xx2">
@@ -853,34 +904,6 @@
             </objects>
             <point key="canvasLocation" x="-152.17391304347828" y="1931.9196428571427"/>
         </scene>
-        <!--Upload Photo View Controller-->
-        <scene sceneID="yk8-Vg-mut">
-            <objects>
-                <viewController id="x2t-da-lM6" customClass="UploadPhotoViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="DTY-Mn-d1L">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="uploadPhotoStoryboard" image="pencil.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aw2-fM-AOQ">
-                                <rect key="frame" x="0.0" y="0.5" width="100" height="99"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="aw2-fM-AOQ" firstAttribute="top" secondItem="DTY-Mn-d1L" secondAttribute="top" id="7vW-OO-XyP"/>
-                            <constraint firstItem="aw2-fM-AOQ" firstAttribute="leading" secondItem="DTY-Mn-d1L" secondAttribute="leading" id="DEa-OA-nff"/>
-                            <constraint firstAttribute="trailing" secondItem="aw2-fM-AOQ" secondAttribute="trailing" id="Y74-xC-crc"/>
-                            <constraint firstAttribute="bottom" secondItem="aw2-fM-AOQ" secondAttribute="bottom" id="qah-xV-NoM"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="photoView" destination="aw2-fM-AOQ" id="jo7-Vr-OYl"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BhT-hb-flM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1088" y="1665"/>
-        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="JAJ-4x-lDL"/>
@@ -896,7 +919,6 @@
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="house" catalog="system" width="128" height="110"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
-        <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>

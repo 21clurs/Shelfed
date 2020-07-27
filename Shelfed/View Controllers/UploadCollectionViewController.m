@@ -9,9 +9,11 @@
 #import "UploadCollectionViewController.h"
 #import "UploadPhotoViewController.h"
 #import "Parse/Parse.h"
+#import "UploadCollectionCell.h"
 
-@interface UploadCollectionViewController () <UploadPhotoViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-@property (weak, nonatomic) IBOutlet UIView *addUploadContainerView;
+@interface UploadCollectionViewController () < UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout /*, UIImagePickerControllerDelegate, UINavigationControllerDelegate*/ >
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
 @end
 
@@ -20,16 +22,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
-    [self.addUploadContainerView addGestureRecognizer:tapRecognizer];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    
+    
+    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    self.flowLayout.minimumLineSpacing = 2;
+    self.flowLayout.minimumInteritemSpacing = 2;
+    self.flowLayout.sectionInset = UIEdgeInsetsMake(8, 8, 8, 8);
 }
 
--(void)onTap: (UITapGestureRecognizer *)sender{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UploadPhotoViewController *containerViewController = [storyboard instantiateViewControllerWithIdentifier:@"uploadPhotoStoryboard"];
-    containerViewController.delegate = self;
-    [containerViewController didMoveToParentViewController:self];
-    [containerViewController onTap];
+#pragma mark - UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    int numberOfCellsPerRow = 3;
+    CGFloat cellWidth = (self.collectionView.frame.size.width - self.flowLayout.sectionInset.left - self.flowLayout.sectionInset.right - self.flowLayout.minimumInteritemSpacing*(numberOfCellsPerRow-1))/numberOfCellsPerRow;
+    cellWidth = floor(cellWidth);
+    CGFloat cellHeight = cellWidth;
+    return CGSizeMake(cellWidth, cellHeight);
+
 }
 
 /*
@@ -55,26 +65,28 @@
     return newImage;
 }
 
-- (void)didSelectPhoto:(NSData *)imageData{
-    /*
-    PFUser.currentUser[@"profileImage"] = [PFFileObject fileObjectWithName:@"profile_image.png" data:imageData];
-   __weak typeof(self) weakSelf = self;
-   [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-       __strong typeof(self) strongSelf = weakSelf;
-       if(error != nil){
-           NSLog(@"Error updating profile image");
-           [strongSelf dismissViewControllerAnimated:YES completion:nil];
-       }
-       else{
-           //[self.tableView reloadData];
-           strongSelf.profilePictureView.file = PFUser.currentUser[@"profileImage"];
-           [strongSelf.profilePictureView loadInBackground];
-           [strongSelf dismissViewControllerAnimated:YES completion:nil];
-       }
-   }];
-     */
+-(void)onAddUploadTap{
+    
+}
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return 5;
+}
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UploadCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UploadCollectionCell" forIndexPath:indexPath];
+    if(indexPath.item ==0){
+        cell.uploadPhotoView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(onAddUploadTap)];
+        [cell addGestureRecognizer:tapRecognizer];
+    }
+    
+    else{
+        
+    }
+    
+    return cell;
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -84,17 +96,6 @@
     UIImage *resizedImage = [self resizeImage:editedImage withSize:size];
     
     NSData *imageData = UIImagePNGRepresentation(resizedImage);
-    [self didSelectPhoto:imageData];
-    
 };
-
-#pragma mark - UploadPhotoViewControllerDelegate
-- (void)presentActions:(nonnull UIAlertController *)actionSheet {
-    [self presentViewController:actionSheet animated:YES completion:nil];
-}
-
-- (void)presentChildViewController:(nonnull UIViewController *)childViewController {
-    [self presentViewController:childViewController animated:YES completion:nil];
-}
 
 @end

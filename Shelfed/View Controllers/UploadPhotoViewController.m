@@ -7,9 +7,11 @@
 //
 
 #import "UploadPhotoViewController.h"
+@import Parse;
 
-@interface UploadPhotoViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *photoView;
+@interface UploadPhotoViewController () < UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *updateIconView;
+@property (weak, nonatomic) IBOutlet PFImageView *profilePhotoView;
 
 @end
 
@@ -17,9 +19,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    if(PFUser.currentUser[@"profileImage"]){
+        self.profilePhotoView.file = PFUser.currentUser[@"profileImage"];
+    }
+    else{
+        self.profilePhotoView.image = [UIImage imageNamed:@"default_profile_image"];
+    }
+    [self.profilePhotoView loadInBackground];
 }
-//- (IBAction)didTapPhoto:(id)sender {
+
 -(void)onTap{
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"" message:@"Update your profile photo" preferredStyle:(UIAlertControllerStyleActionSheet)];
     
@@ -27,35 +36,41 @@
     [actionSheet addAction:cancelAction];
 
     UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UIImagePickerController *imagePickerController = [UIImagePickerController new];
-        imagePickerController.delegate = self.delegate;
-        imagePickerController.allowsEditing = YES;
-        
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        }
-        else {
-            NSLog(@"Camera 🚫 available display an alert or something");
-        }
-        [self.delegate presentChildViewController:imagePickerController];
-        //[self presentViewController:imagePickerController animated:YES completion:nil];
+        [self openCamera];
     }];
     [actionSheet addAction:cameraAction];
 
     UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:@"Choose from Photos" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UIImagePickerController *imagePickerController = [UIImagePickerController new];
-        imagePickerController.delegate = self.delegate;
-        imagePickerController.allowsEditing = YES;
         
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        
-        [self.delegate presentChildViewController:imagePickerController];
-        //[self presentViewController:imagePickerController animated:YES completion:nil];
+        [self openGallery];
     }];
     [actionSheet addAction:libraryAction];
     
-    [self.delegate presentActions:actionSheet];
-    //[self presentViewController:actionSheet animated:YES completion:^{}];
+    [self.delegate containerViewController:self presentActionSheet:actionSheet];
+}
+
+-(void) openGallery{
+    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self.delegate containerViewController:self presentImagePicker:imagePickerController];
+}
+
+-(void) openCamera{
+    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        NSLog(@"Camera 🚫 available display an alert or something");
+    }
+    [self.delegate containerViewController:self presentImagePicker:imagePickerController];
 }
 
 - (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
@@ -72,7 +87,31 @@
     return newImage;
 }
 
+- (void)didSelectPhoto:(NSData *)imageData{
+    PFUser.currentUser[@"profileImage"] = [PFFileObject fileObjectWithName:@"profile_image.png" data:imageData];
+   __weak typeof(self) weakSelf = self;
+   [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+       __strong typeof(self) strongSelf = weakSelf;
+       if(error != nil){
+           NSLog(@"Error updating profile image");
+           [strongSelf dismissViewControllerAnimated:YES completion:nil];
+       }
+       else{
+           strongSelf.profilePhotoView.file = PFUser.currentUser[@"profileImage"];
+           [strongSelf.profilePhotoView loadInBackground];
+           [strongSelf dismissViewControllerAnimated:YES completion:nil];
+       }
+   }];
+}
 
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    UIImage *resizedImage = [self resizeImage:editedImage withSize:CGSizeMake(200, 200)];
+    NSData *imageData = UIImagePNGRepresentation(resizedImage);
+    
+    [self didSelectPhoto:imageData];
+}
 
 /*
 #pragma mark - Navigation

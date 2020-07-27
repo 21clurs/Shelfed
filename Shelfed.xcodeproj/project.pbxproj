@@ -17,6 +17,7 @@
 		F992B81024C9FFE50044A4CF /* UploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B80F24C9FFE50044A4CF /* UploadPhotoViewController.m */; };
 		F992B81324CB365E0044A4CF /* Upload.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81224CB365E0044A4CF /* Upload.m */; };
 		F992B81624CB43830044A4CF /* UploadCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81524CB43830044A4CF /* UploadCollectionViewController.m */; };
+		F992B81924CB8E260044A4CF /* UploadCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81824CB8E260044A4CF /* UploadCollectionCell.m */; };
 		F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */; };
 		F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F024C0BD5F000FE6F0 /* ShelvesViewController.m */; };
 		F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F324C0C257000FE6F0 /* ShelfCell.m */; };
@@ -82,6 +83,8 @@
 		F992B81224CB365E0044A4CF /* Upload.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Upload.m; sourceTree = "<group>"; };
 		F992B81424CB43830044A4CF /* UploadCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadCollectionViewController.h; sourceTree = "<group>"; };
 		F992B81524CB43830044A4CF /* UploadCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadCollectionViewController.m; sourceTree = "<group>"; };
+		F992B81724CB8E260044A4CF /* UploadCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadCollectionCell.h; sourceTree = "<group>"; };
+		F992B81824CB8E260044A4CF /* UploadCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadCollectionCell.m; sourceTree = "<group>"; };
 		F9A6A2E724BFBD76000FE6F0 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		F9A6A2EF24C0BD5F000FE6F0 /* ShelvesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelvesViewController.h; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 				F9A6A2F624C0FA8D000FE6F0 /* InfiniteScrollActivityView.m */,
 				F9A6A30C24C770A8000FE6F0 /* ShelfCollectionCell.h */,
 				F9A6A30D24C770A8000FE6F0 /* ShelfCollectionCell.m */,
+				F992B81724CB8E260044A4CF /* UploadCollectionCell.h */,
+				F992B81824CB8E260044A4CF /* UploadCollectionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -572,6 +577,7 @@
 				F9A6A31424C88F43000FE6F0 /* BookCellNib.m in Sources */,
 				F9BCCAB124BCEB3900B3CE42 /* AppDelegate.m in Sources */,
 				F9A6A2F724C0FA8D000FE6F0 /* InfiniteScrollActivityView.m in Sources */,
+				F992B81924CB8E260044A4CF /* UploadCollectionCell.m in Sources */,
 				F9B862D524BE5D00000C2E0C /* Book.m in Sources */,
 				F9400F4924BD0F240073FA7C /* BookDetailsViewController.m in Sources */,
 				F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */,

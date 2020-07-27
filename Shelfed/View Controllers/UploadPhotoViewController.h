@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol UploadPhotoViewControllerDelegate <NSObject>
 
--(void)presentActions:(UIAlertController *)actionSheet;
--(void)presentChildViewController:(UIViewController *)childViewController;
+@class UploadPhotoViewController;
+
+@protocol UploadPhotoViewControllerDelegate <NSObject>
+- (void)containerViewController:(UploadPhotoViewController *)uploadPhotoViewController presentActionSheet:(UIAlertController *)actionSheet;
+- (void)containerViewController:(UploadPhotoViewController *)uploadPhotoViewController presentImagePicker:(UIImagePickerController *)imagePicker;
+
 @end
 
 @interface UploadPhotoViewController : UIViewController
