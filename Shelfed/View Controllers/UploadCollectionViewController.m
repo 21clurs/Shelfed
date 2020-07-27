@@ -40,13 +40,23 @@
 -(void)getUserUploads{
     PFRelation *relation = [PFUser.currentUser relationForKey:@"userUploads"];
     PFQuery *relationQuery = [relation query];
-    [relationQuery whereKey:@"associatedBookID" equalTo:self.book.bookID];
-    [relationQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        if(objects){
-            self.uploads = objects;
-            [self.collectionView reloadData];
-        }
-    }];
+    if(self.book != nil){
+        [relationQuery whereKey:@"associatedBookID" equalTo:self.book.bookID];
+        [relationQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if(objects){
+                self.uploads = objects;
+                [self.collectionView reloadData];
+            }
+        }];
+    }
+    else{
+        [relationQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            if(objects){
+                self.uploads = objects;
+                [self.collectionView reloadData];
+            }
+        }];
+    }
 }
 
 -(void)onAddUploadTap{
@@ -104,20 +114,28 @@
 
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.uploads.count+1;
+    if(self.book!=nil)
+        return self.uploads.count+1;
+    else
+        return self.uploads.count;
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     UploadCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UploadCollectionCell" forIndexPath:indexPath];
-    if(indexPath.item ==0){
-        cell.uploadPhotoView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAddUploadTap)];
-        [cell addGestureRecognizer:tapRecognizer];
+    if(self.book != nil){
+        if(indexPath.item ==0){
+            cell.uploadPhotoView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
+            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAddUploadTap)];
+            [cell addGestureRecognizer:tapRecognizer];
+        }
+        else{
+            cell.uploadPhotoView.file = [self.uploads[indexPath.item-1] uploadImageFile];
+            [cell.uploadPhotoView loadInBackground];
+        }
     }
     else{
-        cell.uploadPhotoView.file = [self.uploads[indexPath.item-1] uploadImageFile];
+        cell.uploadPhotoView.file = [self.uploads[indexPath.item] uploadImageFile];
         [cell.uploadPhotoView loadInBackground];
-        //display the uploaded content
     }
     return cell;
 }

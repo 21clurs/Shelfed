@@ -25,7 +25,7 @@
 @implementation BookDetailsViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];\
+    [super viewDidLoad];
 }
 
 - (void)setBook:(Book *)book{
@@ -41,7 +41,7 @@
     [relationQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         if(object!=nil){
             self.isFavorite = YES;
-            self.book = (Book *) object;
+            //self.book = (Book *) object;
         }
         else{
             self.isFavorite = NO;
