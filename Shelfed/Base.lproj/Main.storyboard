@@ -466,7 +466,7 @@
                                 <rect key="frame" x="20" y="254.5" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <segue destination="GWp-ON-fSh" kind="presentation" id="5xg-EH-BEG"/>
+                                    <segue destination="8nc-BO-0a2" kind="show" identifier="showUploadsSegue" id="gml-9o-vy5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -530,7 +530,8 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="O9v-sf-5n3" customClass="PFImageView">
                                                     <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                    <color key="backgroundColor" red="0.74121493101119995" green="0.9397314190864563" blue="0.90601444244384766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -564,7 +565,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tTI-D1-XMX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="486.95652173913049" y="1931.9196428571427"/>
+            <point key="canvasLocation" x="-104" y="1932"/>
         </scene>
         <!--Shelf View Controller-->
         <scene sceneID="Dft-gX-atQ">
@@ -885,24 +886,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7OT-mf-c13" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2798.5507246376815" y="900"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="lgb-8q-xx2">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GWp-ON-fSh" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pGw-ZR-OUv">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="8nc-BO-0a2" kind="relationship" relationship="rootViewController" id="gjG-Jg-oK4"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="97s-au-aoo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-152.17391304347828" y="1931.9196428571427"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

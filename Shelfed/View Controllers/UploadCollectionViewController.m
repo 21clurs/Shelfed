@@ -10,10 +10,14 @@
 #import "UploadPhotoViewController.h"
 #import "Parse/Parse.h"
 #import "UploadCollectionCell.h"
+#import "UploadImageHelper.h"
+#import "Upload.h"
+@import Parse;
 
-@interface UploadCollectionViewController () < UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout /*, UIImagePickerControllerDelegate, UINavigationControllerDelegate*/ >
+@interface UploadCollectionViewController () < UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
+@property (strong,nonatomic) NSArray<Upload *> *uploads;
 
 @end
 
@@ -21,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self getUserUploads];
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -30,6 +36,61 @@
     self.flowLayout.minimumInteritemSpacing = 2;
     self.flowLayout.sectionInset = UIEdgeInsetsMake(8, 8, 8, 8);
 }
+
+-(void)getUserUploads{
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"userUploads"];
+    PFQuery *relationQuery = [relation query];
+    [relationQuery whereKey:@"associatedBookID" equalTo:self.book.bookID];
+    [relationQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if(objects){
+            self.uploads = objects;
+            [self.collectionView reloadData];
+        }
+    }];
+}
+
+-(void)onAddUploadTap{
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"" message:@"Update your profile photo" preferredStyle:(UIAlertControllerStyleActionSheet)];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+    [actionSheet addAction:cancelAction];
+
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self openCamera];
+    }];
+    [actionSheet addAction:cameraAction];
+
+    UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:@"Choose from Photos" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self openGallery];
+    }];
+    [actionSheet addAction:libraryAction];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+-(void) openGallery{
+    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+-(void) openCamera{
+    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        NSLog(@"Camera 🚫 available");
+    }
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -41,6 +102,46 @@
 
 }
 
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.uploads.count+1;
+}
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UploadCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UploadCollectionCell" forIndexPath:indexPath];
+    if(indexPath.item ==0){
+        cell.uploadPhotoView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAddUploadTap)];
+        [cell addGestureRecognizer:tapRecognizer];
+    }
+    else{
+        cell.uploadPhotoView.file = [self.uploads[indexPath.item-1] uploadImageFile];
+        [cell.uploadPhotoView loadInBackground];
+        //display the uploaded content
+    }
+    return cell;
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    CGSize size = CGSizeMake(200, 200);
+    UIImage *resizedImage = [UploadImageHelper resizeImage:editedImage withSize:size];
+    
+    NSData *imageData = UIImagePNGRepresentation(resizedImage);
+    
+    Upload *upload = [[Upload alloc] initWithImageFile:imageData andBook:self.book];
+
+    [upload saveUploadToParseWithCompletion:^(NSError * _Nonnull error) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        if(error==nil){
+            [self getUserUploads];
+        }
+    }];
+ 
+};
+
+
 /*
 #pragma mark - Navigation
 
@@ -50,51 +151,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
-    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    
-    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
-    resizeImageView.image = image;
-    
-    UIGraphicsBeginImageContext(size);
-    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
-
--(void)onAddUploadTap{
-    
-}
-
-#pragma mark - UICollectionViewDataSource
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 5;
-}
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    UploadCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UploadCollectionCell" forIndexPath:indexPath];
-    if(indexPath.item ==0){
-        cell.uploadPhotoView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(onAddUploadTap)];
-        [cell addGestureRecognizer:tapRecognizer];
-    }
-    
-    else{
-        
-    }
-    
-    return cell;
-}
-
-#pragma mark - UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-    CGSize size = CGSizeMake(200, 200);
-    UIImage *resizedImage = [self resizeImage:editedImage withSize:size];
-    
-    NSData *imageData = UIImagePNGRepresentation(resizedImage);
-};
 
 @end

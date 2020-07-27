@@ -7,6 +7,7 @@
 //
 
 #import "UploadPhotoViewController.h"
+#import "UploadImageHelper.h"
 @import Parse;
 
 @interface UploadPhotoViewController () < UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -68,23 +69,9 @@
         imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     }
     else {
-        NSLog(@"Camera 🚫 available display an alert or something");
+        NSLog(@"Camera 🚫 available");
     }
     [self.delegate containerViewController:self presentImagePicker:imagePickerController];
-}
-
-- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
-    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    
-    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
-    resizeImageView.image = image;
-    
-    UIGraphicsBeginImageContext(size);
-    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
 }
 
 - (void)didSelectPhoto:(NSData *)imageData{
@@ -107,7 +94,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-    UIImage *resizedImage = [self resizeImage:editedImage withSize:CGSizeMake(200, 200)];
+    UIImage *resizedImage = [UploadImageHelper resizeImage:editedImage withSize:CGSizeMake(200,200)];
     NSData *imageData = UIImagePNGRepresentation(resizedImage);
     
     [self didSelectPhoto:imageData];

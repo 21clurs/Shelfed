@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Book.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UploadCollectionViewController : UIViewController
+@property (nonatomic,strong) Book *book;
 
 @end
 

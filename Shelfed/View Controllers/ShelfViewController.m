@@ -14,7 +14,6 @@
 
 @interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-//@property (strong, nonatomic) NSArray<NSString *> *titlesInShelf;
 @property (strong, nonatomic) NSArray<Book *> *booksInShelf;
 
 @end

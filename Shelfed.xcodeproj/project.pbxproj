@@ -12,12 +12,12 @@
 		68C7CDB4D59C562081866973 /* Pods_Shelfed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42A54FC1AE561A189AF9A3 /* Pods_Shelfed.framework */; };
 		F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4524BD0EFF0073FA7C /* HomeViewController.m */; };
 		F9400F4924BD0F240073FA7C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */; };
-		F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */; };
 		F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */; };
 		F992B81024C9FFE50044A4CF /* UploadPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B80F24C9FFE50044A4CF /* UploadPhotoViewController.m */; };
 		F992B81324CB365E0044A4CF /* Upload.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81224CB365E0044A4CF /* Upload.m */; };
 		F992B81624CB43830044A4CF /* UploadCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81524CB43830044A4CF /* UploadCollectionViewController.m */; };
 		F992B81924CB8E260044A4CF /* UploadCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81824CB8E260044A4CF /* UploadCollectionCell.m */; };
+		F992B81C24CF381B0044A4CF /* UploadImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81B24CF381B0044A4CF /* UploadImageHelper.m */; };
 		F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */; };
 		F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F024C0BD5F000FE6F0 /* ShelvesViewController.m */; };
 		F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F324C0C257000FE6F0 /* ShelfCell.m */; };
@@ -73,8 +73,6 @@
 		F9400F4524BD0EFF0073FA7C /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		F9400F4724BD0F240073FA7C /* BookDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookDetailsViewController.h; sourceTree = "<group>"; };
 		F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookDetailsViewController.m; sourceTree = "<group>"; };
-		F9400F4F24BD18B20073FA7C /* GoodreadsAPIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodreadsAPIManager.h; sourceTree = "<group>"; };
-		F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodreadsAPIManager.m; sourceTree = "<group>"; };
 		F9400F5224BE355D0073FA7C /* GoogleBooksAPIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleBooksAPIManager.h; sourceTree = "<group>"; };
 		F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleBooksAPIManager.m; sourceTree = "<group>"; };
 		F992B80E24C9FFE50044A4CF /* UploadPhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadPhotoViewController.h; sourceTree = "<group>"; };
@@ -85,6 +83,8 @@
 		F992B81524CB43830044A4CF /* UploadCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadCollectionViewController.m; sourceTree = "<group>"; };
 		F992B81724CB8E260044A4CF /* UploadCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadCollectionCell.h; sourceTree = "<group>"; };
 		F992B81824CB8E260044A4CF /* UploadCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadCollectionCell.m; sourceTree = "<group>"; };
+		F992B81A24CF381B0044A4CF /* UploadImageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadImageHelper.h; sourceTree = "<group>"; };
+		F992B81B24CF381B0044A4CF /* UploadImageHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadImageHelper.m; sourceTree = "<group>"; };
 		F9A6A2E724BFBD76000FE6F0 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		F9A6A2EF24C0BD5F000FE6F0 /* ShelvesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelvesViewController.h; sourceTree = "<group>"; };
@@ -230,8 +230,6 @@
 		F9400F4E24BD187E0073FA7C /* API */ = {
 			isa = PBXGroup;
 			children = (
-				F9400F4F24BD18B20073FA7C /* GoodreadsAPIManager.h */,
-				F9400F5024BD18B20073FA7C /* GoodreadsAPIManager.m */,
 				F9400F5224BE355D0073FA7C /* GoogleBooksAPIManager.h */,
 				F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */,
 			);
@@ -254,6 +252,8 @@
 			children = (
 				F9A6A2F824C64152000FE6F0 /* AddRemoveBooksHelper.h */,
 				F9A6A2F924C64152000FE6F0 /* AddRemoveBooksHelper.m */,
+				F992B81A24CF381B0044A4CF /* UploadImageHelper.h */,
+				F992B81B24CF381B0044A4CF /* UploadImageHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -570,6 +570,7 @@
 				F992B81324CB365E0044A4CF /* Upload.m in Sources */,
 				F992B81624CB43830044A4CF /* UploadCollectionViewController.m in Sources */,
 				F992B81024C9FFE50044A4CF /* UploadPhotoViewController.m in Sources */,
+				F992B81C24CF381B0044A4CF /* UploadImageHelper.m in Sources */,
 				F9A6A2FA24C64152000FE6F0 /* AddRemoveBooksHelper.m in Sources */,
 				F9A6A30E24C770A8000FE6F0 /* ShelfCollectionCell.m in Sources */,
 				F9A6A30924C7497E000FE6F0 /* ShelfViewController.m in Sources */,
@@ -587,7 +588,6 @@
 				F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */,
 				F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */,
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
-				F9400F5124BD18B20073FA7C /* GoodreadsAPIManager.m in Sources */,
 				F9B862DE24BF706B000C2E0C /* ProfileViewController.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
 				F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */,

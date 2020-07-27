@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "Book.h"
 #import "AddRemoveBooksHelper.h"
+#import "UploadCollectionViewController.h"
 
 @interface BookDetailsViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -89,14 +90,18 @@
     }
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"showUploadsSegue"]){
+        UploadCollectionViewController *uploadCollectionViewController = [segue destinationViewController];
+        uploadCollectionViewController.book = self.book;
+    }
 }
-*/
+
 
 @end

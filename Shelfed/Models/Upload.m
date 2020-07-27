@@ -11,17 +11,37 @@
 @implementation Upload
 
 @dynamic uploadImageFile;
-@dynamic associatedBook;
+@dynamic associatedBookID;
 
 + (nonnull NSString *)parseClassName {
     return @"Upload";
 }
 
-- (id)initWithImageFile:(PFFileObject *)file andBook:(Book *)book{
+- (id)initWithImageFile:(NSData *)imageData andBook:(Book *)book{
     self = [super init];
-    self.uploadImageFile = file;
-    self.associatedBook = book;
+    
+    self.uploadImageFile = [PFFileObject fileObjectWithName:@"upload_image.png" data:imageData];
+    self.associatedBookID = book.bookID;
     return self;
+}
+
+-(void)saveUploadToParseWithCompletion: (void(^)(NSError *error))completion{
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error!=nil){
+            NSLog(@"Error saving upload to Parse");
+            completion(error);
+        }
+        else{
+            PFRelation *relation = [PFUser.currentUser relationForKey:@"userUploads"];
+            [relation addObject:self];
+            [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error!=nil)
+                    completion(error);
+                else
+                    completion(nil);
+            }];
+        }
+    }];
 }
 
 @end

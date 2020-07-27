@@ -14,8 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Upload : PFObject<PFSubclassing>
 
 @property (strong, nonatomic)PFFileObject *uploadImageFile;
-@property (strong, nonatomic)Book *associatedBook;
+@property (strong, nonatomic)NSString *associatedBookID;
 
+- (id)initWithImageFile:(NSData *)imageData andBook:(Book *)book;
+- (void)saveUploadToParseWithCompletion: (void(^)(NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END
