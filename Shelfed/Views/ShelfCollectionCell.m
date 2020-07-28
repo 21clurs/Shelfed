@@ -9,17 +9,18 @@
 #import "ShelfCollectionCell.h"
 
 @implementation ShelfCollectionCell
+
 -(void)setShelfName:(NSString *)shelfName{
     _shelfName = shelfName;
     
     self.shelfNameLabel.text = shelfName;
-    /*
-     if([shelfName isEqualToString:@"Read"]){
-        [self.shelfIconView setImage:[UIImage systemImageNamed:@"checkmark.seal.fill"]];
+    
+    if([shelfName isEqualToString:@"Read"]){
+        [self.shelfPicView setImage:[UIImage imageNamed:@"BookShelf1"]];
     }
     else if([shelfName isEqualToString:@"Reading"]){
-        [self.shelfIconView setImage:[UIImage systemImageNamed:@"bookmark.fill"]];
+        [self.shelfPicView setImage:[UIImage imageNamed:@"BookShelf2"]];
     }
-     */
 }
+
 @end

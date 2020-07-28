@@ -16,16 +16,6 @@ PODS:
     - AFNetworking/NSURLSession
   - Bolts/Tasks (1.9.1)
   - DZNEmptyDataSet (1.8.1)
-  - FBSDKCoreKit (7.1.1):
-    - FBSDKCoreKit/Basics (= 7.1.1)
-    - FBSDKCoreKit/Core (= 7.1.1)
-  - FBSDKCoreKit/Basics (7.1.1)
-  - FBSDKCoreKit/Core (7.1.1):
-    - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (7.1.1):
-    - FBSDKLoginKit/Login (= 7.1.1)
-  - FBSDKLoginKit/Login (7.1.1):
-    - FBSDKCoreKit (~> 7.1.1)
   - MBProgressHUD (1.2.0)
   - Parse (1.18.0):
     - Parse/Core (= 1.18.0)
@@ -37,7 +27,6 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - DZNEmptyDataSet
-  - FBSDKLoginKit
   - MBProgressHUD
   - Parse
   - Parse/UI
@@ -47,8 +36,6 @@ SPEC REPOS:
     - AFNetworking
     - Bolts
     - DZNEmptyDataSet
-    - FBSDKCoreKit
-    - FBSDKLoginKit
     - MBProgressHUD
     - Parse
 
@@ -56,11 +43,9 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
-  FBSDKLoginKit: 1a61d79e2b25e2fc0d03dccab1e34b38bbdf2546
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
 
-PODFILE CHECKSUM: 3adfd3f73b44ed6c930e02be90dbcfdb38acf877
+PODFILE CHECKSUM: 9f1e54b178db9c30fd85927cd1723bface16497e
 
 COCOAPODS: 1.9.3

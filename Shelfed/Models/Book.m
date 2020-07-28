@@ -20,6 +20,8 @@
 @dynamic coverArt;
 
 @dynamic publishedDate;
+@dynamic printType;
+@dynamic categories;
 @dynamic bookID;
 @dynamic isbn13;
 @dynamic pages;
@@ -63,6 +65,12 @@
     
     if(volumeInfo[@"publishedDate"]!=nil){
         self.publishedDate = volumeInfo[@"publishedDate"];
+    }
+    if(volumeInfo[@"printType"]!=nil){
+        self.printType = volumeInfo[@"printType"];
+    }
+    if(volumeInfo[@"categories"]!=nil){
+        self.categories = volumeInfo[@"categories"];
     }
     
     for(NSDictionary *dict in volumeInfo[@"industryIdentifiers"]){

@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *coverArt;
 
 @property (strong, nonatomic) NSString *publishedDate;
+@property (strong, nonatomic) NSString *printType;
+@property (strong, nonatomic) NSArray *categories;
 @property (strong, nonatomic) NSString *bookID;
 @property (strong, nonatomic) NSString *isbn13;
 @property (strong, nonatomic) NSNumber *pages;

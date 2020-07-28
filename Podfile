@@ -11,7 +11,6 @@ target 'Shelfed' do
   pod 'Parse/UI'
   pod 'MBProgressHUD'
   pod 'DZNEmptyDataSet'
-  pod 'FBSDKLoginKit'
 
   target 'ShelfedTests' do
     inherit! :search_paths

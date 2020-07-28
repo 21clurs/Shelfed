@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *shelfNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *shelfPicView;
 @property (strong,nonatomic) NSString *shelfName;
+@property (strong, nonatomic) UIVisualEffectView *effectView;
 
 @end
 
