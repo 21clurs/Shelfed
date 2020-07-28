@@ -7,6 +7,9 @@
 //
 
 #import "FilterSelectionViewController.h"
+#import "FilterByPagesCell.h"
+#import "FilterByPublishCell.h"
+#import "FilterByGenreCell.h"
 
 @interface FilterSelectionViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -24,13 +27,64 @@
 }
 
 #pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 3;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    if (section == 2)
+        return 4;
+    else
+        return 2;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterOptionCell"];
-    return cell;
+    if(indexPath.section == 0){
+         FilterByPagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPagesCell"];
+        if(indexPath.row == 0)
+            cell.lessThan = YES;
+        else
+            cell.lessThan = NO;
+        return cell;
+    }
+    else if(indexPath.section == 1){
+        FilterByPublishCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPublishCell"];
+        if(indexPath.row == 0)
+            cell.beforeYear = YES;
+        else
+            cell.beforeYear = NO;
+        return cell;
+    }
+    else{
+        FilterByGenreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByGenreCell"];
+        switch (indexPath.row) {
+            case 0:
+                cell.genre = @"Fiction";
+                break;
+            case 1:
+                cell.genre = @"Nonfiction";
+                break;
+            case 2:
+                cell.genre = @"Juvenile Fiction";
+                break;
+            default:
+                cell.genre = @"Other";
+                break;
+        }
+        return cell;
+    }
+}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    switch (section) {
+        case 0:
+            return @"Page Count";
+            break;
+        case 1:
+            return @"Year Published";
+            break;
+        default:
+            return @"Genre";
+            break;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([tableView cellForRowAtIndexPath:indexPath].accessoryType == UITableViewCellAccessoryCheckmark){
@@ -40,6 +94,13 @@
         [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:true];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 40;
+}
+- (IBAction)didTapApplyFilters:(id)sender {
+    [self.delegate applyFilters];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

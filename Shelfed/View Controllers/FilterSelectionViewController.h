@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol FilterSelectionViewControllerDelegate <NSObject>
+-(void)applyFilters;
+@end
 
 @interface FilterSelectionViewController : UIViewController
-
+@property (weak,nonatomic)id<FilterSelectionViewControllerDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

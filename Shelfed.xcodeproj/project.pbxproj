@@ -19,6 +19,9 @@
 		F992B81924CB8E260044A4CF /* UploadCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81824CB8E260044A4CF /* UploadCollectionCell.m */; };
 		F992B81C24CF381B0044A4CF /* UploadImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81B24CF381B0044A4CF /* UploadImageHelper.m */; };
 		F992B81F24CF986F0044A4CF /* FilterSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B81E24CF986F0044A4CF /* FilterSelectionViewController.m */; };
+		F992B82424D0D1090044A4CF /* FilterByPublishCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B82324D0D1090044A4CF /* FilterByPublishCell.m */; };
+		F992B82A24D0D1560044A4CF /* FilterByPagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B82924D0D1550044A4CF /* FilterByPagesCell.m */; };
+		F992B82D24D0D1630044A4CF /* FilterByGenreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F992B82C24D0D1630044A4CF /* FilterByGenreCell.m */; };
 		F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */; };
 		F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F024C0BD5F000FE6F0 /* ShelvesViewController.m */; };
 		F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A6A2F324C0C257000FE6F0 /* ShelfCell.m */; };
@@ -88,6 +91,12 @@
 		F992B81B24CF381B0044A4CF /* UploadImageHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadImageHelper.m; sourceTree = "<group>"; };
 		F992B81D24CF986F0044A4CF /* FilterSelectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterSelectionViewController.h; sourceTree = "<group>"; };
 		F992B81E24CF986F0044A4CF /* FilterSelectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterSelectionViewController.m; sourceTree = "<group>"; };
+		F992B82224D0D1090044A4CF /* FilterByPublishCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterByPublishCell.h; sourceTree = "<group>"; };
+		F992B82324D0D1090044A4CF /* FilterByPublishCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterByPublishCell.m; sourceTree = "<group>"; };
+		F992B82824D0D1550044A4CF /* FilterByPagesCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterByPagesCell.h; sourceTree = "<group>"; };
+		F992B82924D0D1550044A4CF /* FilterByPagesCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterByPagesCell.m; sourceTree = "<group>"; };
+		F992B82B24D0D1630044A4CF /* FilterByGenreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterByGenreCell.h; sourceTree = "<group>"; };
+		F992B82C24D0D1630044A4CF /* FilterByGenreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterByGenreCell.m; sourceTree = "<group>"; };
 		F9A6A2E724BFBD76000FE6F0 /* FavoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		F9A6A2E824BFBD76000FE6F0 /* FavoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		F9A6A2EF24C0BD5F000FE6F0 /* ShelvesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShelvesViewController.h; sourceTree = "<group>"; };
@@ -218,6 +227,7 @@
 		F9400F4A24BD10990073FA7C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F992B82124D0D0960044A4CF /* Filtering Cell Views */,
 				F9A6A31224C88F43000FE6F0 /* BookCellNib.h */,
 				F9A6A31324C88F43000FE6F0 /* BookCellNib.m */,
 				F9A6A2F224C0C257000FE6F0 /* ShelfCell.h */,
@@ -239,6 +249,26 @@
 				F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		F992B82024D09A790044A4CF /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		F992B82124D0D0960044A4CF /* Filtering Cell Views */ = {
+			isa = PBXGroup;
+			children = (
+				F992B82224D0D1090044A4CF /* FilterByPublishCell.h */,
+				F992B82324D0D1090044A4CF /* FilterByPublishCell.m */,
+				F992B82824D0D1550044A4CF /* FilterByPagesCell.h */,
+				F992B82924D0D1550044A4CF /* FilterByPagesCell.m */,
+				F992B82B24D0D1630044A4CF /* FilterByGenreCell.h */,
+				F992B82C24D0D1630044A4CF /* FilterByGenreCell.m */,
+			);
+			path = "Filtering Cell Views";
 			sourceTree = "<group>";
 		};
 		F9A6A30A24C76987000FE6F0 /* Models */ = {
@@ -296,6 +326,7 @@
 		F9BCCAAE24BCEB3900B3CE42 /* Shelfed */ = {
 			isa = PBXGroup;
 			children = (
+				F992B82024D09A790044A4CF /* Categories */,
 				F9A6A30F24C88EC1000FE6F0 /* Nibs */,
 				F9A6A30B24C769A0000FE6F0 /* Helpers */,
 				F9A6A30A24C76987000FE6F0 /* Models */,
@@ -588,12 +619,15 @@
 				F992B81F24CF986F0044A4CF /* FilterSelectionViewController.m in Sources */,
 				F9400F4924BD0F240073FA7C /* BookDetailsViewController.m in Sources */,
 				F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */,
+				F992B82A24D0D1560044A4CF /* FilterByPagesCell.m in Sources */,
 				F9BCCAC224BCEB3A00B3CE42 /* main.m in Sources */,
 				F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */,
 				F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */,
 				F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */,
+				F992B82424D0D1090044A4CF /* FilterByPublishCell.m in Sources */,
 				F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */,
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
+				F992B82D24D0D1630044A4CF /* FilterByGenreCell.m in Sources */,
 				F9B862DE24BF706B000C2E0C /* ProfileViewController.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
 				F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */,
