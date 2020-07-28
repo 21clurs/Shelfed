@@ -96,10 +96,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40;
+    if(section == 0)
+        return 40;                  //FIX THIS LATER
+    else
+        return 20;
 }
 - (IBAction)didTapApplyFilters:(id)sender {
     [self.delegate applyFilters];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)didTapClose:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
