@@ -19,6 +19,9 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    
+    [self.enterYearField resignFirstResponder];
+    
     if(selected == YES){
         [self.delegate filterByPublishCellSelected:YES before:self.beforeYear];
         self.accessoryType = UITableViewCellAccessoryCheckmark;

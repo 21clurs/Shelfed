@@ -21,6 +21,8 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
+    [self.pageCountField resignFirstResponder];
+    
     if(selected == YES){
         [self.delegate filterByPagesCellSelected:YES lessThan:self.lessThan];
         self.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -40,11 +42,10 @@
     }
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    //[self setSelected:YES animated:YES];
 }
+
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     [self.delegate filterWithNumPages:[self.pageCountField.text intValue] lessThan:self.lessThan];
 }
-
 
 @end

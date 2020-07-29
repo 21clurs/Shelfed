@@ -76,7 +76,37 @@
 
 #pragma mark - FilterSelectionViewControllerDelegate
 -(void)applyFilters:(NSDictionary *)pagesPublishValuesDict withSelected:(NSDictionary *)pagesPublishSelectedDict andGenres:(NSArray *) genresArray;{
+    for(NSString *key in pagesPublishSelectedDict){
+        if(pagesPublishSelectedDict[key] == [NSNumber numberWithBool:YES] && pagesPublishValuesDict[key]!=nil){
+            NSPredicate *predicate;
+            if([key isEqualToString:@"PagesLess"]){
+                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                    return ([evaluatedBook.pages intValue] <= [pagesPublishValuesDict[key] intValue]);
+                }];
+            }
+            else if([key isEqualToString:@"PagesGreater"]){
+                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                    return ([evaluatedBook.pages intValue] >= [pagesPublishValuesDict[key] intValue]);
+                }];
+            }
+            /*
+            else if([key isEqualToString:@"PublishedBefore"]){
+                NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                    return evaluatedBook.publishedDate < pagesPublishValuesDict[key];
+                }];
+            }
+            else if([key isEqualToString:@"PublishedAfter"]){
+                NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                    return evaluatedBook.publishedDate < pagesPublishValuesDict[key];
+                }];
+            }
+            */
+            self.favoriteBooks = [[self.favoriteBooks filteredArrayUsingPredicate:predicate] mutableCopy];
+            [self.tableView reloadData];
+        }
+    }
     
+    /*
     PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
     PFQuery *query = [relation query];
     
@@ -86,20 +116,34 @@
                 [query whereKey:@"pages" lessThan:pagesPublishValuesDict[key]];
             else if([key isEqualToString:@"PagesGreater"])
                 [query whereKey:@"pages" greaterThan:pagesPublishValuesDict[key]];
-            /*
+            
             else if([key isEqualToString:@"PublishedBefore"])
                 [query whereKey:@"publishedDate" lessThan:pagesPublishValuesDict[key]];
             else if([key isEqualToString:@"PublishedAfter"])
                 [query whereKey:@"publishedDate" greaterThan:pagesPublishValuesDict[key]];
-             */
+             
         }
     }
     
     for(NSString *genre in genresArray){
-        [query whereKey:@"categories" containsString:genre];
+        if([genre isEqualToString:@"Other"]){
+            [query whereKey:@"categories" doesNotMatchQuery:query];
+        }
+        else{
+            [query whereKey:@"categories" containsString:genre];
+        }
+        if([genre isEqualToString:@"Nonfiction"]){
+            [query whereKey:@"categories" containsString:@"Art"];
+            [query whereKey:@"categories" containsString:@"Science"];
+            [query whereKey:@"categories" containsString:@"History"];
+            [query whereKey:@"categories" containsString:@"Music"];
+            [query whereKey:@"categories" containsString:@"Computers"];
+            [query whereKey:@"categories" containsString:@"English"];
+            [query whereKey:@"categories" containsString:@"Art"];
+        }
     }
     [self queryBooksWithQuery:query];
-  
+     */
 }
 
 
