@@ -106,44 +106,37 @@
         }
     }
     
-    /*
-    PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
-    PFQuery *query = [relation query];
-    
-    for(NSString *key in pagesPublishSelectedDict){
-        if(pagesPublishSelectedDict[key] == [NSNumber numberWithBool:YES] && pagesPublishValuesDict[key]!=nil){
-            if([key isEqualToString:@"PagesLess"])
-                [query whereKey:@"pages" lessThan:pagesPublishValuesDict[key]];
-            else if([key isEqualToString:@"PagesGreater"])
-                [query whereKey:@"pages" greaterThan:pagesPublishValuesDict[key]];
-            
-            else if([key isEqualToString:@"PublishedBefore"])
-                [query whereKey:@"publishedDate" lessThan:pagesPublishValuesDict[key]];
-            else if([key isEqualToString:@"PublishedAfter"])
-                [query whereKey:@"publishedDate" greaterThan:pagesPublishValuesDict[key]];
-             
-        }
-    }
-    
     for(NSString *genre in genresArray){
+        NSPredicate *predicate;
         if([genre isEqualToString:@"Other"]){
-            [query whereKey:@"categories" doesNotMatchQuery:query];
+            NSArray *otherHelperArr = [[NSArray alloc] initWithObjects:@"Fiction",@"Nonfiction",@"Juvenile Fiction",@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil];
+            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                for(NSString *category in evaluatedBook.categories){
+                    if([otherHelperArr containsObject:category])
+                        return false;
+                }
+                return true;
+            }];
         }
         else{
-            [query whereKey:@"categories" containsString:genre];
+            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                return ([evaluatedBook.categories containsObject:genre]);
+            }];
         }
         if([genre isEqualToString:@"Nonfiction"]){
-            [query whereKey:@"categories" containsString:@"Art"];
-            [query whereKey:@"categories" containsString:@"Science"];
-            [query whereKey:@"categories" containsString:@"History"];
-            [query whereKey:@"categories" containsString:@"Music"];
-            [query whereKey:@"categories" containsString:@"Computers"];
-            [query whereKey:@"categories" containsString:@"English"];
-            [query whereKey:@"categories" containsString:@"Art"];
+            NSArray *nonfictionHelperArr = [[NSArray alloc] initWithObjects:@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil];
+            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                for(NSString *category in evaluatedBook.categories){
+                    if([nonfictionHelperArr containsObject:category])
+                        return true;
+                }
+                return false;
+            }];
         }
+
+        self.favoriteBooks = [[self.favoriteBooks filteredArrayUsingPredicate:predicate] mutableCopy];
+        [self.tableView reloadData];
     }
-    [self queryBooksWithQuery:query];
-     */
 }
 
 
