@@ -139,49 +139,6 @@
             break;
     }
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    /*
-    if([tableView cellForRowAtIndexPath:indexPath].accessoryType == UITableViewCellAccessoryCheckmark){
-        
-        if(indexPath.section == 0 && indexPath.row == 0)
-            self.pagesPublishSelectedDict[@"PagesLess"] = [NSNumber numberWithBool:NO];
-        else if(indexPath.section == 0 && indexPath.row == 1)
-            self.pagesPublishSelectedDict[@"PagesGreater"] = [NSNumber numberWithBool:NO];
-        else if(indexPath.section == 1 && indexPath.row == 0)
-            self.pagesPublishSelectedDict[@"PublishedBefore"] = [NSNumber numberWithBool:NO];
-        else if(indexPath.section == 1 && indexPath.row == 1)
-            self.pagesPublishSelectedDict[@"PublishedAfter"] = [NSNumber numberWithBool:NO];
-        else
-        
-        if(indexPath.section == 2){
-            [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-            FilterByGenreCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            [self.genresSelectedArray removeObject:cell.genre];
-        }
-        
-    }
-    else{
-        
-        if(indexPath.section == 0 && indexPath.row == 0)
-            self.pagesPublishSelectedDict[@"PagesLess"] = [NSNumber numberWithBool:YES];
-        else if(indexPath.section == 0 && indexPath.row == 1)
-            self.pagesPublishSelectedDict[@"PagesGreater"] = [NSNumber numberWithBool:YES];
-        else if(indexPath.section == 1 && indexPath.row == 0)
-            self.pagesPublishSelectedDict[@"PublishedBefore"] = [NSNumber numberWithBool:YES];
-        else if(indexPath.section == 1 && indexPath.row == 1)
-            self.pagesPublishSelectedDict[@"PublishedAfter"] = [NSNumber numberWithBool:YES];
-        else
-        
-        if(indexPath.section == 2){
-            [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-            FilterByGenreCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            [self.genresSelectedArray addObject:cell.genre];
-        }
-        
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:true];
-    */
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if(section == 0)
         return 40;                  //FIX THIS LATER

@@ -46,10 +46,14 @@
 -(void) reloadFavorites{
     PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
     PFQuery *query = [relation query];
+    [self queryBooksWithQuery:query];
+}
+
+-(void)queryBooksWithQuery:(PFQuery *)query{
     [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
         if(error!=nil){
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error getting favorites" message:@"There was an error loading your favorites" preferredStyle:UIAlertControllerStyleAlert];
-            
+
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
             [alert addAction:okAction];
             
@@ -57,7 +61,7 @@
                 [self reloadFavorites];
             }];
             [alert addAction:retryAction];
-            
+
             [self presentViewController:alert animated:YES completion:nil];
         }
         else{
@@ -76,18 +80,25 @@
     PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
     PFQuery *query = [relation query];
     
+    for(NSString *key in pagesPublishSelectedDict){
+        if(pagesPublishSelectedDict[key] == [NSNumber numberWithBool:YES] && pagesPublishValuesDict[key]!=nil){
+            if([key isEqualToString:@"PagesLess"])
+                [query whereKey:@"pages" lessThan:pagesPublishValuesDict[key]];
+            else if([key isEqualToString:@"PagesGreater"])
+                [query whereKey:@"pages" greaterThan:pagesPublishValuesDict[key]];
+            /*
+            else if([key isEqualToString:@"PublishedBefore"])
+                [query whereKey:@"publishedDate" lessThan:pagesPublishValuesDict[key]];
+            else if([key isEqualToString:@"PublishedAfter"])
+                [query whereKey:@"publishedDate" greaterThan:pagesPublishValuesDict[key]];
+             */
+        }
+    }
+    
     for(NSString *genre in genresArray){
         [query whereKey:@"categories" containsString:genre];
     }
-    [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable objects, NSError * _Nullable error) {
-        if(objects){
-            self.favoriteBooks = [objects mutableCopy];
-            if(self.favoriteBooks.count>0){
-                self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-            }
-            [self.tableView reloadData];
-        }
-    }];
+    [self queryBooksWithQuery:query];
   
 }
 
