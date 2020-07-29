@@ -13,8 +13,9 @@
 #import "BookDetailsViewController.h"
 #import "AddRemoveBooksHelper.h"
 #import "SelectShelfViewController.h"
+#import "FilterSelectionViewController.h"
 
-@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
+@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
 
@@ -67,6 +68,27 @@
             [self.tableView reloadData];
         }
     }];
+}
+
+#pragma mark - FilterSelectionViewControllerDelegate
+-(void)applyFilters:(NSDictionary *)pagesPublishValuesDict withSelected:(NSDictionary *)pagesPublishSelectedDict andGenres:(NSArray *) genresArray;{
+    
+    PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
+    PFQuery *query = [relation query];
+    
+    for(NSString *genre in genresArray){
+        [query whereKey:@"categories" containsString:genre];
+    }
+    [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable objects, NSError * _Nullable error) {
+        if(objects){
+            self.favoriteBooks = [objects mutableCopy];
+            if(self.favoriteBooks.count>0){
+                self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            }
+            [self.tableView reloadData];
+        }
+    }];
+  
 }
 
 
@@ -135,12 +157,9 @@
     //NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
     
     if([segue.identifier isEqualToString:@"bookDetailsSegue"]){
-        
         NSIndexPath *indexPath = sender;
         BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
         bookDetailsViewController.book = self.favoriteBooks[indexPath.row];
-        
-
     }
     else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
         //NSString *bookID = sender;
@@ -149,6 +168,11 @@
         SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
         selectShelfViewController.addBook = book;
         selectShelfViewController.delegate = self;
+    }
+    else if([segue.identifier isEqualToString:@"filterSelectionSegue"]){
+        UINavigationController *navigationController = [segue destinationViewController];
+        FilterSelectionViewController *filterSelectionViewController = (FilterSelectionViewController *)[navigationController topViewController];
+        filterSelectionViewController.delegate = self;
     }
     /*
     BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];

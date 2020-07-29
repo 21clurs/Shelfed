@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol FilterByPublishCellDelegate <NSObject>
+- (void)filterWithYear:(int)year before:(bool)before;
+- (void)filterByPublishCellSelected:(bool)selected before:(bool)before;
+@end
 
 @interface FilterByPublishCell : UITableViewCell
+@property (weak, nonatomic) id<FilterByPublishCellDelegate> delegate;
 @property (nonatomic) bool beforeYear;
 @property (weak, nonatomic) IBOutlet UITextField *enterYearField;
 @property (weak, nonatomic) IBOutlet UILabel *relativeLabel;

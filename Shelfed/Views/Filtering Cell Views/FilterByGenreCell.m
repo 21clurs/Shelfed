@@ -17,8 +17,13 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
+    if(selected == YES)
+        self.accessoryType = UITableViewCellAccessoryCheckmark;
+    else
+        self.accessoryType = UITableViewCellAccessoryNone;
+    [self.delegate usingGenre:self.genre filter:selected];
+    
 }
 
 - (void)setGenre:(NSString *)genre{

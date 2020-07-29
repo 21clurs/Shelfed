@@ -11,7 +11,7 @@
 #import "FilterByPublishCell.h"
 #import "FilterByGenreCell.h"
 
-@interface FilterSelectionViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface FilterSelectionViewController () <UITableViewDelegate, UITableViewDataSource, FilterByPagesCellDelegate, FilterByPublishCellDelegate, FilterByGenreCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -21,9 +21,56 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if(self.pagesPublishSelectedDict == nil){
+        self.pagesPublishSelectedDict = [NSMutableDictionary dictionaryWithCapacity:4];
+        [self.pagesPublishSelectedDict setValue:[NSNumber numberWithBool:NO] forKey:@"PagesLess"];
+        [self.pagesPublishSelectedDict setValue:[NSNumber numberWithBool:NO] forKey:@"PagesGreater"];
+        [self.pagesPublishSelectedDict setValue:[NSNumber numberWithBool:NO] forKey:@"PublishedBefore"];
+        [self.pagesPublishSelectedDict setValue:[NSNumber numberWithBool:NO] forKey:@"PublishedAfter"];
+    }
+    if(self.pagesPublishValuesDict == nil)
+        self.pagesPublishValuesDict = [NSMutableDictionary dictionaryWithCapacity:4];
+    if(self.genresSelectedArray == nil)
+        self.genresSelectedArray = [[NSMutableArray alloc] initWithCapacity:4];
+    
     self.tableView.allowsMultipleSelection = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+}
+#pragma mark - FilterByPagesCellDelegate
+- (void)filterWithNumPages:(int)pages lessThan:(bool)lessThan {
+    if(lessThan==YES)
+        self.pagesPublishValuesDict[@"PagesLess"] = [NSNumber numberWithInt:pages];
+    else
+        self.pagesPublishValuesDict[@"PagesGreater"] = [NSNumber numberWithInt:pages];
+}
+- (void)filterByPagesCellSelected:(bool)selected lessThan:(bool)lessThan{
+    if(lessThan==YES)
+        self.pagesPublishSelectedDict[@"PagesLess"] = [NSNumber numberWithBool:selected];
+    else
+        self.pagesPublishSelectedDict[@"PagesGreater"] = [NSNumber numberWithBool:selected];
+}
+
+#pragma mark - FilterByPublishCellDelegate
+- (void)filterWithYear:(int)year before:(bool)before{
+    if(before==YES)
+        self.pagesPublishValuesDict[@"PublishedBefore"] = [NSNumber numberWithInt:year];
+    else
+        self.pagesPublishValuesDict[@"PublishedAfter"] = [NSNumber numberWithInt:year];
+}
+- (void)filterByPublishCellSelected:(bool)selected before:(bool)before{
+    if(before==YES)
+        self.pagesPublishSelectedDict[@"PublishedBefore"] = [NSNumber numberWithBool:selected];
+    else
+        self.pagesPublishSelectedDict[@"PublishedAfter"] = [NSNumber numberWithBool:selected];
+}
+
+#pragma mark - FilterByGenreCellDelegate
+- (void)usingGenre:(nonnull NSString *)genre filter:(bool)filter {
+    if(filter == YES)
+        [self.genresSelectedArray addObject:genre];
+    else
+        [self.genresSelectedArray removeObject:genre];
 }
 
 #pragma mark - UITableViewDataSource
@@ -39,11 +86,13 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0){
-         FilterByPagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPagesCell"];
+        FilterByPagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPagesCell"];
         if(indexPath.row == 0)
             cell.lessThan = YES;
         else
             cell.lessThan = NO;
+        cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else if(indexPath.section == 1){
@@ -52,6 +101,8 @@
             cell.beforeYear = YES;
         else
             cell.beforeYear = NO;
+        cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else{
@@ -70,6 +121,8 @@
                 cell.genre = @"Other";
                 break;
         }
+        cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
@@ -87,13 +140,47 @@
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    /*
     if([tableView cellForRowAtIndexPath:indexPath].accessoryType == UITableViewCellAccessoryCheckmark){
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+        
+        if(indexPath.section == 0 && indexPath.row == 0)
+            self.pagesPublishSelectedDict[@"PagesLess"] = [NSNumber numberWithBool:NO];
+        else if(indexPath.section == 0 && indexPath.row == 1)
+            self.pagesPublishSelectedDict[@"PagesGreater"] = [NSNumber numberWithBool:NO];
+        else if(indexPath.section == 1 && indexPath.row == 0)
+            self.pagesPublishSelectedDict[@"PublishedBefore"] = [NSNumber numberWithBool:NO];
+        else if(indexPath.section == 1 && indexPath.row == 1)
+            self.pagesPublishSelectedDict[@"PublishedAfter"] = [NSNumber numberWithBool:NO];
+        else
+        
+        if(indexPath.section == 2){
+            [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+            FilterByGenreCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            [self.genresSelectedArray removeObject:cell.genre];
+        }
+        
     }
     else{
-        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+        
+        if(indexPath.section == 0 && indexPath.row == 0)
+            self.pagesPublishSelectedDict[@"PagesLess"] = [NSNumber numberWithBool:YES];
+        else if(indexPath.section == 0 && indexPath.row == 1)
+            self.pagesPublishSelectedDict[@"PagesGreater"] = [NSNumber numberWithBool:YES];
+        else if(indexPath.section == 1 && indexPath.row == 0)
+            self.pagesPublishSelectedDict[@"PublishedBefore"] = [NSNumber numberWithBool:YES];
+        else if(indexPath.section == 1 && indexPath.row == 1)
+            self.pagesPublishSelectedDict[@"PublishedAfter"] = [NSNumber numberWithBool:YES];
+        else
+        
+        if(indexPath.section == 2){
+            [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+            FilterByGenreCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            [self.genresSelectedArray addObject:cell.genre];
+        }
+        
     }
     [tableView deselectRowAtIndexPath:indexPath animated:true];
+    */
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if(section == 0)
@@ -102,7 +189,7 @@
         return 20;
 }
 - (IBAction)didTapApplyFilters:(id)sender {
-    [self.delegate applyFilters];
+    [self.delegate applyFilters:self.pagesPublishValuesDict withSelected:self.pagesPublishSelectedDict andGenres:self.genresSelectedArray];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (IBAction)didTapClose:(id)sender {

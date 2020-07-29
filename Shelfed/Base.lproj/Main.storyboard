@@ -878,7 +878,7 @@
                     <navigationItem key="navigationItem" id="dtV-XO-4Ok">
                         <barButtonItem key="rightBarButtonItem" title="Filters" id="bhF-YR-JXS">
                             <connections>
-                                <segue destination="JMb-rA-RHD" kind="presentation" id="19Y-qe-jah"/>
+                                <segue destination="JMb-rA-RHD" kind="presentation" identifier="filterSelectionSegue" id="19Y-qe-jah"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -7,17 +7,26 @@
 //
 
 #import "FilterByPublishCell.h"
+@interface FilterByPublishCell()<UITextFieldDelegate>
+@end
 
 @implementation FilterByPublishCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.enterYearField.delegate = self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    if(selected == YES){
+        [self.delegate filterByPublishCellSelected:YES before:self.beforeYear];
+        self.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else{
+        [self.delegate filterByPublishCellSelected:NO before:self.beforeYear];
+        self.accessoryType = UITableViewCellAccessoryNone;
+    }
 }
 
 - (void)setBeforeYear:(bool)beforeYear{
@@ -26,6 +35,9 @@
         self.relativeLabel.text = @"Before";
     else
         self.relativeLabel.text = @"After";
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [self.delegate filterWithYear:[self.enterYearField.text intValue] before:self.beforeYear];
 }
 
 @end

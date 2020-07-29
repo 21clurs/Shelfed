@@ -8,16 +8,27 @@
 
 #import "FilterByPagesCell.h"
 
+@interface FilterByPagesCell() <UITextFieldDelegate>
+@end
+
 @implementation FilterByPagesCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.pageCountField.delegate = self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
+    if(selected == YES){
+        [self.delegate filterByPagesCellSelected:YES lessThan:self.lessThan];
+        self.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else{
+        [self.delegate filterByPagesCellSelected:NO lessThan:self.lessThan];
+        self.accessoryType = UITableViewCellAccessoryNone;
+    }
 }
 - (void)setLessThan:(bool)lessThan{
     _lessThan = lessThan;
@@ -28,5 +39,12 @@
         self.lessGreaterLabel.text = @">";
     }
 }
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    //[self setSelected:YES animated:YES];
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [self.delegate filterWithNumPages:[self.pageCountField.text intValue] lessThan:self.lessThan];
+}
+
 
 @end
