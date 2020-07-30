@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *coverArtThumbnail;
 @property (strong, nonatomic) NSString *coverArt;
 
-@property (strong, nonatomic) NSString *publishedDate;
+@property (strong, nonatomic) NSDate *publishedDate;
 @property (strong, nonatomic) NSString *printType;
 @property (strong, nonatomic) NSArray *categories;
 @property (strong, nonatomic) NSString *bookID;

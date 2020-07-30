@@ -19,7 +19,11 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
 @property (strong, nonatomic) NSArray<Book *> *filteredBooks;
-
+/*
+@property (strong, nonatomic)NSDictionary<NSString *, NSNumber *> *pagesPublishSelectedDict;
+@property (strong, nonatomic)NSDictionary<NSString *, NSNumber *> *pagesPublishValuesDict;
+@property (strong, nonatomic)NSArray<NSString *> *genresSelectedArray;
+*/
 @end
 
 @implementation FavoritesViewController
@@ -78,6 +82,11 @@
 
 #pragma mark - FilterSelectionViewControllerDelegate
 -(void)applyFilters:(NSDictionary *)pagesPublishValuesDict withSelected:(NSDictionary *)pagesPublishSelectedDict andGenres:(NSArray *) genresArray;{
+    /*
+    self.pagesPublishValuesDict = pagesPublishValuesDict;
+    self.pagesPublishSelectedDict = pagesPublishSelectedDict;
+    self.genresSelectedArray = genresArray;
+    */
     self.filteredBooks = self.favoriteBooks;
     for(NSString *key in pagesPublishSelectedDict){
         if(pagesPublishSelectedDict[key] == [NSNumber numberWithBool:YES] && pagesPublishValuesDict[key]!=nil){
@@ -92,18 +101,22 @@
                     return ([evaluatedBook.pages intValue] >= [pagesPublishValuesDict[key] intValue]);
                 }];
             }
-            /*
             else if([key isEqualToString:@"PublishedBefore"]){
-                NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                    return evaluatedBook.publishedDate < pagesPublishValuesDict[key];
+                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setDateFormat:@"yyyy"];
+                    NSString* myMonthString = [dateFormatter stringFromDate:evaluatedBook.publishedDate];
+                    return ([myMonthString intValue] <= [pagesPublishValuesDict[key] intValue]);
                 }];
             }
             else if([key isEqualToString:@"PublishedAfter"]){
-                NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                    return evaluatedBook.publishedDate < pagesPublishValuesDict[key];
+                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setDateFormat:@"yyyy"];
+                    NSString* myMonthString = [dateFormatter stringFromDate:evaluatedBook.publishedDate];
+                    return ([myMonthString intValue] >= [pagesPublishValuesDict[key] intValue]);
                 }];
             }
-            */
             self.filteredBooks = [[self.filteredBooks filteredArrayUsingPredicate:predicate] mutableCopy];
         }
     }
@@ -221,12 +234,13 @@
     else if([segue.identifier isEqualToString:@"filterSelectionSegue"]){
         UINavigationController *navigationController = [segue destinationViewController];
         FilterSelectionViewController *filterSelectionViewController = (FilterSelectionViewController *)[navigationController topViewController];
+        /*
+        filterSelectionViewController.pagesPublishSelectedDict = [self.pagesPublishSelectedDict mutableCopy];
+        filterSelectionViewController.pagesPublishValuesDict = [self.pagesPublishValuesDict mutableCopy];
+        filterSelectionViewController.genresSelectedArray = [self.genresSelectedArray mutableCopy];
+        */
         filterSelectionViewController.delegate = self;
     }
-    /*
-    BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
-    bookDetailsViewController.book = self.favoriteBooks[indexPath.row];
-    */
 }
 
 @end

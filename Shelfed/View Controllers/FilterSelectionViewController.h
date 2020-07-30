@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FilterSelectionViewController : UIViewController
 @property (weak,nonatomic)id<FilterSelectionViewControllerDelegate> delegate;
 @property (strong, nonatomic)NSMutableDictionary<NSString *, NSNumber *> *pagesPublishSelectedDict;
-@property (strong, nonatomic)NSMutableDictionary<NSString *, NSNumber *> *pagesPublishValuesDict;
+@property (strong, nonatomic)NSMutableDictionary<NSString *, NSString *> *pagesPublishValuesDict;
 @property (strong, nonatomic)NSMutableArray<NSString *> *genresSelectedArray;
 @end
 

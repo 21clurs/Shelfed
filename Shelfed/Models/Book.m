@@ -64,7 +64,15 @@
     }
     
     if(volumeInfo[@"publishedDate"]!=nil){
-        self.publishedDate = volumeInfo[@"publishedDate"];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        if([volumeInfo[@"publishedDate"] length] == 10)
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        else if([volumeInfo[@"publishedDate"] length] == 7)
+            [dateFormatter setDateFormat:@"yyyy-MM"];
+        else if([volumeInfo[@"publishedDate"] length] == 4)
+            [dateFormatter setDateFormat:@"yyyy"];
+        NSDate *date = [dateFormatter dateFromString:volumeInfo[@"publishedDate"]];
+        self.publishedDate = date;
     }
     if(volumeInfo[@"printType"]!=nil){
         self.printType = volumeInfo[@"printType"];

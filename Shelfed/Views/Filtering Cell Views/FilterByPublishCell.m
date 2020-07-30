@@ -40,7 +40,7 @@
         self.relativeLabel.text = @"After";
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    [self.delegate filterWithYear:[self.enterYearField.text intValue] before:self.beforeYear];
+    [self.delegate filterWithYear:self.enterYearField.text before:self.beforeYear];
 }
 
 @end

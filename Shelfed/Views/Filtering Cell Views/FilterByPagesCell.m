@@ -42,10 +42,11 @@
     }
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
+    //[self setSelected:YES animated:NO];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    [self.delegate filterWithNumPages:[self.pageCountField.text intValue] lessThan:self.lessThan];
+    [self.delegate filterWithNumPages:self.pageCountField.text lessThan:self.lessThan];
 }
 
 @end

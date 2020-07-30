@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol FilterByPagesCellDelegate <NSObject>
--(void)filterWithNumPages:(int)pages lessThan:(bool)lessThan;
+-(void)filterWithNumPages:(NSString *)pagesString lessThan:(bool)lessThan;
 -(void)filterByPagesCellSelected:(bool)selected lessThan:(bool)lessThan;
 @end
 

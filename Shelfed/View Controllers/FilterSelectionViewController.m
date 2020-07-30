@@ -38,11 +38,11 @@
     self.tableView.dataSource = self;
 }
 #pragma mark - FilterByPagesCellDelegate
-- (void)filterWithNumPages:(int)pages lessThan:(bool)lessThan {
+- (void)filterWithNumPages:(NSString *)pagesString lessThan:(bool)lessThan {
     if(lessThan==YES)
-        self.pagesPublishValuesDict[@"PagesLess"] = [NSNumber numberWithInt:pages];
+        self.pagesPublishValuesDict[@"PagesLess"] = pagesString;
     else
-        self.pagesPublishValuesDict[@"PagesGreater"] = [NSNumber numberWithInt:pages];
+        self.pagesPublishValuesDict[@"PagesGreater"] = pagesString;
 }
 - (void)filterByPagesCellSelected:(bool)selected lessThan:(bool)lessThan{
     if(lessThan==YES)
@@ -52,11 +52,11 @@
 }
 
 #pragma mark - FilterByPublishCellDelegate
-- (void)filterWithYear:(int)year before:(bool)before{
+- (void)filterWithYear:(NSString *)yearString before:(bool)before{
     if(before==YES)
-        self.pagesPublishValuesDict[@"PublishedBefore"] = [NSNumber numberWithInt:year];
+        self.pagesPublishValuesDict[@"PublishedBefore"] = yearString;
     else
-        self.pagesPublishValuesDict[@"PublishedAfter"] = [NSNumber numberWithInt:year];
+        self.pagesPublishValuesDict[@"PublishedAfter"] = yearString;
 }
 - (void)filterByPublishCellSelected:(bool)selected before:(bool)before{
     if(before==YES)
@@ -87,20 +87,28 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0){
         FilterByPagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPagesCell"];
-        if(indexPath.row == 0)
+        if(indexPath.row == 0){
             cell.lessThan = YES;
-        else
+            // [cell setSelected: self.pagesPublishSelectedDict[@"PagesLess"] animated:NO];
+        }
+        else{
             cell.lessThan = NO;
+            // [cell setSelected: self.pagesPublishSelectedDict[@"PagesGreater"] animated:NO];
+        }
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else if(indexPath.section == 1){
         FilterByPublishCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPublishCell"];
-        if(indexPath.row == 0)
+        if(indexPath.row == 0){
             cell.beforeYear = YES;
-        else
+            // [cell setSelected: self.pagesPublishSelectedDict[@"PublishedBefore"] animated:NO];
+        }
+        else{
             cell.beforeYear = NO;
+            // [cell setSelected: self.pagesPublishSelectedDict[@"PublishedAfter"] animated:NO];
+        }
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -121,6 +129,7 @@
                 cell.genre = @"Other";
                 break;
         }
+        // [cell setSelected:[self.genresSelectedArray containsObject:cell.genre] animated:NO];
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;

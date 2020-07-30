@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol FilterByPublishCellDelegate <NSObject>
-- (void)filterWithYear:(int)year before:(bool)before;
+- (void)filterWithYear:(NSString *)yearString before:(bool)before;
 - (void)filterByPublishCellSelected:(bool)selected before:(bool)before;
 @end
 
