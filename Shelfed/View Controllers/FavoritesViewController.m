@@ -18,6 +18,7 @@
 @interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
+@property (strong, nonatomic) NSArray<Book *> *filteredBooks;
 
 @end
 
@@ -66,6 +67,7 @@
         }
         else{
             self.favoriteBooks = [books mutableCopy];
+            self.filteredBooks = self.favoriteBooks;
             if(self.favoriteBooks.count>0){
                 self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             }
@@ -76,6 +78,7 @@
 
 #pragma mark - FilterSelectionViewControllerDelegate
 -(void)applyFilters:(NSDictionary *)pagesPublishValuesDict withSelected:(NSDictionary *)pagesPublishSelectedDict andGenres:(NSArray *) genresArray;{
+    self.filteredBooks = self.favoriteBooks;
     for(NSString *key in pagesPublishSelectedDict){
         if(pagesPublishSelectedDict[key] == [NSNumber numberWithBool:YES] && pagesPublishValuesDict[key]!=nil){
             NSPredicate *predicate;
@@ -101,8 +104,7 @@
                 }];
             }
             */
-            self.favoriteBooks = [[self.favoriteBooks filteredArrayUsingPredicate:predicate] mutableCopy];
-            [self.tableView reloadData];
+            self.filteredBooks = [[self.filteredBooks filteredArrayUsingPredicate:predicate] mutableCopy];
         }
     }
     
@@ -133,10 +135,9 @@
                 return false;
             }];
         }
-
-        self.favoriteBooks = [[self.favoriteBooks filteredArrayUsingPredicate:predicate] mutableCopy];
-        [self.tableView reloadData];
+        self.filteredBooks = [[self.filteredBooks filteredArrayUsingPredicate:predicate] mutableCopy];
     }
+    [self.tableView reloadData];
 }
 
 
@@ -153,12 +154,12 @@
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.favoriteBooks.count;
+    return self.filteredBooks.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     BookCellNib *cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
-    cell.book = self.favoriteBooks[indexPath.row];
+    cell.book = self.filteredBooks[indexPath.row];
     cell.delegate = self;
     return cell;
 }
@@ -172,7 +173,7 @@
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         
-        Book *bookToRemove = self.favoriteBooks[indexPath.row];
+        Book *bookToRemove = self.filteredBooks[indexPath.row];
         [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nonnull error) {
             [self reloadFavorites];
             completionHandler(YES);
@@ -207,7 +208,7 @@
     if([segue.identifier isEqualToString:@"bookDetailsSegue"]){
         NSIndexPath *indexPath = sender;
         BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
-        bookDetailsViewController.book = self.favoriteBooks[indexPath.row];
+        bookDetailsViewController.book = self.filteredBooks[indexPath.row];
     }
     else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
         //NSString *bookID = sender;
