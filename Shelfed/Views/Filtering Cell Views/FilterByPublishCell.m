@@ -23,11 +23,9 @@
     [self.enterYearField resignFirstResponder];
     
     if(selected == YES){
-        [self.delegate filterByPublishCellSelected:YES before:self.beforeYear];
         self.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     else{
-        [self.delegate filterByPublishCellSelected:NO before:self.beforeYear];
         self.accessoryType = UITableViewCellAccessoryNone;
     }
 }
@@ -40,7 +38,12 @@
         self.relativeLabel.text = @"After";
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    [self.delegate filterWithYear:self.enterYearField.text before:self.beforeYear];
+
+}
+
+- (Filter *)makeFilterFromCell{
+    Filter *filter = [[Filter alloc] initYearFilterWithYear:self.enterYearField.text andBefore:self.beforeYear];
+    return filter;
 }
 
 @end

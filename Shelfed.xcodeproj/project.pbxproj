@@ -44,6 +44,7 @@
 		F9BCCAC224BCEB3A00B3CE42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAC124BCEB3A00B3CE42 /* main.m */; };
 		F9BCCACC24BCEB3A00B3CE42 /* ShelfedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCACB24BCEB3A00B3CE42 /* ShelfedTests.m */; };
 		F9BCCAD724BCEB3A00B3CE42 /* ShelfedUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BCCAD624BCEB3A00B3CE42 /* ShelfedUITests.m */; };
+		F9D0E61F24D37F3400FB26B0 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D0E61E24D37F3400FB26B0 /* Filter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +141,8 @@
 		F9BCCAD224BCEB3A00B3CE42 /* ShelfedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShelfedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9BCCAD624BCEB3A00B3CE42 /* ShelfedUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShelfedUITests.m; sourceTree = "<group>"; };
 		F9BCCAD824BCEB3A00B3CE42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9D0E61D24D37F3400FB26B0 /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		F9D0E61E24D37F3400FB26B0 /* Filter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +281,8 @@
 				F9B862D424BE5D00000C2E0C /* Book.m */,
 				F992B81124CB365E0044A4CF /* Upload.h */,
 				F992B81224CB365E0044A4CF /* Upload.m */,
+				F9D0E61D24D37F3400FB26B0 /* Filter.h */,
+				F9D0E61E24D37F3400FB26B0 /* Filter.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -610,6 +615,7 @@
 				F9A6A2FA24C64152000FE6F0 /* AddRemoveBooksHelper.m in Sources */,
 				F9A6A30E24C770A8000FE6F0 /* ShelfCollectionCell.m in Sources */,
 				F9A6A30924C7497E000FE6F0 /* ShelfViewController.m in Sources */,
+				F9D0E61F24D37F3400FB26B0 /* Filter.m in Sources */,
 				F9A6A31724C8F020000FE6F0 /* SelectShelfViewController.m in Sources */,
 				F9A6A31424C88F43000FE6F0 /* BookCellNib.m in Sources */,
 				F9BCCAB124BCEB3900B3CE42 /* AppDelegate.m in Sources */,

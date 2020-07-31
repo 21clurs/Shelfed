@@ -10,9 +10,11 @@
 #import "FilterByPagesCell.h"
 #import "FilterByPublishCell.h"
 #import "FilterByGenreCell.h"
+#import "Filter.h"
 
 @interface FilterSelectionViewController () <UITableViewDelegate, UITableViewDataSource, FilterByPagesCellDelegate, FilterByPublishCellDelegate, FilterByGenreCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong,nonatomic) NSMutableArray<Filter *> *filtersArray;
 
 @end
 
@@ -21,57 +23,44 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if(self.pagesPublishSelectedDict == nil){
-        self.pagesPublishSelectedDict = [NSMutableDictionary dictionaryWithCapacity:4];
-        [self.pagesPublishSelectedDict setValue:[NSNumber numberWithBool:NO] forKey:@"PagesLess"];
-        [self.pagesPublishSelectedDict setValue:[NSNumber numberWithBool:NO] forKey:@"PagesGreater"];
-        [self.pagesPublishSelectedDict setValue:[NSNumber numberWithBool:NO] forKey:@"PublishedBefore"];
-        [self.pagesPublishSelectedDict setValue:[NSNumber numberWithBool:NO] forKey:@"PublishedAfter"];
-    }
-    if(self.pagesPublishValuesDict == nil)
-        self.pagesPublishValuesDict = [NSMutableDictionary dictionaryWithCapacity:4];
-    if(self.genresSelectedArray == nil)
-        self.genresSelectedArray = [[NSMutableArray alloc] initWithCapacity:4];
+    if(self.filtersArray == nil)
+        self.filtersArray = [[NSMutableArray alloc] init];
     
     self.tableView.allowsMultipleSelection = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
+- (IBAction)didTapApplyFilters:(id)sender {
+    for(UITableViewCell *cell in [self.tableView visibleCells]){
+        if([cell isSelected] == YES){
+            Filter *filter;
+            if([cell isKindOfClass:[FilterByPagesCell class]]){
+                filter = [((FilterByPagesCell *)cell) makeFilterFromCell];
+            }
+            else if([cell isKindOfClass:[FilterByPublishCell class]]){
+                filter = [((FilterByPublishCell *)cell) makeFilterFromCell];
+            }
+            else if([cell isKindOfClass:[FilterByGenreCell class]]){
+                filter = [((FilterByPublishCell *)cell) makeFilterFromCell];
+            }
+            if(filter!=nil)
+                [self.filtersArray addObject:filter];
+        }
+    }
+    [self.delegate applyFilters:self.filtersArray];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)didTapClose:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - FilterByPagesCellDelegate
-- (void)filterWithNumPages:(NSString *)pagesString lessThan:(bool)lessThan {
-    if(lessThan==YES)
-        self.pagesPublishValuesDict[@"PagesLess"] = pagesString;
-    else
-        self.pagesPublishValuesDict[@"PagesGreater"] = pagesString;
-}
-- (void)filterByPagesCellSelected:(bool)selected lessThan:(bool)lessThan{
-    if(lessThan==YES)
-        self.pagesPublishSelectedDict[@"PagesLess"] = [NSNumber numberWithBool:selected];
-    else
-        self.pagesPublishSelectedDict[@"PagesGreater"] = [NSNumber numberWithBool:selected];
-}
 
 #pragma mark - FilterByPublishCellDelegate
-- (void)filterWithYear:(NSString *)yearString before:(bool)before{
-    if(before==YES)
-        self.pagesPublishValuesDict[@"PublishedBefore"] = yearString;
-    else
-        self.pagesPublishValuesDict[@"PublishedAfter"] = yearString;
-}
-- (void)filterByPublishCellSelected:(bool)selected before:(bool)before{
-    if(before==YES)
-        self.pagesPublishSelectedDict[@"PublishedBefore"] = [NSNumber numberWithBool:selected];
-    else
-        self.pagesPublishSelectedDict[@"PublishedAfter"] = [NSNumber numberWithBool:selected];
-}
 
 #pragma mark - FilterByGenreCellDelegate
-- (void)usingGenre:(nonnull NSString *)genre filter:(bool)filter {
-    if(filter == YES)
-        [self.genresSelectedArray addObject:genre];
-    else
-        [self.genresSelectedArray removeObject:genre];
-}
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -154,13 +143,7 @@
     else
         return 20;
 }
-- (IBAction)didTapApplyFilters:(id)sender {
-    [self.delegate applyFilters:self.pagesPublishValuesDict withSelected:self.pagesPublishSelectedDict andGenres:self.genresSelectedArray];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-- (IBAction)didTapClose:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+
 
 /*
 #pragma mark - Navigation

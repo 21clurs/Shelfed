@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Filter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol FilterByPagesCellDelegate <NSObject>
--(void)filterWithNumPages:(NSString *)pagesString lessThan:(bool)lessThan;
--(void)filterByPagesCellSelected:(bool)selected lessThan:(bool)lessThan;
+
+
 @end
 
 @interface FilterByPagesCell : UITableViewCell
@@ -19,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) bool lessThan;
 @property (weak, nonatomic) IBOutlet UILabel *lessGreaterLabel;
 @property (weak, nonatomic) IBOutlet UITextField *pageCountField;
+
+- (Filter *)makeFilterFromCell;
 
 @end
 

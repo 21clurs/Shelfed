@@ -10,14 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol FilterSelectionViewControllerDelegate <NSObject>
--(void)applyFilters:(NSDictionary *)pagesPublishValuesDict withSelected:(NSDictionary *)pagesPublishSelectedDict andGenres:(NSArray *) genresArray;
+-(void)applyFilters:(NSArray *)filtersArray;
+
 @end
 
 @interface FilterSelectionViewController : UIViewController
 @property (weak,nonatomic)id<FilterSelectionViewControllerDelegate> delegate;
-@property (strong, nonatomic)NSMutableDictionary<NSString *, NSNumber *> *pagesPublishSelectedDict;
-@property (strong, nonatomic)NSMutableDictionary<NSString *, NSString *> *pagesPublishValuesDict;
-@property (strong, nonatomic)NSMutableArray<NSString *> *genresSelectedArray;
 @end
 
 NS_ASSUME_NONNULL_END

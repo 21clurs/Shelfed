@@ -7,7 +7,6 @@
 //
 
 #import "FilterByPagesCell.h"
-
 @interface FilterByPagesCell() <UITextFieldDelegate>
 @end
 
@@ -24,11 +23,9 @@
     [self.pageCountField resignFirstResponder];
     
     if(selected == YES){
-        [self.delegate filterByPagesCellSelected:YES lessThan:self.lessThan];
         self.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     else{
-        [self.delegate filterByPagesCellSelected:NO lessThan:self.lessThan];
         self.accessoryType = UITableViewCellAccessoryNone;
     }
 }
@@ -46,7 +43,12 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    [self.delegate filterWithNumPages:self.pageCountField.text lessThan:self.lessThan];
+    
+}
+
+- (Filter *)makeFilterFromCell{
+    Filter *filter = [[Filter alloc] initLengthFilterWithPages:self.pageCountField.text andLessThan:self.lessThan];
+    return filter;
 }
 
 @end

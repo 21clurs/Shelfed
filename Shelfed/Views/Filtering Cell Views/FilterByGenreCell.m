@@ -22,7 +22,6 @@
         self.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         self.accessoryType = UITableViewCellAccessoryNone;
-    [self.delegate usingGenre:self.genre filter:selected];
     
 }
 
@@ -35,6 +34,11 @@
     else{
         self.genreLabel.text = genre;
     }
+}
+
+- (Filter *)makeFilterFromCell{
+    Filter *filter = [[Filter alloc] initGenreFilterWithGenre:self.genreLabel.text];
+    return filter;
 }
 
 @end

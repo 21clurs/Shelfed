@@ -7,16 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Filter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol FilterByGenreCellDelegate <NSObject>
--(void)usingGenre:(NSString *)genre filter:(bool)filter;
+
 @end
 
 @interface FilterByGenreCell : UITableViewCell
 @property (weak, nonatomic)id<FilterByGenreCellDelegate> delegate;
 @property (strong,nonatomic) NSString *genre;
 @property (weak, nonatomic) IBOutlet UILabel *genreLabel;
+
+- (Filter *)makeFilterFromCell;
 
 @end
 

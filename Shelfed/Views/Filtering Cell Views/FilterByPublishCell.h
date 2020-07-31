@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Filter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol FilterByPublishCellDelegate <NSObject>
-- (void)filterWithYear:(NSString *)yearString before:(bool)before;
-- (void)filterByPublishCellSelected:(bool)selected before:(bool)before;
+
 @end
 
 @interface FilterByPublishCell : UITableViewCell
@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) bool beforeYear;
 @property (weak, nonatomic) IBOutlet UITextField *enterYearField;
 @property (weak, nonatomic) IBOutlet UILabel *relativeLabel;
+
+- (Filter *)makeFilterFromCell;
 
 @end
 

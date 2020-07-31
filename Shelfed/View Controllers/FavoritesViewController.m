@@ -14,6 +14,7 @@
 #import "AddRemoveBooksHelper.h"
 #import "SelectShelfViewController.h"
 #import "FilterSelectionViewController.h"
+#import "Filter.h"
 
 @interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -81,78 +82,10 @@
 }
 
 #pragma mark - FilterSelectionViewControllerDelegate
--(void)applyFilters:(NSDictionary *)pagesPublishValuesDict withSelected:(NSDictionary *)pagesPublishSelectedDict andGenres:(NSArray *) genresArray;{
-    /*
-    self.pagesPublishValuesDict = pagesPublishValuesDict;
-    self.pagesPublishSelectedDict = pagesPublishSelectedDict;
-    self.genresSelectedArray = genresArray;
-    */
-    self.filteredBooks = self.favoriteBooks;
-    for(NSString *key in pagesPublishSelectedDict){
-        if(pagesPublishSelectedDict[key] == [NSNumber numberWithBool:YES] && pagesPublishValuesDict[key]!=nil){
-            NSPredicate *predicate;
-            if([key isEqualToString:@"PagesLess"]){
-                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                    return ([evaluatedBook.pages intValue] <= [pagesPublishValuesDict[key] intValue]);
-                }];
-            }
-            else if([key isEqualToString:@"PagesGreater"]){
-                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                    return ([evaluatedBook.pages intValue] >= [pagesPublishValuesDict[key] intValue]);
-                }];
-            }
-            else if([key isEqualToString:@"PublishedBefore"]){
-                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                    [dateFormatter setDateFormat:@"yyyy"];
-                    NSString* myMonthString = [dateFormatter stringFromDate:evaluatedBook.publishedDate];
-                    return ([myMonthString intValue] <= [pagesPublishValuesDict[key] intValue]);
-                }];
-            }
-            else if([key isEqualToString:@"PublishedAfter"]){
-                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                    [dateFormatter setDateFormat:@"yyyy"];
-                    NSString* myMonthString = [dateFormatter stringFromDate:evaluatedBook.publishedDate];
-                    return ([myMonthString intValue] >= [pagesPublishValuesDict[key] intValue]);
-                }];
-            }
-            self.filteredBooks = [[self.filteredBooks filteredArrayUsingPredicate:predicate] mutableCopy];
-        }
-    }
-    
-    for(NSString *genre in genresArray){
-        NSPredicate *predicate;
-        if([genre isEqualToString:@"Other"]){
-            NSArray *otherHelperArr = [[NSArray alloc] initWithObjects:@"Fiction",@"Nonfiction",@"Juvenile Fiction",@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil];
-            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                for(NSString *category in evaluatedBook.categories){
-                    if([otherHelperArr containsObject:category])
-                        return false;
-                }
-                return true;
-            }];
-        }
-        else{
-            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                return ([evaluatedBook.categories containsObject:genre]);
-            }];
-        }
-        if([genre isEqualToString:@"Nonfiction"]){
-            NSArray *nonfictionHelperArr = [[NSArray alloc] initWithObjects:@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil];
-            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                for(NSString *category in evaluatedBook.categories){
-                    if([nonfictionHelperArr containsObject:category])
-                        return true;
-                }
-                return false;
-            }];
-        }
-        self.filteredBooks = [[self.filteredBooks filteredArrayUsingPredicate:predicate] mutableCopy];
-    }
+-(void)applyFilters:(NSArray *)filtersArray{
+    self.filteredBooks = [Filter applyFilters:filtersArray toBookArray:self.favoriteBooks];
     [self.tableView reloadData];
 }
-
 
 #pragma mark - BookCellNibDelegate
 -(void)didRemove{
