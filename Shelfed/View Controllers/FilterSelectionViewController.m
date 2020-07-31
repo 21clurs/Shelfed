@@ -58,8 +58,12 @@ NSArray<NSString *> *genreArray;
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-- (IBAction)didTapClose:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+
+- (IBAction)didTapClear:(id)sender {
+    [self.filtersArray removeAllObjects];
+    [self.filtersDict removeAllObjects];
+    [self.tableView reloadData];
+    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void) makeFiltersDictFromFilters{
     for(Filter *filter in self.filtersArray){
@@ -136,6 +140,8 @@ NSArray<NSString *> *genreArray;
         if([self.filtersDict objectForKey:cell.genre]!=nil){
             [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         }
+        if(indexPath.row == genreArray.count - 1) //Reach end of loading/making all cells
+            [self.filtersArray removeAllObjects];
         cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -159,13 +165,6 @@ NSArray<NSString *> *genreArray;
         return 40;                  //FIX THIS LATER
     else
         return 20;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row){
-        //end of loading
-        [self.filtersArray removeAllObjects];
-    }
 }
 
 /*
