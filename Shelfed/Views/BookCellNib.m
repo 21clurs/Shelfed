@@ -11,17 +11,6 @@
 #import "AddRemoveBooksHelper.h"
 
 @implementation BookCellNib
-/*
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-*/
-
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -59,8 +48,7 @@
         }
     }];
 }
-
-- (IBAction)didTapFavorite:(id)sender {    
+- (void)toggleFavorite{
     __weak typeof(self) weakSelf = self;
     if(self.inFavorites == YES){
         [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
@@ -84,6 +72,14 @@
             }
         }];
     }
+}
+
+- (IBAction)didTapFavorite:(id)sender {
+    [self toggleFavorite];
+}
+
+- (void) didDoubleTap{
+    [self toggleFavorite];
 }
 
 - (IBAction)didTapMore:(id)sender {

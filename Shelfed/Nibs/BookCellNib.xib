@@ -11,7 +11,7 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="118" id="nDa-K4-isw" customClass="BookCellNib">
             <rect key="frame" x="0.0" y="0.0" width="463" height="118"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nDa-K4-isw" id="dGB-fR-MPB">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nDa-K4-isw" id="dGB-fR-MPB">
                 <rect key="frame" x="0.0" y="0.0" width="463" height="118"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -67,6 +67,7 @@
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1ky-Xf-1mc" secondAttribute="trailing" constant="8" id="zHC-mf-eRc"/>
                 </constraints>
             </tableViewCellContentView>
+            <gestureRecognizers/>
             <connections>
                 <outlet property="authorLabel" destination="1ky-Xf-1mc" id="N0i-0w-Nsl"/>
                 <outlet property="coverArtView" destination="rj4-Ac-cB9" id="mOn-f5-aEa"/>

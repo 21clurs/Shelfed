@@ -68,7 +68,10 @@ UIRefreshControl *refreshControl;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
     
+    [self setTapGestureRecognizers];
+    
 }
+
 - (void)reloadFeed{
     __weak typeof(self) weakSelf = self;
     [manager reloadBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
@@ -115,6 +118,34 @@ UIRefreshControl *refreshControl;
         }
     }];
 }
+- (void)setTapGestureRecognizers{
+    UITapGestureRecognizer *doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onDoubleTap:)];
+    [doubleTapRecognizer setNumberOfTapsRequired:2];
+    [self.tableView addGestureRecognizer:doubleTapRecognizer];
+    
+    UITapGestureRecognizer* singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
+    [singleTapRecognizer setNumberOfTapsRequired:1];
+    [singleTapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
+    [self.tableView addGestureRecognizer:singleTapRecognizer];
+}
+- (void) onDoubleTap:(UITapGestureRecognizer *)tap{
+    if (UIGestureRecognizerStateEnded == tap.state)
+    {
+        CGPoint p = [tap locationInView:tap.view];
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+        BookCellNib *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        [cell didDoubleTap];
+    }
+}
+- (void) onSingleTap:(UITapGestureRecognizer *)tap{
+    if (UIGestureRecognizerStateEnded == tap.state)
+    {
+        CGPoint p = [tap locationInView:tap.view];
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+        [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
+    }
+}
+
 #pragma mark - BookCellNibDelegate
 - (void)didRemove{
     // No-Op
@@ -134,13 +165,13 @@ UIRefreshControl *refreshControl;
     BookCellNib *cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
     cell.book = self.books[indexPath.row];
     cell.delegate = self;
+    
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
-    [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
 }
 
 #pragma mark - UISearchBarDelegate

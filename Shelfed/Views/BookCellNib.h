@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIButton *seeMoreButton;
 
+- (void) didDoubleTap;
+
 @end
 
 NS_ASSUME_NONNULL_END
