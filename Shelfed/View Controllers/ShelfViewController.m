@@ -34,6 +34,7 @@
     
     self.title = self.shelfName;
     
+    [self setTapGestureRecognizers];
     [self reloadShelf];
 }
 
@@ -48,6 +49,34 @@
             self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         }
     }];
+}
+
+- (void)setTapGestureRecognizers{
+    UITapGestureRecognizer *doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onDoubleTap:)];
+    [doubleTapRecognizer setNumberOfTapsRequired:2];
+    [self.tableView addGestureRecognizer:doubleTapRecognizer];
+    
+    UITapGestureRecognizer* singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
+    [singleTapRecognizer setNumberOfTapsRequired:1];
+    [singleTapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
+    [self.tableView addGestureRecognizer:singleTapRecognizer];
+}
+- (void) onDoubleTap:(UITapGestureRecognizer *)tap{
+    if (UIGestureRecognizerStateEnded == tap.state)
+    {
+        CGPoint p = [tap locationInView:tap.view];
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+        BookCellNib *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        [cell didDoubleTap];
+    }
+}
+- (void) onSingleTap:(UITapGestureRecognizer *)tap{
+    if (UIGestureRecognizerStateEnded == tap.state)
+    {
+        CGPoint p = [tap locationInView:tap.view];
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+        [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
+    }
 }
 
 #pragma mark - BookCellNibDelegate
@@ -77,7 +106,7 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
-    [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
+    //[self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
 }
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
