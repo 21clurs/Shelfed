@@ -20,11 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
 @property (strong, nonatomic) NSArray<Book *> *filteredBooks;
-/*
-@property (strong, nonatomic)NSDictionary<NSString *, NSNumber *> *pagesPublishSelectedDict;
-@property (strong, nonatomic)NSDictionary<NSString *, NSNumber *> *pagesPublishValuesDict;
-@property (strong, nonatomic)NSArray<NSString *> *genresSelectedArray;
-*/
+@property (strong, nonatomic) NSArray<Filter *> *filtersArray;
 @end
 
 @implementation FavoritesViewController
@@ -38,15 +34,11 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
-    
-    [self reloadFavorites];
 }
 
 -(void) reloadFavorites{
@@ -83,6 +75,7 @@
 
 #pragma mark - FilterSelectionViewControllerDelegate
 -(void)applyFilters:(NSArray *)filtersArray{
+    self.filtersArray = filtersArray;
     self.filteredBooks = [Filter applyFilters:filtersArray toBookArray:self.favoriteBooks];
     [self.tableView reloadData];
 }
@@ -157,7 +150,6 @@
         bookDetailsViewController.book = self.filteredBooks[indexPath.row];
     }
     else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
-        //NSString *bookID = sender;
         Book *book = sender;
         UINavigationController *navigationController = [segue destinationViewController];
         SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
@@ -167,11 +159,7 @@
     else if([segue.identifier isEqualToString:@"filterSelectionSegue"]){
         UINavigationController *navigationController = [segue destinationViewController];
         FilterSelectionViewController *filterSelectionViewController = (FilterSelectionViewController *)[navigationController topViewController];
-        /*
-        filterSelectionViewController.pagesPublishSelectedDict = [self.pagesPublishSelectedDict mutableCopy];
-        filterSelectionViewController.pagesPublishValuesDict = [self.pagesPublishValuesDict mutableCopy];
-        filterSelectionViewController.genresSelectedArray = [self.genresSelectedArray mutableCopy];
-        */
+        filterSelectionViewController.filtersArray = [self.filtersArray mutableCopy];
         filterSelectionViewController.delegate = self;
     }
 }

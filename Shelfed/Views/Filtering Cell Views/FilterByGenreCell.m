@@ -37,7 +37,7 @@
 }
 
 - (Filter *)makeFilterFromCell{
-    Filter *filter = [[Filter alloc] initGenreFilterWithGenre:self.genreLabel.text];
+    Filter *filter = [[Filter alloc] initGenreFilterWithGenre:self.genre];
     return filter;
 }
 

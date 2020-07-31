@@ -16,7 +16,10 @@
     [super awakeFromNib];
     self.enterYearField.delegate = self;
 }
-
+- (void)setYearString:(NSString *)yearString{
+    _yearString = yearString;
+    self.enterYearField.text = yearString;
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     

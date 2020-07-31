@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Filter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol FilterSelectionViewControllerDelegate <NSObject>
--(void)applyFilters:(NSArray *)filtersArray;
+-(void)applyFilters:(NSArray<Filter *> *)filtersArray;
 
 @end
 
 @interface FilterSelectionViewController : UIViewController
 @property (weak,nonatomic)id<FilterSelectionViewControllerDelegate> delegate;
+@property (strong,nonatomic) NSMutableArray<Filter *> *filtersArray;
 @end
 
 NS_ASSUME_NONNULL_END

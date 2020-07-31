@@ -16,7 +16,10 @@
     [super awakeFromNib];
     self.pageCountField.delegate = self;
 }
-
+- (void)setPageCountString:(NSString *)pageCountString{
+    _pageCountString = pageCountString;
+    self.pageCountField.text = pageCountString;
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     

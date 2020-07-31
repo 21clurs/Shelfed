@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FilterByPagesCell : UITableViewCell
 @property (weak, nonatomic) id<FilterByPagesCellDelegate> delegate;
 @property (nonatomic) bool lessThan;
+@property (strong, nonatomic) NSString *pageCountString;
 @property (weak, nonatomic) IBOutlet UILabel *lessGreaterLabel;
 @property (weak, nonatomic) IBOutlet UITextField *pageCountField;
 
