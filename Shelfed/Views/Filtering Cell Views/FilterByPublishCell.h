@@ -18,11 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<FilterByPublishCellDelegate> delegate;
 @property (nonatomic) bool beforeYear;
 @property (strong, nonatomic) NSString *yearString;
+@property (strong, nonatomic) Filter *filter;
 @property (weak, nonatomic) IBOutlet UITextField *enterYearField;
 @property (weak, nonatomic) IBOutlet UILabel *relativeLabel;
-
-- (Filter *)makeFilterFromCell;
-
 @end
 
 NS_ASSUME_NONNULL_END

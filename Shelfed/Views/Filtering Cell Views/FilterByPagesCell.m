@@ -7,14 +7,14 @@
 //
 
 #import "FilterByPagesCell.h"
-@interface FilterByPagesCell() <UITextFieldDelegate>
+@interface FilterByPagesCell()
 @end
 
 @implementation FilterByPagesCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.pageCountField.delegate = self;
+    [self.pageCountField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 - (void)setPageCountString:(NSString *)pageCountString{
     _pageCountString = pageCountString;
@@ -24,12 +24,21 @@
     [super setSelected:selected animated:animated];
     
     [self.pageCountField resignFirstResponder];
-    
+    self.filter.selected = selected;
     if(selected == YES){
         self.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     else{
         self.accessoryType = UITableViewCellAccessoryNone;
+    }
+}
+- (void)setFilter:(Filter *)filter{
+    _filter = filter;
+    if([filter.filterTypeString isEqualToString:@"PagesLess"]){
+        self.lessThan = YES;
+    }
+    else{
+        self.lessThan = NO;
     }
 }
 - (void)setLessThan:(bool)lessThan{
@@ -41,17 +50,8 @@
         self.lessGreaterLabel.text = @">";
     }
 }
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-    //[self setSelected:YES animated:NO];
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    
-}
-
-- (Filter *)makeFilterFromCell{
-    Filter *filter = [[Filter alloc] initLengthFilterWithPages:self.pageCountField.text andLessThan:self.lessThan];
-    return filter;
+- (void)textFieldDidChange:(UITextField *) textField{
+    self.filter.pages = [textField.text intValue];
 }
 
 @end

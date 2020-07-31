@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
 @property (strong, nonatomic) NSArray<Book *> *filteredBooks;
 @property (strong, nonatomic) NSArray<Filter *> *filtersArray;
+@property (strong, nonatomic) NSDictionary<NSNumber *, NSArray<Filter *> *> *filtersDictionary;
 @end
 
 @implementation FavoritesViewController
@@ -74,9 +75,9 @@
 }
 
 #pragma mark - FilterSelectionViewControllerDelegate
--(void)applyFilters:(NSArray *)filtersArray{
-    self.filtersArray = filtersArray;
-    self.filteredBooks = [Filter applyFilters:filtersArray toBookArray:self.favoriteBooks];
+-(void)appliedFilters:(NSDictionary<NSNumber *, NSArray<Filter *> *> *)appliedFilters{
+    self.filtersDictionary = appliedFilters;
+    self.filteredBooks = [Filter appliedFilters:appliedFilters toBookArray:self.favoriteBooks];
     [self.tableView reloadData];
 }
 
@@ -159,7 +160,7 @@
     else if([segue.identifier isEqualToString:@"filterSelectionSegue"]){
         UINavigationController *navigationController = [segue destinationViewController];
         FilterSelectionViewController *filterSelectionViewController = (FilterSelectionViewController *)[navigationController topViewController];
-        filterSelectionViewController.filtersArray = [self.filtersArray mutableCopy];
+        filterSelectionViewController.filtersDataSource = self.filtersDictionary;
         filterSelectionViewController.delegate = self;
     }
 }

@@ -41,34 +41,38 @@
     return self;
 }
 
-+(NSArray *)applyFilters: (NSArray<Filter *> *)filtersArray toBookArray: (NSArray<Book  *> *)bookArray{
++(NSArray *)appliedFilters: (NSDictionary<NSNumber *, NSArray<Filter *> *> *)appliedFilters toBookArray: (NSArray *)bookArray{
+    
     NSArray *temp = bookArray;
     NSMutableArray *genreArray = [[NSMutableArray alloc] init];
-    for(Filter *filter in filtersArray){
-        if(filter.genre != nil){
-            [genreArray addObject:filter.genre];
-            break;
+    
+    for(NSNumber *key in appliedFilters.allKeys){
+        for(Filter *filter in [appliedFilters objectForKey:key]){
+            if(filter.selected == NO)
+                continue;
+            if(filter.genre != nil){
+                [genreArray addObject:filter.genre];
+                continue;
+            }
+            NSPredicate *predicate;
+            if([filter.filterTypeString isEqualToString:@"PagesLess"] || [filter.filterTypeString isEqualToString:@"PagesGreater"]){
+                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                    bool isLessThan = ([evaluatedBook.pages intValue] <= filter.pages);
+                    return (isLessThan == filter.lessThanBool);
+                }];
+            }
+            else if([filter.filterTypeString isEqualToString:@"PublishedBefore"] || [filter.filterTypeString isEqualToString:@"PublishedAfter"]){
+                predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setDateFormat:@"yyyy"];
+                    NSString* myMonthString = [dateFormatter stringFromDate:evaluatedBook.publishedDate];
+                    bool isBefore = ([myMonthString intValue] <= filter.year);
+                    return (isBefore == filter.beforeBool);
+                }];
+            }
+            if(predicate !=nil)
+                temp = [temp filteredArrayUsingPredicate:predicate];
         }
-        
-        NSPredicate *predicate;
-        if([filter.filterTypeString isEqualToString:@"PagesLess"] || [filter.filterTypeString isEqualToString:@"PagesGreater"]){
-            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                bool isLessThan = ([evaluatedBook.pages intValue] <= filter.pages);
-                return (isLessThan == filter.lessThanBool);
-            }];
-        }
-        else if([filter.filterTypeString isEqualToString:@"PublishedBefore"] || [filter.filterTypeString isEqualToString:@"PublishedAfter"]){
-            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateFormat:@"yyyy"];
-                NSString* myMonthString = [dateFormatter stringFromDate:evaluatedBook.publishedDate];
-                bool isBefore = ([myMonthString intValue] <= filter.year);
-                return (isBefore == filter.beforeBool);
-            }];
-        }
-        
-        if(predicate !=nil)
-            temp = [temp filteredArrayUsingPredicate:predicate];
     }
     
     for(NSString *genre in genreArray){

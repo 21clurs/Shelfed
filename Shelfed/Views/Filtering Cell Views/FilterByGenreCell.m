@@ -12,22 +12,20 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
+    self.filter.selected = selected;
     if(selected == YES)
         self.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         self.accessoryType = UITableViewCellAccessoryNone;
-    
 }
 
 - (void)setGenre:(NSString *)genre{
     _genre = genre;
-    
     if([genre isEqualToString:@"Juvenile Fiction"]){
         self.genreLabel.text = @"Young Adult";
     }
@@ -35,10 +33,4 @@
         self.genreLabel.text = genre;
     }
 }
-
-- (Filter *)makeFilterFromCell{
-    Filter *filter = [[Filter alloc] initGenreFilterWithGenre:self.genre];
-    return filter;
-}
-
 @end

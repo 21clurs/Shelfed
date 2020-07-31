@@ -11,148 +11,104 @@
 #import "FilterByPublishCell.h"
 #import "FilterByGenreCell.h"
 
-@interface FilterSelectionViewController () <UITableViewDelegate, UITableViewDataSource, FilterByPagesCellDelegate, FilterByPublishCellDelegate, FilterByGenreCellDelegate>
+@interface FilterSelectionViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong,nonatomic) NSMutableDictionary<NSString *,Filter *> *filtersDict;
-
 @end
-
-NSArray<NSString *> *genreArray;
 
 @implementation FilterSelectionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    genreArray = [[NSArray alloc] initWithObjects:@"Fiction", @"Nonfiction", @"Juvenile Fiction", @"Other", nil];
-    
-    if(self.filtersArray == nil)
-        self.filtersArray = [[NSMutableArray alloc] init];
-    else{
-        self.filtersDict = [[NSMutableDictionary alloc] init];
-        [self makeFiltersDictFromFilters];
+    if(self.filtersDataSource == nil){
+        [self makeFiltersDataSource];
     }
     
     self.tableView.allowsMultipleSelection = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
-- (IBAction)didTapApplyFilters:(id)sender {
-    for(UITableViewCell *cell in [self.tableView visibleCells]){
-        if([cell isSelected] == YES){
-            Filter *filter;
-            if([cell isKindOfClass:[FilterByPagesCell class]]){
-                filter = [((FilterByPagesCell *)cell) makeFilterFromCell];
-            }
-            else if([cell isKindOfClass:[FilterByPublishCell class]]){
-                filter = [((FilterByPublishCell *)cell) makeFilterFromCell];
-            }
-            else if([cell isKindOfClass:[FilterByGenreCell class]]){
-                filter = [((FilterByGenreCell *)cell) makeFilterFromCell];
-            }
-            if(filter!=nil)
-                [self.filtersArray addObject:filter];
-        }
-    }
-    [self.delegate applyFilters:self.filtersArray];
+
+-(void)makeFiltersDataSource{
+    Filter *filterPagesLess = [[Filter alloc] initLengthFilterWithPages:@"" andLessThan:YES];
+    Filter *filterPagesGreater = [[Filter alloc] initLengthFilterWithPages:@"" andLessThan:NO];
+    Filter *filterBeforeYear = [[Filter alloc] initYearFilterWithYear:@"" andBefore:YES];
+    Filter *filterAfterYear = [[Filter alloc] initYearFilterWithYear:@"" andBefore:NO];
     
+    Filter *filterGenreFiction = [[Filter alloc] initGenreFilterWithGenre:@"Fiction"];
+    Filter *filterGenreNonfiction = [[Filter alloc] initGenreFilterWithGenre:@"Noniction"];
+    Filter *filterGenreYA = [[Filter alloc] initGenreFilterWithGenre:@"Juvenile Fiction"];
+    Filter *filterGenreOther = [[Filter alloc] initGenreFilterWithGenre:@"Other"];
+    
+    self.filtersDataSource = @{
+      @(FilterSectionTypePages) : @[filterPagesLess, filterPagesGreater],
+      @(FilterSectionTypeYear) : @[filterBeforeYear, filterAfterYear],
+      @(FilterSectionTypeGenre) : @[filterGenreFiction, filterGenreNonfiction, filterGenreYA, filterGenreOther],
+    };
+}
+
+- (IBAction)didTapApplyFilters:(id)sender {
+    [self.delegate appliedFilters:self.filtersDataSource];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)didTapClear:(id)sender {
-    [self.filtersArray removeAllObjects];
-    [self.filtersDict removeAllObjects];
+    
     [self.tableView reloadData];
-    //[self dismissViewControllerAnimated:YES completion:nil];
 }
-- (void) makeFiltersDictFromFilters{
-    for(Filter *filter in self.filtersArray){
-        if(filter.genre!=nil)
-            [self.filtersDict setObject:filter forKey:filter.genre];
-        else
-            [self.filtersDict setObject:filter forKey:filter.filterTypeString];
-    }
-}
-
-#pragma mark - FilterByPagesCellDelegate
-
-#pragma mark - FilterByPublishCellDelegate
-
-#pragma mark - FilterByGenreCellDelegate
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return self.filtersDataSource.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 2)
-        return genreArray.count;
-    else
-        return 2;
-    
+    return self.filtersDataSource[@(section)].count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section == 0){
-        FilterByPagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPagesCell"];
-        if(indexPath.row == 0){
-            cell.lessThan = YES;
+    Filter *filter =  self.filtersDataSource[@(indexPath.section)][indexPath.row];
+    switch (indexPath.section) {
+        case FilterSectionTypePages:{
+            FilterByPagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPagesCell"];
+            cell.filter = filter;
+            cell.pageCountString = [NSString stringWithFormat:@"%d",filter.pages];
+
+            if(filter.selected)
+                [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+            break;
+        }
+        case FilterSectionTypeYear:{
+            FilterByPublishCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPublishCell"];
+            cell.filter = filter;
+            cell.yearString = [NSString stringWithFormat:@"%d",filter.year];
             
-            if([self.filtersDict objectForKey:@"PagesLess"]!=nil){
-                cell.pageCountString = [NSString stringWithFormat:@"%d",[self.filtersDict objectForKey:@"PagesLess"].pages];
-                [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-            }
+            if(filter.selected)
+            [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+            break;
         }
-        else{
-            cell.lessThan = NO;
-            if([self.filtersDict objectForKey:@"PagesGreater"]!=nil){
-                cell.pageCountString = [NSString stringWithFormat:@"%d",[self.filtersDict objectForKey:@"PagesGreater"].pages];
-                [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-            }
+        default:{
+            FilterByGenreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByGenreCell"];
+            cell.filter = filter;
+            cell.genre = filter.genre;
+            
+            if(filter.selected)
+            [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+            break;
         }
-        cell.delegate = self;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else if(indexPath.section == 1){
-        FilterByPublishCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPublishCell"];
-        if(indexPath.row == 0){
-            cell.beforeYear = YES;
-            if([self.filtersDict objectForKey:@"PublishedBefore"]!=nil){
-                cell.yearString = [NSString stringWithFormat:@"%d",[self.filtersDict objectForKey:@"PublishedBefore"].year];
-                [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-            }
-        }
-        else{
-            cell.beforeYear = NO;
-            if([self.filtersDict objectForKey:@"PublishedAfter"]!=nil){
-                cell.yearString = [NSString stringWithFormat:@"%d",[self.filtersDict objectForKey:@"PublishedAfter"].year];
-                [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-            }
-        }
-        cell.delegate = self;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    else{
-        FilterByGenreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByGenreCell"];
-        cell.genre = genreArray[indexPath.row];
-        if([self.filtersDict objectForKey:cell.genre]!=nil){
-            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        }
-        if(indexPath.row == genreArray.count - 1) //Reach end of loading/making all cells
-            [self.filtersArray removeAllObjects];
-        cell.delegate = self;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
     }
 }
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
-        case 0:
+        case FilterSectionTypePages:
             return @"Page Count";
             break;
-        case 1:
+        case FilterSectionTypeYear:
             return @"Year Published";
             break;
         default:
@@ -166,15 +122,5 @@ NSArray<NSString *> *genreArray;
     else
         return 20;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

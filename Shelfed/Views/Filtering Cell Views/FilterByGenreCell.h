@@ -16,11 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FilterByGenreCell : UITableViewCell
 @property (weak, nonatomic)id<FilterByGenreCellDelegate> delegate;
-@property (strong,nonatomic) NSString *genre;
+@property (strong, nonatomic) NSString *genre;
+@property (strong, nonatomic) Filter *filter;
 @property (weak, nonatomic) IBOutlet UILabel *genreLabel;
-
-- (Filter *)makeFilterFromCell;
-
 @end
 
 NS_ASSUME_NONNULL_END
