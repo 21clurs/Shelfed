@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
 @property (strong, nonatomic) NSArray<Book *> *filteredBooks;
-@property (strong, nonatomic) NSArray<Filter *> *filtersArray;
 @property (strong, nonatomic) NSDictionary<NSNumber *, NSArray<Filter *> *> *filtersDictionary;
 @end
 

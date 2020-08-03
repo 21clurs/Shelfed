@@ -11,10 +11,14 @@
 #import "AddRemoveBooksHelper.h"
 #import "BookDetailsViewController.h"
 #import "SelectShelfViewController.h"
+#import "Filter.h"
+#import "FilterSelectionViewController.h"
 
-@interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, BookCellNibDelegate, SelectShelfViewControllerDelegate>
+@interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray<Book *> *booksInShelf;
+@property (strong, nonatomic) NSArray<Book *> *filteredBooksInShelf;
+@property (strong, nonatomic) NSDictionary<NSNumber *, NSArray<Filter *> *> *filtersDictionary;
 
 @end
 
@@ -41,9 +45,27 @@
 -(void) reloadShelf{
     PFRelation *relation = [PFUser.currentUser relationForKey:self.shelfName];
     PFQuery *query = [relation query];
+    [self queryBooksWithQueryt:query];
+}
+
+- (void) queryBooksWithQueryt:(PFQuery *)query{
     [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
-        if(books!=nil){
+        if(error!=nil){
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error getting shelf" message:@"There was an error loading your shelf" preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+            [alert addAction:okAction];
+            
+            UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self reloadShelf];
+            }];
+            [alert addAction:retryAction];
+
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        else{
             self.booksInShelf = books;
+            self.filteredBooksInShelf = self.booksInShelf;
             [self.tableView reloadData];
             
             if(self.booksInShelf.count==0){
@@ -80,6 +102,12 @@
         [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
     }
 }
+#pragma mark - FilterSelectionViewControllerDelegate
+-(void)appliedFilters:(NSDictionary<NSNumber *, NSArray<Filter *> *> *)appliedFilters{
+    self.filtersDictionary = appliedFilters;
+    self.filteredBooksInShelf = [Filter appliedFilters:appliedFilters toBookArray:self.booksInShelf];
+    [self.tableView reloadData];
+}
 
 #pragma mark - BookCellNibDelegate
 - (void)didRemove{
@@ -95,12 +123,12 @@
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.booksInShelf.count;
+    return self.filteredBooksInShelf.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     BookCellNib *cell = [tableView dequeueReusableCellWithIdentifier:@"bookReusableCell"];
-    cell.book = self.booksInShelf[indexPath.row];
+    cell.book = self.filteredBooksInShelf[indexPath.row];
     cell.delegate = self;
     return cell;
 }
@@ -113,7 +141,7 @@
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         
-        Book *bookToRemove = self.booksInShelf[indexPath.row];
+        Book *bookToRemove = self.filteredBooksInShelf[indexPath.row];
         [AddRemoveBooksHelper removeBook:bookToRemove fromArray:self.shelfName withCompletion:^(NSError * _Nonnull error) {
             [self reloadShelf];
             completionHandler(YES);
@@ -136,7 +164,7 @@
     if([segue.identifier isEqualToString:@"bookDetailsSegue"]){
         NSIndexPath *indexPath = sender;
         BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
-        bookDetailsViewController.book = self.booksInShelf[indexPath.row];
+        bookDetailsViewController.book = self.filteredBooksInShelf[indexPath.row];
     }
     else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
         
@@ -145,6 +173,12 @@
         SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
         selectShelfViewController.addBook = book;
         selectShelfViewController.delegate = self;
+    }
+    else if([segue.identifier isEqualToString:@"filterSelectionSegue"]){
+        UINavigationController *navigationController = [segue destinationViewController];
+        FilterSelectionViewController *filterSelectionViewController = (FilterSelectionViewController *)[navigationController topViewController];
+        filterSelectionViewController.filtersDataSource = self.filtersDictionary;
+        filterSelectionViewController.delegate = self;
     }
 }
 
