@@ -42,11 +42,13 @@
     PFRelation *relation = [PFUser.currentUser relationForKey:self.shelfName];
     PFQuery *query = [relation query];
     [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
-        self.booksInShelf = books;
-        [self.tableView reloadData];
-        
-        if(self.booksInShelf.count==0){
-            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        if(books!=nil){
+            self.booksInShelf = books;
+            [self.tableView reloadData];
+            
+            if(self.booksInShelf.count==0){
+                self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            }
         }
     }];
 }
