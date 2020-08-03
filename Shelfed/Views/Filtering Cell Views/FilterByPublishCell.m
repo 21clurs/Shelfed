@@ -18,7 +18,10 @@
 }
 - (void)setYearString:(NSString *)yearString{
     _yearString = yearString;
-    self.enterYearField.text = yearString;
+    if ([yearString intValue] == 0)
+        self.enterYearField.text=@"";
+    else
+        self.enterYearField.text = yearString;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

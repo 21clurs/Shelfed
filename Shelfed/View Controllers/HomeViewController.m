@@ -50,6 +50,7 @@ UIRefreshControl *refreshControl;
     self.searchBar = [[UISearchBar alloc] init];
     self.searchBar.delegate = self;
     [self.searchBar sizeToFit];
+    self.searchBar.placeholder = @"Search for books";
     self.navigationItem.titleView = self.searchBar;
 
     //UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:nil];

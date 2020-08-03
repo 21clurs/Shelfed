@@ -11,6 +11,7 @@ target 'Shelfed' do
   pod 'Parse/UI'
   pod 'MBProgressHUD'
   pod 'DZNEmptyDataSet'
+  pod 'FaveButton'
 
   target 'ShelfedTests' do
     inherit! :search_paths

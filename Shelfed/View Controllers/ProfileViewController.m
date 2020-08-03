@@ -28,15 +28,17 @@
 
 @implementation ProfileViewController
 
+- (void)viewWillAppear:(BOOL)animated{ // do this with notifications later
+    [self resetReadBooksCount];
+    [self resetReadingBooksCount];
+    [self resetTotalBooksCount];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.nameLabel.text = [PFUser.currentUser username];
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
     [self.updatePhotoContainerView addGestureRecognizer:tapRecognizer];
-    
-    [self resetReadBooksCount];
-    [self resetReadingBooksCount];
-    [self resetTotalBooksCount];
 }
 
 - (void) onTap:(UITapGestureRecognizer *)sender{

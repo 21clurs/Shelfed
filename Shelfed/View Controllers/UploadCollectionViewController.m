@@ -109,7 +109,6 @@
     cellWidth = floor(cellWidth);
     CGFloat cellHeight = cellWidth;
     return CGSizeMake(cellWidth, cellHeight);
-
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -138,6 +137,11 @@
         [cell.uploadPhotoView loadInBackground];
     }
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
 }
 
 #pragma mark - UIImagePickerControllerDelegate

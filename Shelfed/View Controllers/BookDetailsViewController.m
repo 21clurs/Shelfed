@@ -60,12 +60,12 @@
         self.coverArtView.image = [UIImage imageNamed:@"NoImageAvailable"];
     }
     if (self.isFavorite == YES){
-        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        // [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
         [self.favoriteButton setTintColor:[UIColor redColor]];
     }
     else{
-        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-        [self.favoriteButton setTintColor:[UIColor blackColor]];
+        // [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        [self.favoriteButton setTintColor:[UIColor lightGrayColor]];
     }
     self.descriptionLabel.text = self.book.bookDescription;
 }

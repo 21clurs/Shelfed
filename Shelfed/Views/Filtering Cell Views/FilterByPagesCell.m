@@ -18,7 +18,10 @@
 }
 - (void)setPageCountString:(NSString *)pageCountString{
     _pageCountString = pageCountString;
-    self.pageCountField.text = pageCountString;
+    if([pageCountString intValue] == 0)
+        self.pageCountField.text = @"";
+    else
+        self.pageCountField.text = pageCountString;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

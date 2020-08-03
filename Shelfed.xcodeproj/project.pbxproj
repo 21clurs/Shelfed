@@ -146,6 +146,7 @@
 		F9BCCAD824BCEB3A00B3CE42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9D0E61D24D37F3400FB26B0 /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
 		F9D0E61E24D37F3400FB26B0 /* Filter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
+		F9D0E62A24D88E9A00FB26B0 /* Shelfed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shelfed-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +301,7 @@
 				F9A6A2F924C64152000FE6F0 /* AddRemoveBooksHelper.m */,
 				F992B81A24CF381B0044A4CF /* UploadImageHelper.h */,
 				F992B81B24CF381B0044A4CF /* UploadImageHelper.m */,
+				F9D0E62A24D88E9A00FB26B0 /* Shelfed-Bridging-Header.h */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -452,6 +454,7 @@
 				TargetAttributes = {
 					F9BCCAAB24BCEB3900B3CE42 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1160;
 					};
 					F9BCCAC624BCEB3A00B3CE42 = {
 						CreatedOnToolsVersion = 11.5;
@@ -820,6 +823,7 @@
 			baseConfigurationReference = 59161196E38D5DD20E07F621 /* Pods-Shelfed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HFP8HTY2NL;
 				INFOPLIST_FILE = Shelfed/Info.plist;
@@ -829,6 +833,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.claraj.Shelfed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Shelfed/Helpers/Shelfed-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -838,6 +845,7 @@
 			baseConfigurationReference = AFF7DFB6DE8C4DEB1C6B397E /* Pods-Shelfed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HFP8HTY2NL;
 				INFOPLIST_FILE = Shelfed/Info.plist;
@@ -847,6 +855,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.claraj.Shelfed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Shelfed/Helpers/Shelfed-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

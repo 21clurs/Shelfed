@@ -42,10 +42,10 @@
                             <action selector="didTapMore:" destination="nDa-K4-isw" eventType="touchUpInside" id="skF-T9-GSR"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PP8-5b-M7p">
-                        <rect key="frame" x="406" y="8" width="21" height="22"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PP8-5b-M7p" customClass="FaveButton" customModule="FaveButton">
+                        <rect key="frame" x="398" y="8" width="21" height="22"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <state key="normal" image="heart" catalog="system"/>
+                        <state key="normal" image="heart.fill" catalog="system"/>
                         <connections>
                             <action selector="didTapFavorite:" destination="nDa-K4-isw" eventType="touchUpInside" id="i1v-OQ-FXq"/>
                         </connections>
@@ -54,7 +54,7 @@
                 <constraints>
                     <constraint firstItem="1ky-Xf-1mc" firstAttribute="top" secondItem="KqC-bC-bOm" secondAttribute="bottom" constant="8" id="4rV-3l-aR6"/>
                     <constraint firstItem="rj4-Ac-cB9" firstAttribute="top" secondItem="dGB-fR-MPB" secondAttribute="top" constant="8" id="66j-4h-5wg"/>
-                    <constraint firstItem="xjv-o7-5Bd" firstAttribute="leading" secondItem="PP8-5b-M7p" secondAttribute="trailing" constant="8" id="AXj-FQ-cfc"/>
+                    <constraint firstItem="xjv-o7-5Bd" firstAttribute="leading" secondItem="PP8-5b-M7p" secondAttribute="trailing" constant="16" id="AXj-FQ-cfc"/>
                     <constraint firstItem="KqC-bC-bOm" firstAttribute="top" secondItem="dGB-fR-MPB" secondAttribute="top" constant="8" id="BwH-Uu-5MY"/>
                     <constraint firstItem="PP8-5b-M7p" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KqC-bC-bOm" secondAttribute="trailing" constant="8" id="CZw-KZ-rbK"/>
                     <constraint firstItem="1ky-Xf-1mc" firstAttribute="leading" secondItem="rj4-Ac-cB9" secondAttribute="trailing" constant="8" id="FiD-Xw-OGb"/>
@@ -71,7 +71,7 @@
             <connections>
                 <outlet property="authorLabel" destination="1ky-Xf-1mc" id="N0i-0w-Nsl"/>
                 <outlet property="coverArtView" destination="rj4-Ac-cB9" id="mOn-f5-aEa"/>
-                <outlet property="favoriteButton" destination="PP8-5b-M7p" id="3NI-D5-RrF"/>
+                <outlet property="favoriteButton" destination="PP8-5b-M7p" id="A4C-p4-vIK"/>
                 <outlet property="seeMoreButton" destination="xjv-o7-5Bd" id="r5J-6J-avX"/>
                 <outlet property="titleLabel" destination="KqC-bC-bOm" id="rb9-SG-COg"/>
             </connections>
@@ -80,6 +80,6 @@
     </objects>
     <resources>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
     </resources>
 </document>

@@ -121,9 +121,12 @@
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         
         Book *bookToRemove = self.filteredBooks[indexPath.row];
-        [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nonnull error) {
-            [self reloadFavorites];
-            completionHandler(YES);
+        
+        [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nullable error) {
+            if(error == nil){
+                [self reloadFavorites];
+                completionHandler(YES);
+            }
         }];
         
     }];
