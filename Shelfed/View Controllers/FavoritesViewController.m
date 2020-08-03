@@ -66,18 +66,26 @@
         else{
             self.favoriteBooks = [books mutableCopy];
             self.filteredBooks = self.favoriteBooks;
-            if(self.favoriteBooks.count>0){
-                self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-            }
+            [self checkForEmptyDataSet];
             [self.tableView reloadData];
         }
     }];
+}
+
+-(void)checkForEmptyDataSet{
+    if(self.filteredBooks.count>0){
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    }
+    else{
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
 }
 
 #pragma mark - FilterSelectionViewControllerDelegate
 -(void)appliedFilters:(NSDictionary<NSNumber *, NSArray<Filter *> *> *)appliedFilters{
     self.filtersDictionary = appliedFilters;
     self.filteredBooks = [Filter appliedFilters:appliedFilters toBookArray:self.favoriteBooks];
+    [self checkForEmptyDataSet];
     [self.tableView reloadData];
 }
 

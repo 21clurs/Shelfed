@@ -225,7 +225,7 @@
             </objects>
             <point key="canvasLocation" x="-787" y="-755"/>
         </scene>
-        <!--Shelves View Controller-->
+        <!--My Shelves-->
         <scene sceneID="KGR-zu-mtT">
             <objects>
                 <viewController id="Czw-7z-aao" customClass="ShelvesViewController" sceneMemberID="viewController">
@@ -252,8 +252,9 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="EcS-jM-2vo">
                                                     <rect key="frame" x="0.0" y="0.0" width="196" height="197"/>
+                                                    <color key="backgroundColor" red="0.019833333330000001" green="0.0" blue="0.17000000000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </imageView>
-                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5jn-aX-Pvc">
+                                                <visualEffectView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5jn-aX-Pvc">
                                                     <rect key="frame" x="0.0" y="0.0" width="196" height="197"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="GuO-PN-ieE">
                                                         <rect key="frame" x="0.0" y="0.0" width="196" height="197"/>
@@ -305,7 +306,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rnP-Rm-fGS"/>
                     </view>
-                    <navigationItem key="navigationItem" id="l7l-wR-2Bg"/>
+                    <navigationItem key="navigationItem" title="My Shelves" id="l7l-wR-2Bg"/>
                     <connections>
                         <outlet property="collectionView" destination="kXA-pP-crU" id="mTo-st-aIp"/>
                         <outlet property="flowLayout" destination="5PW-ke-reC" id="HKz-fH-1ZK"/>
@@ -325,12 +326,6 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="74Q-XJ-Mtw">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Search for books" id="KlU-th-e20">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -344,7 +339,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="8aM-Rg-r9Z"/>
                     <connections>
-                        <outlet property="searchBar" destination="KlU-th-e20" id="1Dm-bQ-Sna"/>
                         <outlet property="tableView" destination="74Q-XJ-Mtw" id="bkx-SR-WKe"/>
                         <segue destination="jQ3-HB-y6c" kind="show" identifier="bookDetailsSegue" id="PDl-gM-Mob"/>
                         <segue destination="BFN-Zm-dXC" kind="presentation" identifier="selectShelfSegue" id="gma-Cp-2pI"/>
@@ -822,7 +816,7 @@
             </objects>
             <point key="canvasLocation" x="-965" y="433"/>
         </scene>
-        <!--Favorites View Controller-->
+        <!--Favorites-->
         <scene sceneID="hHq-HR-ZS2">
             <objects>
                 <viewController id="l9a-f7-SWo" customClass="FavoritesViewController" sceneMemberID="viewController">
@@ -833,11 +827,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VrT-BR-tg9">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search within favorites" id="gaY-KO-8La">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
                                 <sections/>
                             </tableView>
                         </subviews>
@@ -850,7 +839,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9lK-nv-6eU"/>
                     </view>
-                    <navigationItem key="navigationItem" id="dtV-XO-4Ok">
+                    <navigationItem key="navigationItem" title="Favorites" id="dtV-XO-4Ok">
                         <barButtonItem key="rightBarButtonItem" title="Filters" id="bhF-YR-JXS">
                             <connections>
                                 <segue destination="JMb-rA-RHD" kind="presentation" identifier="filterSelectionSegue" id="19Y-qe-jah"/>
@@ -867,7 +856,7 @@
             </objects>
             <point key="canvasLocation" x="1198.5507246376812" y="432.58928571428572"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Profile-->
         <scene sceneID="Fja-u4-yhd">
             <objects>
                 <viewController id="vqW-Sc-EX2" customClass="ProfileViewController" sceneMemberID="viewController">
@@ -926,7 +915,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8NZ-hW-vYy"/>
                     </view>
-                    <navigationItem key="navigationItem" id="99E-6e-Fsq">
+                    <navigationItem key="navigationItem" title="Profile" id="99E-6e-Fsq">
                         <barButtonItem key="rightBarButtonItem" title="Log Out" id="JDI-43-qQF">
                             <connections>
                                 <action selector="didTapLogOut:" destination="vqW-Sc-EX2" id="IE3-1Q-chL"/>
@@ -1086,10 +1075,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gma-Cp-2pI"/>
+        <segue reference="0rO-90-uUl"/>
         <segue reference="ei2-QH-qVv"/>
         <segue reference="x8N-C0-dZc"/>
-        <segue reference="PDl-gM-Mob"/>
+        <segue reference="rul-JA-o80"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="370.5" height="168.5"/>

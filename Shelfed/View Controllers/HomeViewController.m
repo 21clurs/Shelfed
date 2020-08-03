@@ -19,7 +19,7 @@
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray<Book *> *books;
 @property (assign, nonatomic) BOOL isMoreDataLoading;
 
@@ -43,14 +43,24 @@ UIRefreshControl *refreshControl;
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.searchBar.delegate = self;
     
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     
+    self.searchBar = [[UISearchBar alloc] init];
+    self.searchBar.delegate = self;
+    [self.searchBar sizeToFit];
+    self.navigationItem.titleView = self.searchBar;
+
+    //UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    //self.navigationItem.searchController = searchController;
+    //self.navigationItem.hidesSearchBarWhenScrolling = false;
+    
+    //self.tableView.tableHeaderView = searchController.searchBar;
+    //self.definesPresentationContext = YES;
+    
     manager = [GoogleBooksAPIManager new];
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
     
     refreshControl = [[UIRefreshControl alloc] init];

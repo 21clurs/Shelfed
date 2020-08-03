@@ -36,7 +36,7 @@
     Filter *filterAfterYear = [[Filter alloc] initYearFilterWithYear:@"" andBefore:NO];
     
     Filter *filterGenreFiction = [[Filter alloc] initGenreFilterWithGenre:@"Fiction"];
-    Filter *filterGenreNonfiction = [[Filter alloc] initGenreFilterWithGenre:@"Noniction"];
+    Filter *filterGenreNonfiction = [[Filter alloc] initGenreFilterWithGenre:@"Nonfiction"];
     Filter *filterGenreYA = [[Filter alloc] initGenreFilterWithGenre:@"Juvenile Fiction"];
     Filter *filterGenreOther = [[Filter alloc] initGenreFilterWithGenre:@"Other"];
     
