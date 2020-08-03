@@ -56,7 +56,9 @@
     if(self.book.coverArtThumbnail!=nil){
         [self.coverArtView setImageWithURL:[NSURL URLWithString: self.book.coverArtThumbnail]];
     }
-    
+    else{
+        self.coverArtView.image = [UIImage imageNamed:@"NoImageAvailable"];
+    }
     if (self.isFavorite == YES){
         [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
         [self.favoriteButton setTintColor:[UIColor redColor]];

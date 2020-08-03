@@ -31,6 +31,9 @@
     if(book.coverArtThumbnail!=nil){
         [self.coverArtView setImageWithURL: [NSURL URLWithString: book.coverArtThumbnail]];
     }
+    else{
+        self.coverArtView.image = [UIImage imageNamed:@"NoImageAvailable"];
+    }
     
     PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
     PFQuery *query = [relation query];
