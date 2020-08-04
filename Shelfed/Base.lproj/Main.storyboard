@@ -464,7 +464,7 @@
                                                 <rect key="frame" x="314" y="136" width="80" height="22"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPx-vJ-lXO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="26.5" height="22"/>
                                                         <color key="tintColor" red="0.019833333330000001" green="0.0" blue="0.17000000000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" image="bookmark.fill" catalog="system"/>
                                                         <connections>
@@ -472,11 +472,19 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhZ-5X-Rap">
-                                                        <rect key="frame" x="40" y="0.0" width="40" height="22"/>
+                                                        <rect key="frame" x="26.5" y="0.0" width="27" height="22"/>
                                                         <color key="tintColor" red="0.019833333330000001" green="0.0" blue="0.17000000000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <state key="normal" image="heart.fill" catalog="system"/>
                                                         <connections>
                                                             <action selector="didTapFavorite:" destination="jQ3-HB-y6c" eventType="touchUpInside" id="IDS-p6-qd1"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpO-21-JUj">
+                                                        <rect key="frame" x="53.5" y="0.0" width="26.5" height="22"/>
+                                                        <color key="tintColor" red="0.019833333330000001" green="0.0" blue="0.17000000000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <state key="normal" image="ellipsis.circle" catalog="system"/>
+                                                        <connections>
+                                                            <segue destination="BFN-Zm-dXC" kind="presentation" identifier="selectShelfSegue" id="toJ-Ee-7Pa"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1320,10 +1328,10 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Vg5-nC-Hnj"/>
-        <segue reference="JAJ-4x-lDL"/>
+        <segue reference="toJ-Ee-7Pa"/>
         <segue reference="ei2-QH-qVv"/>
         <segue reference="gml-9o-vy5"/>
-        <segue reference="JI5-PX-4Hv"/>
+        <segue reference="PDl-gM-Mob"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="370.5" height="168.5"/>
@@ -1331,6 +1339,7 @@
         <image name="book.fill" catalog="system" width="128" height="100"/>
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="default_profile_image" width="170" height="170"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="house" catalog="system" width="128" height="110"/>

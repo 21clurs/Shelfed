@@ -11,8 +11,9 @@
 #import "Book.h"
 #import "AddRemoveBooksHelper.h"
 #import "UploadCollectionViewController.h"
+#import "SelectShelfViewController.h"
 
-@interface BookDetailsViewController ()
+@interface BookDetailsViewController () <SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *coverArtView;
@@ -92,16 +93,23 @@
     }
 }
 
+#pragma mark - SelectShelfViewControllerDelegate
+- (void)didUpdateShelf{
+    //No-Op
+}
 
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if([segue.identifier isEqualToString:@"showUploadsSegue"]){
         UploadCollectionViewController *uploadCollectionViewController = [segue destinationViewController];
         uploadCollectionViewController.book = self.book;
+    }
+    else if([segue.identifier isEqualToString:@"selectShelfSegue"]){
+        Book *book = self.book;
+        UINavigationController *navigationController = [segue destinationViewController];
+        SelectShelfViewController *selectShelfViewController = (SelectShelfViewController *)[navigationController topViewController];
+        selectShelfViewController.addBook = book;
+        selectShelfViewController.delegate = self;
     }
 }
 

@@ -146,20 +146,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if((self.book!=nil && indexPath.item >0) || self.book == nil){
         [self performSegueWithIdentifier:@"showUploadDetailsSegue" sender:indexPath];
-        
-        /*
-        UploadCollectionCell *cell = (UploadCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
-         
-        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-        photo.image = cell.uploadPhotoView.image;
-        photo.userGenerated = YES;
-        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc] init];
-        content.photos = @[photo];
-        
-        FBSDKShareButton *button = [[FBSDKShareButton alloc] init];
-        button.shareContent = content;
-        [self.view addSubview:button];
-         */
     }
 }
 

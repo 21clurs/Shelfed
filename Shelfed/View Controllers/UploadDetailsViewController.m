@@ -61,14 +61,10 @@
     photo.userGenerated = YES;
     FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc] init];
     content.photos = @[photo];
-
-    
     FBSDKShareButton *button = [[FBSDKShareButton alloc] init];
-    
     button.shareContent = content;
     button.frame = CGRectMake(0, 0, self.fbShareButtonView.frame.size.width-32, self.fbShareButtonView.frame.size.height);
     [self.fbShareButtonView addSubview:button];
-     
 }
 
 - (IBAction)didTapDelete:(id)sender {
