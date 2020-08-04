@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Book.h"
-//#import <FaveButton/FaveButton-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

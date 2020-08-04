@@ -35,8 +35,8 @@
     self.collectionView.dataSource = self;
     
     self.flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    self.flowLayout.minimumLineSpacing = 2;
-    self.flowLayout.minimumInteritemSpacing = 2;
+    self.flowLayout.minimumLineSpacing = 1;
+    self.flowLayout.minimumInteritemSpacing = 1;
     self.flowLayout.sectionInset = UIEdgeInsetsMake(8, 8, 8, 8);
 }
 

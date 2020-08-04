@@ -73,10 +73,14 @@
 
 -(void)checkForEmptyDataSet{
     if(self.filteredBooks.count>0){
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
     else{
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
     }
 }
 
@@ -147,7 +151,6 @@
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
-
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

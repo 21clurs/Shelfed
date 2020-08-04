@@ -8,13 +8,14 @@
 
 #import "ShelfViewController.h"
 #import "BookCellNib.h"
+#import "UIScrollView+EmptyDataSet.h"
 #import "AddRemoveBooksHelper.h"
 #import "BookDetailsViewController.h"
 #import "SelectShelfViewController.h"
 #import "Filter.h"
 #import "FilterSelectionViewController.h"
 
-@interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
+@interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray<Book *> *booksInShelf;
 @property (strong, nonatomic) NSArray<Book *> *filteredBooksInShelf;
@@ -33,6 +34,8 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
     
@@ -66,11 +69,8 @@
         else{
             self.booksInShelf = books;
             self.filteredBooksInShelf = self.booksInShelf;
+            [self checkForEmptyDataSet];
             [self.tableView reloadData];
-            
-            if(self.booksInShelf.count==0){
-                self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            }
         }
     }];
 }
@@ -102,6 +102,20 @@
         [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
     }
 }
+
+-(void)checkForEmptyDataSet{
+    if(self.filteredBooksInShelf.count>0){
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
+    else{
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+}
+
 #pragma mark - FilterSelectionViewControllerDelegate
 -(void)appliedFilters:(NSDictionary<NSNumber *, NSArray<Filter *> *> *)appliedFilters{
     self.filtersDictionary = appliedFilters;
@@ -153,7 +167,17 @@
     return config;
 }
 
-
+#pragma mark - DZNEmptyDataSetSource
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView{
+    UIImage *placeholderImage =  [[UIImage systemImageNamed:@"book"] imageWithTintColor:UIColor.darkGrayColor];
+    return placeholderImage;
+}
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
+    NSString *text = @"Add books to this shelf to see them here";
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
 
 #pragma mark - Navigation
 

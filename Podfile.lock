@@ -16,7 +16,6 @@ PODS:
     - AFNetworking/NSURLSession
   - Bolts/Tasks (1.9.1)
   - DZNEmptyDataSet (1.8.1)
-  - FaveButton (3.2.1)
   - FBSDKCoreKit (7.1.1):
     - FBSDKCoreKit/Basics (= 7.1.1)
     - FBSDKCoreKit/Core (= 7.1.1)
@@ -42,7 +41,6 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - DZNEmptyDataSet
-  - FaveButton
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
@@ -55,7 +53,6 @@ SPEC REPOS:
     - AFNetworking
     - Bolts
     - DZNEmptyDataSet
-    - FaveButton
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
@@ -66,13 +63,12 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FaveButton: 93cfebf6030336fa7653fad2068c3152ed668b39
   FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
   FBSDKLoginKit: 1a61d79e2b25e2fc0d03dccab1e34b38bbdf2546
   FBSDKShareKit: 00a055c1999b099596e00212dd1c0600c6697019
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
 
-PODFILE CHECKSUM: 3f679aad13d33cb62973f4ab2003bb001aaf0619
+PODFILE CHECKSUM: ca9c83da33c6c79e120b723979c7790941b396b0
 
 COCOAPODS: 1.9.3

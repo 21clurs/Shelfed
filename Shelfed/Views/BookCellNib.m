@@ -22,16 +22,6 @@
     // Configure the view for the selected state
 }
 
-/*
-- (void) favoriteButtonSetup{
-    self.favoriteButton.delegate = self;
-    self.favoriteButton.selectedColor = [UIColor redColor];
-    self.favoriteButton.normalColor = [UIColor lightGrayColor];
-    
-    self.favoriteButton.dotFirstColor = [UIColor yellowColor];
-    self.favoriteButton.dotSecondColor = [UIColor blueColor];
-}
-*/
 - (void)setBook:(Book *)book{
     _book = book;
     
@@ -52,20 +42,14 @@
             
             [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
             [self.favoriteButton setTintColor:[UIColor redColor]];
-             
-            //self.favoriteButton.selected = YES;
             self.inFavorites = YES;
         }
         else{
             
             [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
             [self.favoriteButton setTintColor:[UIColor blackColor]];
-            
-            //self.favoriteButton.selected = NO;
-             
             self.inFavorites = NO;
         }
-        //[self favoriteButtonSetup];
     }];
 }
 - (void)toggleFavorite{
@@ -74,17 +58,17 @@
         [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
                 __strong typeof(self) strongSelf = weakSelf;
-                
-                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-                [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
+                [UIView animateWithDuration:0.1 animations:^{
+                    strongSelf.favoriteButton.transform = CGAffineTransformMakeScale(.8, .8);
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.1 animations:^{
+                        [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+                        [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
+                        strongSelf.favoriteButton.transform = CGAffineTransformIdentity;
+                    }];
+                }];
                 strongSelf.inFavorites = NO;
                 [strongSelf.delegate didRemove];
-                /*
-                self.favoriteButton.selected = NO;
-                [strongSelf.delegate didRemove];
-                self.inFavorites = NO;
-                [self.delegate didRemove];
-                */
             }
         }];
     }
@@ -92,14 +76,16 @@
         [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
                 __strong typeof(self) strongSelf = weakSelf;
-                
-                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-                [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
+                [UIView animateWithDuration:0.1 animations:^{
+                    strongSelf.favoriteButton.transform = CGAffineTransformMakeScale(.8, .8);
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.1 animations:^{
+                        [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+                        [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
+                        strongSelf.favoriteButton.transform = CGAffineTransformIdentity;
+                    }];
+                }];
                 strongSelf.inFavorites = YES;
-                /*
-                self.favoriteButton.selected = YES;
-                self.inFavorites = YES;
-                */
             }
         }];
     }

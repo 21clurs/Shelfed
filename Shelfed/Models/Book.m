@@ -11,21 +11,14 @@
 @implementation Book
 
 @dynamic title;
-//@dynamic subtitle;
-//@dynamic authorsArray;
 @dynamic authorsString;
-//@dynamic bookDescription;
+@dynamic bookID;
 
 @dynamic coverArtThumbnail;
-//@dynamic coverArt;
-
-@dynamic bookID;
 
 @dynamic publishedDate;
 //@dynamic printType;
 @dynamic categories;
-
-//@dynamic isbn13;
 @dynamic pages;
 
 

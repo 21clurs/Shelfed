@@ -68,8 +68,9 @@
     }
     else{
         [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-        [self.favoriteButton setTintColor:[UIColor lightGrayColor]];
+        [self.favoriteButton setTintColor:[UIColor blackColor]];
     }
+    self.descriptionLabel.alpha = 0;
     GoogleBooksAPIManager *manager = [[GoogleBooksAPIManager alloc] init];
     [manager getBookWithBookID:self.book.bookID andCompletion:^(NSDictionary * _Nonnull bookDict, NSError * _Nonnull error) {
         NSDictionary *volumeInfo = bookDict[@"volumeInfo"];
@@ -77,6 +78,9 @@
             self.descriptionLabel.text = [volumeInfo[@"description"] stringByStrippingHTML];
         else
             self.descriptionLabel.text = @"No description available.";
+        [UIView animateWithDuration:0.2 animations:^{
+            self.descriptionLabel.alpha = 1;
+        }];
     }];
     //self.descriptionLabel.text = self.book.bookDescription;
 }
