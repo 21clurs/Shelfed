@@ -11,9 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UploadImageHelper : NSObject
+@interface UIImage(UIImageUploadAdditions)
 
-+(UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size;
+-(UIImage *)resizewithSize:(CGSize)size;
 
 @end
 

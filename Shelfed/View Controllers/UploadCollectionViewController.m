@@ -10,7 +10,7 @@
 #import "UploadPhotoViewController.h"
 #import "Parse/Parse.h"
 #import "UploadCollectionCell.h"
-#import "UploadImageHelper.h"
+#import "UIImage+UIImageUploadAdditions.h"
 #import "Upload.h"
 #import "UploadDetailsViewController.h"
 #import "FBSDKCoreKit.h"
@@ -152,8 +152,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-    CGSize size = CGSizeMake(200, 200);
-    UIImage *resizedImage = [UploadImageHelper resizeImage:editedImage withSize:size];
+    UIImage *resizedImage = [editedImage resizewithSize:CGSizeMake(500,500)];
     
     NSData *imageData = UIImagePNGRepresentation(resizedImage);
     

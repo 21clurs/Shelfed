@@ -35,7 +35,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjv-o7-5Bd">
-                        <rect key="frame" x="435" y="8" width="20" height="22"/>
+                        <rect key="frame" x="427" y="8" width="20" height="22"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" image="ellipsis.circle" catalog="system"/>
                         <connections>
@@ -43,7 +43,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PP8-5b-M7p" customClass="FaveButton" customModule="FaveButton">
-                        <rect key="frame" x="398" y="8" width="21" height="22"/>
+                        <rect key="frame" x="390" y="8" width="21" height="22"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" image="heart.fill" catalog="system"/>
                         <connections>
@@ -58,7 +58,7 @@
                     <constraint firstItem="KqC-bC-bOm" firstAttribute="top" secondItem="dGB-fR-MPB" secondAttribute="top" constant="8" id="BwH-Uu-5MY"/>
                     <constraint firstItem="PP8-5b-M7p" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KqC-bC-bOm" secondAttribute="trailing" constant="8" id="CZw-KZ-rbK"/>
                     <constraint firstItem="1ky-Xf-1mc" firstAttribute="leading" secondItem="rj4-Ac-cB9" secondAttribute="trailing" constant="8" id="FiD-Xw-OGb"/>
-                    <constraint firstAttribute="trailing" secondItem="xjv-o7-5Bd" secondAttribute="trailing" constant="8" id="aME-qq-i0R"/>
+                    <constraint firstAttribute="trailing" secondItem="xjv-o7-5Bd" secondAttribute="trailing" constant="16" id="aME-qq-i0R"/>
                     <constraint firstItem="PP8-5b-M7p" firstAttribute="top" secondItem="dGB-fR-MPB" secondAttribute="top" constant="8" id="ceU-Nj-tah"/>
                     <constraint firstItem="rj4-Ac-cB9" firstAttribute="leading" secondItem="dGB-fR-MPB" secondAttribute="leading" constant="8" id="hT2-ks-68T"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rj4-Ac-cB9" secondAttribute="bottom" constant="8" id="jtz-un-1Ff"/>

@@ -6,10 +6,23 @@
 //  Copyright © 2020 Clara Kim. All rights reserved.
 //
 
-#import "UploadImageHelper.h"
+#import "UIImage+UIImageUploadAdditions.h"
 
-@implementation UploadImageHelper
+@implementation UIImage(UIImageUploadAdditions)
 
+-(UIImage *)resizewithSize:(CGSize)size{
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = self;
+       
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+       
+    return newImage;
+}
+/*
 +(UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size{
     UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
     
@@ -23,5 +36,5 @@
     
     return newImage;
 }
-
+*/
 @end
