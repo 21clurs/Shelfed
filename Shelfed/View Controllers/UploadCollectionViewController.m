@@ -12,6 +12,9 @@
 #import "UploadCollectionCell.h"
 #import "UploadImageHelper.h"
 #import "Upload.h"
+#import "UploadDetailsViewController.h"
+#import "FBSDKCoreKit.h"
+#import "FBSDKShareKit.h"
 @import Parse;
 
 @interface UploadCollectionViewController () < UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -141,7 +144,23 @@
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if((self.book!=nil && indexPath.item >0) || self.book == nil){
+        [self performSegueWithIdentifier:@"showUploadDetailsSegue" sender:indexPath];
+        
+        /*
+        UploadCollectionCell *cell = (UploadCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+         
+        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+        photo.image = cell.uploadPhotoView.image;
+        photo.userGenerated = YES;
+        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc] init];
+        content.photos = @[photo];
+        
+        FBSDKShareButton *button = [[FBSDKShareButton alloc] init];
+        button.shareContent = content;
+        [self.view addSubview:button];
+         */
+    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -164,14 +183,29 @@
 };
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"showUploadDetailsSegue"]){
+        NSIndexPath *indexPath = sender;
+        UploadCollectionCell *cell = (UploadCollectionCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        UploadDetailsViewController *uploadDetailsViewController = [segue destinationViewController];
+        UIImage *image = cell.uploadPhotoView.image;
+        
+        Upload *upload;
+        if(self.book!=nil)
+            upload = self.uploads[indexPath.item-1];
+        else
+            upload = self.uploads[indexPath.item];
+        
+        uploadDetailsViewController.uploadImage = image;
+        uploadDetailsViewController.upload = upload;
+    }
 }
-*/
+
 
 @end

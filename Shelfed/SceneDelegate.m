@@ -8,6 +8,7 @@
 
 #import "SceneDelegate.h"
 #import "Parse/Parse.h"
+#import "FBSDKCoreKit/FBSDKCoreKit.h"
 
 @interface SceneDelegate ()
 
@@ -26,6 +27,11 @@
     }
 }
 
+- (void) scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts{
+    UIOpenURLContext *url = [URLContexts anyObject];
+    if(url != nil)
+        [[FBSDKApplicationDelegate sharedInstance] application:[UIApplication sharedApplication] openURL:url.URL options: nil];
+}
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
     // Called as the scene is being released by the system.

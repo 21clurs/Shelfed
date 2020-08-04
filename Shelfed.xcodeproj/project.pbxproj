@@ -48,6 +48,7 @@
 		F9D0E62524D4E40200FB26B0 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = F9D0E62424D4E40200FB26B0 /* FacebookLogin */; };
 		F9D0E62724D4E40200FB26B0 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = F9D0E62624D4E40200FB26B0 /* FacebookShare */; };
 		F9D0E62924D4E40200FB26B0 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = F9D0E62824D4E40200FB26B0 /* FacebookCore */; };
+		F9D0E66D24D8D1A100FB26B0 /* UploadDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D0E66C24D8D1A100FB26B0 /* UploadDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,8 @@
 		F9D0E61D24D37F3400FB26B0 /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
 		F9D0E61E24D37F3400FB26B0 /* Filter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		F9D0E62A24D88E9A00FB26B0 /* Shelfed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shelfed-Bridging-Header.h"; sourceTree = "<group>"; };
+		F9D0E66B24D8D1A100FB26B0 /* UploadDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadDetailsViewController.h; sourceTree = "<group>"; };
+		F9D0E66C24D8D1A100FB26B0 /* UploadDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +233,8 @@
 				F992B81524CB43830044A4CF /* UploadCollectionViewController.m */,
 				F992B81D24CF986F0044A4CF /* FilterSelectionViewController.h */,
 				F992B81E24CF986F0044A4CF /* FilterSelectionViewController.m */,
+				F9D0E66B24D8D1A100FB26B0 /* UploadDetailsViewController.h */,
+				F9D0E66C24D8D1A100FB26B0 /* UploadDetailsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -647,6 +652,7 @@
 				F9BCCAB424BCEB3900B3CE42 /* SceneDelegate.m in Sources */,
 				F9B862D824BF5FBC000C2E0C /* SignUpViewController.m in Sources */,
 				F9A6A2E924BFBD76000FE6F0 /* FavoritesViewController.m in Sources */,
+				F9D0E66D24D8D1A100FB26B0 /* UploadDetailsViewController.m in Sources */,
 				F992B82424D0D1090044A4CF /* FilterByPublishCell.m in Sources */,
 				F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */,
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,

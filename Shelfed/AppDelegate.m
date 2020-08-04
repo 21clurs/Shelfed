@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Parse/Parse.h"
+#import "FBSDKCoreKit.h"
 
 @interface AppDelegate ()
 
@@ -17,18 +18,24 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
         configuration.applicationId = @"shelfed";
         configuration.server = @"https://shelfed.herokuapp.com/parse";
     }];
-    
     [Parse initializeWithConfiguration:config];
+    
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options];
+    return handled;
+}
 
 #pragma mark - UISceneSession lifecycle
 
