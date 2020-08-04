@@ -94,7 +94,7 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-    UIImage *resizedImage = [UploadImageHelper resizeImage:editedImage withSize:CGSizeMake(200,200)];
+    UIImage *resizedImage = [UploadImageHelper resizeImage:editedImage withSize:CGSizeMake(500,500)];
     NSData *imageData = UIImagePNGRepresentation(resizedImage);
     
     [self didSelectPhoto:imageData];

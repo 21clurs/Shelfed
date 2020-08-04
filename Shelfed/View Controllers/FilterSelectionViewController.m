@@ -17,6 +17,8 @@
 
 @implementation FilterSelectionViewController
 
+bool shouldClear;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -53,7 +55,7 @@
 }
 
 - (IBAction)didTapClear:(id)sender {
-    
+    shouldClear = YES;
     [self.tableView reloadData];
 }
 
@@ -70,6 +72,10 @@
         case FilterSectionTypePages:{
             FilterByPagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPagesCell"];
             cell.filter = filter;
+            if(shouldClear == YES){
+                cell.pageCountString = @"";
+                filter.pages = 0;
+            }
             cell.pageCountString = [NSString stringWithFormat:@"%d",filter.pages];
 
             if(filter.selected)
@@ -81,6 +87,10 @@
         case FilterSectionTypeYear:{
             FilterByPublishCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByPublishCell"];
             cell.filter = filter;
+            if(shouldClear == YES){
+                cell.yearString = @"";
+                filter.year = 0;
+            }
             cell.yearString = [NSString stringWithFormat:@"%d",filter.year];
             
             if(filter.selected)
@@ -90,6 +100,8 @@
             break;
         }
         default:{
+            shouldClear = NO;
+            
             FilterByGenreCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterByGenreCell"];
             cell.filter = filter;
             cell.genre = filter.genre;
