@@ -10,6 +10,7 @@
 #import "FBSDKCoreKit.h"
 #import "FBSDKShareKit.h"
 #import "AddRemoveBooksHelper.h"
+#import "Parse/Parse.h"
 
 @interface UploadDetailsViewController () <FBSDKSharingDialog>
 @property (weak, nonatomic) IBOutlet UIImageView *uploadImageView;
@@ -71,10 +72,16 @@
 }
 
 - (IBAction)didTapDelete:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    PFQuery *query = [PFQuery queryWithClassName:@"Upload"];
+    [query getObjectInBackgroundWithId:self.upload.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if(object!= nil){
+            [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                [self.delegate didDeleteUpload];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }];
+        }
+    }];
 }
-
-
 
 /*
 #pragma mark - Navigation

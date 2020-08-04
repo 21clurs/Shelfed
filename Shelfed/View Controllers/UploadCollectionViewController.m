@@ -17,7 +17,7 @@
 #import "FBSDKShareKit.h"
 @import Parse;
 
-@interface UploadCollectionViewController () < UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface UploadCollectionViewController () < UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UploadDetailsViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (strong,nonatomic) NSArray<Upload *> *uploads;
@@ -182,6 +182,10 @@
  
 };
 
+#pragma mark - UploadDetailsViewControllerDelegate
+- (void)didDeleteUpload{
+    [self getUserUploads];
+}
 
 
 #pragma mark - Navigation
@@ -205,6 +209,7 @@
         
         uploadDetailsViewController.uploadImage = image;
         uploadDetailsViewController.upload = upload;
+        uploadDetailsViewController.delegate = self;
     }
 }
 

@@ -10,10 +10,14 @@
 #import "Upload.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol UploadDetailsViewControllerDelegate <NSObject>
+-(void)didDeleteUpload;
+@end
 
 @interface UploadDetailsViewController : UIViewController
 @property (strong, nonatomic) Upload *upload;
 @property (strong, nonatomic) UIImage *uploadImage;
+@property (weak, nonatomic) id<UploadDetailsViewControllerDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END
