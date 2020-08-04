@@ -193,7 +193,8 @@
     if([segue.identifier isEqualToString:@"showUploadDetailsSegue"]){
         NSIndexPath *indexPath = sender;
         UploadCollectionCell *cell = (UploadCollectionCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-        UploadDetailsViewController *uploadDetailsViewController = [segue destinationViewController];
+        UINavigationController *navigationController = [segue destinationViewController];
+        UploadDetailsViewController *uploadDetailsViewController = (UploadDetailsViewController *)[navigationController topViewController];
         UIImage *image = cell.uploadPhotoView.image;
         
         Upload *upload;

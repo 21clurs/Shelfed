@@ -9,10 +9,16 @@
 #import "UploadDetailsViewController.h"
 #import "FBSDKCoreKit.h"
 #import "FBSDKShareKit.h"
+#import "AddRemoveBooksHelper.h"
 
 @interface UploadDetailsViewController () <FBSDKSharingDialog>
 @property (weak, nonatomic) IBOutlet UIImageView *uploadImageView;
 @property (weak, nonatomic) IBOutlet UIView *fbShareButtonView;
+@property (weak, nonatomic) IBOutlet UILabel *bookTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *uploadDateLabel;
+@property (weak, nonatomic) IBOutlet UIButton *deleteUploadButton;
+@property (strong, nonatomic) NSString *bookTitle;
+@property (strong, nonatomic) NSDate *dateUploaded;
 
 @end
 
@@ -30,7 +36,22 @@
         self.uploadImageView.image = self.uploadImage;
         [self setupFBShareButton];
     }
+}
+
+- (void)setUpload:(Upload *)upload{
+    _upload = upload;
     
+    [AddRemoveBooksHelper getBookForID:upload.associatedBookID withCompletion:^(Book * _Nonnull book, NSError * _Nullable error) {
+        if(book!=nil){
+            self.bookTitle = book.title;
+            [self.bookTitleLabel setText:self.bookTitle];
+            self.dateUploaded = upload.createdAt;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"MMMM d, yyyy";
+            
+            [self.uploadDateLabel setText:[formatter stringFromDate:self.dateUploaded]];
+        }
+    }];
 }
 
 - (void)setupFBShareButton{
@@ -40,27 +61,19 @@
     FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc] init];
     content.photos = @[photo];
 
-    /*
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button addTarget:self action:@selector(dosomething:) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:@"Show View" forState:UIControlStateNormal];
-    [button setExclusiveTouch:YES];
-    [self.fbShareButtonView addSubview:button];
-    */
+    
     FBSDKShareButton *button = [[FBSDKShareButton alloc] init];
     
-    
-    
     button.shareContent = content;
-    button.frame = CGRectMake(0, 0, self.fbShareButtonView.frame.size.width-35, self.fbShareButtonView.frame.size.height);
+    button.frame = CGRectMake(0, 0, self.fbShareButtonView.frame.size.width-32, self.fbShareButtonView.frame.size.height);
     [self.fbShareButtonView addSubview:button];
      
 }
-- (void)dosomething:(UIButton *)sender{
-    
+
+- (IBAction)didTapDelete:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
- 
 
 
 /*
@@ -72,10 +85,6 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-
-
-
 
 - (BOOL)validateWithError:(NSError *__autoreleasing  _Nullable * _Nullable)errorRef {
     return NO;

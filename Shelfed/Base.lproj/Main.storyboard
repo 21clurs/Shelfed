@@ -593,14 +593,14 @@
                     <connections>
                         <outlet property="collectionView" destination="m86-2o-0iN" id="Bg8-L7-ZpA"/>
                         <outlet property="flowLayout" destination="dN7-bu-gph" id="M5P-J8-4yq"/>
-                        <segue destination="Ulj-lm-4oY" kind="presentation" identifier="showUploadDetailsSegue" id="cM5-nX-bo6"/>
+                        <segue destination="p7W-Sg-MsS" kind="presentation" identifier="showUploadDetailsSegue" id="cM5-nX-bo6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tTI-D1-XMX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-104" y="1932"/>
         </scene>
-        <!--Upload Details View Controller-->
+        <!--Upload Details-->
         <scene sceneID="m2u-4P-z0H">
             <objects>
                 <viewController id="Ulj-lm-4oY" customClass="UploadDetailsViewController" sceneMemberID="viewController">
@@ -608,39 +608,111 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cfm-AP-3uz">
-                                <rect key="frame" x="20" y="48" width="374" height="374"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cfm-AP-3uz">
+                                <rect key="frame" x="20" y="76" width="374" height="374"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Cfm-AP-3uz" secondAttribute="height" multiplier="1:1" id="HLF-29-3of"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="zl7-8N-TXb">
-                                <rect key="frame" x="20" y="430" width="374" height="40"/>
+                                <rect key="frame" x="20" y="523.5" width="374" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="d0n-co-A9s"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAY-EQ-tFL">
+                                <rect key="frame" x="20" y="458" width="44" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploaded:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaX-NV-g3G">
+                                <rect key="frame" x="20" y="486.5" width="79" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wOh-ex-Lr2">
+                                <rect key="frame" x="72" y="458" width="43" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUU-QK-zFE">
+                                <rect key="frame" x="107" y="486.5" width="43" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIY-SZ-srU">
+                                <rect key="frame" x="20" y="571.5" width="374" height="40"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="yw4-Nn-cCy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Delete Upload">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapDelete:" destination="Ulj-lm-4oY" eventType="touchUpInside" id="5mf-uL-T09"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="zl7-8N-TXb" firstAttribute="top" secondItem="Cfm-AP-3uz" secondAttribute="bottom" constant="8" id="CeU-c4-8p7"/>
+                            <constraint firstItem="OIY-SZ-srU" firstAttribute="height" secondItem="zl7-8N-TXb" secondAttribute="height" id="1EG-Jt-sTr"/>
+                            <constraint firstItem="gaX-NV-g3G" firstAttribute="leading" secondItem="0Si-kp-zeP" secondAttribute="leadingMargin" id="27l-JD-vQ8"/>
+                            <constraint firstItem="vAY-EQ-tFL" firstAttribute="leading" secondItem="0Si-kp-zeP" secondAttribute="leadingMargin" id="2qj-YP-rp4"/>
+                            <constraint firstItem="gaX-NV-g3G" firstAttribute="top" secondItem="wOh-ex-Lr2" secondAttribute="bottom" constant="8" id="9Mn-7C-YkH"/>
+                            <constraint firstItem="zl7-8N-TXb" firstAttribute="top" secondItem="gaX-NV-g3G" secondAttribute="bottom" constant="16" id="ABv-ea-Btk"/>
                             <constraint firstItem="zl7-8N-TXb" firstAttribute="width" secondItem="Cfm-AP-3uz" secondAttribute="width" id="DmX-0V-shw"/>
-                            <constraint firstItem="Cfm-AP-3uz" firstAttribute="top" secondItem="0Si-kp-zeP" secondAttribute="topMargin" constant="48" id="ZlN-Js-aiR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OIY-SZ-srU" secondAttribute="trailing" id="HrO-FB-3dh"/>
+                            <constraint firstItem="OIY-SZ-srU" firstAttribute="leading" secondItem="0Si-kp-zeP" secondAttribute="leadingMargin" id="Ic6-Jq-7fm"/>
+                            <constraint firstItem="iUU-QK-zFE" firstAttribute="top" secondItem="wOh-ex-Lr2" secondAttribute="bottom" constant="8" id="LmW-ch-skB"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="iUU-QK-zFE" secondAttribute="trailing" id="OwI-iY-1sI"/>
+                            <constraint firstItem="vAY-EQ-tFL" firstAttribute="top" secondItem="Cfm-AP-3uz" secondAttribute="bottom" constant="8" id="RoK-32-A3d"/>
+                            <constraint firstItem="wOh-ex-Lr2" firstAttribute="top" secondItem="Cfm-AP-3uz" secondAttribute="bottom" constant="8" id="X0A-2A-No2"/>
+                            <constraint firstItem="Cfm-AP-3uz" firstAttribute="top" secondItem="0Si-kp-zeP" secondAttribute="topMargin" constant="20" id="ZlN-Js-aiR"/>
                             <constraint firstItem="Cfm-AP-3uz" firstAttribute="width" secondItem="UZJ-uu-h5l" secondAttribute="width" multiplier="0.903382" id="Zug-JY-gPM"/>
+                            <constraint firstItem="iUU-QK-zFE" firstAttribute="leading" secondItem="gaX-NV-g3G" secondAttribute="trailing" constant="8" id="ngh-k4-KZI"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="wOh-ex-Lr2" secondAttribute="trailing" id="oQY-oY-ovE"/>
                             <constraint firstItem="Cfm-AP-3uz" firstAttribute="leading" secondItem="0Si-kp-zeP" secondAttribute="leadingMargin" id="p5H-pi-LWh"/>
+                            <constraint firstItem="OIY-SZ-srU" firstAttribute="top" secondItem="zl7-8N-TXb" secondAttribute="bottom" constant="8" id="zGN-03-qsl"/>
                             <constraint firstItem="zl7-8N-TXb" firstAttribute="leading" secondItem="0Si-kp-zeP" secondAttribute="leadingMargin" id="zxe-JZ-2H1"/>
+                            <constraint firstItem="wOh-ex-Lr2" firstAttribute="leading" secondItem="vAY-EQ-tFL" secondAttribute="trailing" constant="8" id="zy0-19-l7D"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UZJ-uu-h5l"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Upload Details" id="XFv-1W-XFQ"/>
                     <connections>
+                        <outlet property="bookTitleLabel" destination="wOh-ex-Lr2" id="MwP-q8-1bJ"/>
+                        <outlet property="deleteUploadButton" destination="OIY-SZ-srU" id="tqP-yy-RGS"/>
                         <outlet property="fbShareButtonView" destination="zl7-8N-TXb" id="xJ7-oM-Rmk"/>
+                        <outlet property="uploadDateLabel" destination="iUU-QK-zFE" id="IjS-ku-1AV"/>
                         <outlet property="uploadImageView" destination="Cfm-AP-3uz" id="PgU-7g-aiW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mxl-q8-3zt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Qx1-Qj-ocH">
+                    <connections>
+                        <action selector="didTapDelete:" destination="Ulj-lm-4oY" id="ebI-XP-iOs"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="644.92753623188412" y="1931.9196428571427"/>
+            <point key="canvasLocation" x="1342" y="1932"/>
         </scene>
         <!--Shelf View Controller-->
         <scene sceneID="Dft-gX-atQ">
@@ -1227,13 +1299,31 @@
             </objects>
             <point key="canvasLocation" x="1198.5507246376812" y="1157.8125"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rTt-hv-m2m">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="p7W-Sg-MsS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TJj-ew-WqM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ulj-lm-4oY" kind="relationship" relationship="rootViewController" id="9k3-vU-EsO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2et-Y7-vpK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="644.92753623188412" y="1931.9196428571427"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Vg5-nC-Hnj"/>
-        <segue reference="gma-Cp-2pI"/>
+        <segue reference="JAJ-4x-lDL"/>
         <segue reference="ei2-QH-qVv"/>
         <segue reference="gml-9o-vy5"/>
-        <segue reference="PDl-gM-Mob"/>
+        <segue reference="JI5-PX-4Hv"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="370.5" height="168.5"/>
