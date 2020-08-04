@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)searchBooks: (NSString *)searchString andCompletion:(void(^)(NSArray *books, NSError *error))completion;
 -(void)reloadBooks:(void(^)(NSArray *books, NSError *error))completion;
 -(void)loadMoreBooks: (void(^)(NSArray *books, NSError *error))completion;
+-(void)getBookWithBookID: (NSString *)bookID andCompletion: (void(^)(NSDictionary *bookDict, NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

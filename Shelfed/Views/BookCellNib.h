@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Book.h"
-#import <FaveButton/FaveButton-Swift.h>
+//#import <FaveButton/FaveButton-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *coverArtView;
-@property (weak, nonatomic) IBOutlet FaveButton *favoriteButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIButton *seeMoreButton;
 
 - (void) didDoubleTap;

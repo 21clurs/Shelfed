@@ -49,6 +49,7 @@
 		F9D0E62724D4E40200FB26B0 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = F9D0E62624D4E40200FB26B0 /* FacebookShare */; };
 		F9D0E62924D4E40200FB26B0 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = F9D0E62824D4E40200FB26B0 /* FacebookCore */; };
 		F9D0E66D24D8D1A100FB26B0 /* UploadDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D0E66C24D8D1A100FB26B0 /* UploadDetailsViewController.m */; };
+		F9D0E67024DA050200FB26B0 /* NSString+NSStringStripHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D0E66F24DA050200FB26B0 /* NSString+NSStringStripHTML.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +151,8 @@
 		F9D0E62A24D88E9A00FB26B0 /* Shelfed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shelfed-Bridging-Header.h"; sourceTree = "<group>"; };
 		F9D0E66B24D8D1A100FB26B0 /* UploadDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadDetailsViewController.h; sourceTree = "<group>"; };
 		F9D0E66C24D8D1A100FB26B0 /* UploadDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadDetailsViewController.m; sourceTree = "<group>"; };
+		F9D0E66E24DA050200FB26B0 /* NSString+NSStringStripHTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+NSStringStripHTML.h"; sourceTree = "<group>"; };
+		F9D0E66F24DA050200FB26B0 /* NSString+NSStringStripHTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSStringStripHTML.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +274,8 @@
 			children = (
 				F992B81A24CF381B0044A4CF /* UIImage+UIImageUploadAdditions.h */,
 				F992B81B24CF381B0044A4CF /* UIImage+UIImageUploadAdditions.m */,
+				F9D0E66E24DA050200FB26B0 /* NSString+NSStringStripHTML.h */,
+				F9D0E66F24DA050200FB26B0 /* NSString+NSStringStripHTML.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -657,6 +662,7 @@
 				F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */,
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
 				F992B82D24D0D1630044A4CF /* FilterByGenreCell.m in Sources */,
+				F9D0E67024DA050200FB26B0 /* NSString+NSStringStripHTML.m in Sources */,
 				F9B862DE24BF706B000C2E0C /* ProfileViewController.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
 				F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */,

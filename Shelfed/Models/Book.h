@@ -13,20 +13,22 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Book : PFObject<PFSubclassing>
 
 @property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *subtitle;
-@property (strong, nonatomic) NSArray *authorsArray;
+//@property (strong, nonatomic) NSString *subtitle;
+//@property (strong, nonatomic) NSArray *authorsArray;
 @property (strong, nonatomic) NSString *authorsString;
-@property (strong, nonatomic) NSString *bookDescription;
+//@property (strong, nonatomic) NSString *bookDescription;
 
 @property (strong, nonatomic) NSString *coverArtThumbnail;
-@property (strong, nonatomic) NSString *coverArt;
+//@property (strong, nonatomic) NSString *coverArt;
+
+@property (strong, nonatomic) NSString *bookID;
 
 @property (strong, nonatomic) NSDate *publishedDate;
-@property (strong, nonatomic) NSString *printType;
+//@property (strong, nonatomic) NSString *printType;
 @property (strong, nonatomic) NSArray *categories;
-@property (strong, nonatomic) NSString *bookID;
-@property (strong, nonatomic) NSString *isbn13;
+//@property (strong, nonatomic) NSString *isbn13;
 @property (strong, nonatomic) NSNumber *pages;
+
 
 - (id) initWithDictionary:(NSDictionary *)dictionary;
 + (NSArray *)booksWithDictionaries:(NSArray *)dictionaries;

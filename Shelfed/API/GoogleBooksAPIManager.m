@@ -68,4 +68,23 @@ NSInteger loadBy = 20;
     [task resume];
 }
 
+-(void)getBookWithBookID: (NSString *)bookID andCompletion: (void(^)(NSDictionary *bookDict, NSError *error))completion{
+    NSString *queryString = [NSString stringWithFormat:@"%@volumes/%@", baseURLString, bookID];
+    NSURL *url = [NSURL URLWithString:queryString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(error!=nil){
+            NSLog(@"%@", [error localizedDescription]);
+            completion(nil, error);
+        }
+        else{
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            completion(dataDictionary, nil);
+            //completion(dataDictionary[@"volumeInfo"],nil);
+        }
+    }];
+    [task resume];
+}
+
 @end

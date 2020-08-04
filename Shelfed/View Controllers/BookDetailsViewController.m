@@ -12,6 +12,8 @@
 #import "AddRemoveBooksHelper.h"
 #import "UploadCollectionViewController.h"
 #import "SelectShelfViewController.h"
+#import "GoogleBooksAPIManager.h"
+#import "NSString+NSStringStripHTML.h"
 
 @interface BookDetailsViewController () <SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -61,15 +63,25 @@
         self.coverArtView.image = [UIImage imageNamed:@"NoImageAvailable"];
     }
     if (self.isFavorite == YES){
-        // [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
         [self.favoriteButton setTintColor:[UIColor redColor]];
     }
     else{
-        // [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+        [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
         [self.favoriteButton setTintColor:[UIColor lightGrayColor]];
     }
-    self.descriptionLabel.text = self.book.bookDescription;
+    GoogleBooksAPIManager *manager = [[GoogleBooksAPIManager alloc] init];
+    [manager getBookWithBookID:self.book.bookID andCompletion:^(NSDictionary * _Nonnull bookDict, NSError * _Nonnull error) {
+        NSDictionary *volumeInfo = bookDict[@"volumeInfo"];
+        if(volumeInfo[@"description"] != nil)
+            self.descriptionLabel.text = [volumeInfo[@"description"] stringByStrippingHTML];
+        else
+            self.descriptionLabel.text = @"No description available.";
+    }];
+    //self.descriptionLabel.text = self.book.bookDescription;
 }
+
+
 
 - (IBAction)didTapFavorite:(id)sender {
     __weak typeof(self) weakSelf = self;

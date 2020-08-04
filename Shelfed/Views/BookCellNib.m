@@ -22,7 +22,7 @@
     // Configure the view for the selected state
 }
 
-
+/*
 - (void) favoriteButtonSetup{
     self.favoriteButton.delegate = self;
     self.favoriteButton.selectedColor = [UIColor redColor];
@@ -31,7 +31,7 @@
     self.favoriteButton.dotFirstColor = [UIColor yellowColor];
     self.favoriteButton.dotSecondColor = [UIColor blueColor];
 }
-
+*/
 - (void)setBook:(Book *)book{
     _book = book;
     
@@ -49,22 +49,23 @@
     [query whereKey:@"bookID" equalTo:book.bookID];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         if(object!=nil){
-            /*
+            
             [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
             [self.favoriteButton setTintColor:[UIColor redColor]];
-             */
-            self.favoriteButton.selected = YES;
+             
+            //self.favoriteButton.selected = YES;
             self.inFavorites = YES;
         }
         else{
-            /*
+            
             [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
             [self.favoriteButton setTintColor:[UIColor blackColor]];
-             */
-            self.favoriteButton.selected = NO;
+            
+            //self.favoriteButton.selected = NO;
+             
             self.inFavorites = NO;
         }
-        [self favoriteButtonSetup];
+        //[self favoriteButtonSetup];
     }];
 }
 - (void)toggleFavorite{
@@ -73,14 +74,17 @@
         [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
                 __strong typeof(self) strongSelf = weakSelf;
-                /*
+                
                 [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
                 [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
-                 */
+                strongSelf.inFavorites = NO;
+                [strongSelf.delegate didRemove];
+                /*
                 self.favoriteButton.selected = NO;
                 [strongSelf.delegate didRemove];
                 self.inFavorites = NO;
                 [self.delegate didRemove];
+                */
             }
         }];
     }
@@ -88,12 +92,14 @@
         [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
                 __strong typeof(self) strongSelf = weakSelf;
-                /*
+                
                 [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
                 [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
-                */
+                strongSelf.inFavorites = YES;
+                /*
                 self.favoriteButton.selected = YES;
                 self.inFavorites = YES;
+                */
             }
         }];
     }
