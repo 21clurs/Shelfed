@@ -64,7 +64,10 @@
         }
         else{
             self.favoriteBooks = [books mutableCopy];
-            self.filteredBooks = self.favoriteBooks;
+            if(self.filtersDictionary!=nil)
+               [self appliedFilters:self.filtersDictionary];
+            else
+                self.filteredBooks = self.favoriteBooks;
             [self checkForEmptyDataSet];
             [self.tableView reloadData];
         }
