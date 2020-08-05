@@ -22,6 +22,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (IBAction)didTapSignUp:(id)sender {
@@ -92,6 +95,45 @@
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
+- (IBAction)didTapOut:(id)sender {
+    [self.view endEditing:YES];
+}
+
+-(void)keyboardWillShow{
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+}
+
+-(void)keyboardWillHide{
+    if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    int offset = 40;
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect rect = self.view.frame;
+        if (movedUp)
+        {
+            // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+            // 2. increase the size of the view so that the area behind the keyboard is covered up.
+            rect.origin.y -= offset;
+            rect.size.height += offset;
+        }
+        else
+        {
+            // revert back to the normal state.
+            rect.origin.y += offset;
+            rect.size.height -= offset;
+        }
+        self.view.frame = rect;
+    }];
+}
 /*
 #pragma mark - Navigation
 

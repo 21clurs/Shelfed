@@ -21,8 +21,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
+    [center addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
 }
+
 - (IBAction)didTapLogIn:(id)sender {
     if(![self alertIfEmpty]){
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -72,6 +75,44 @@
     }
     return NO;
 }
+
+- (IBAction)didTapOut:(id)sender {
+    [self.view endEditing:YES];
+}
+
+-(void)keyboardWillShow{
+    if (self.view.frame.origin.y >= 0)
+    {
+        [self setViewMovedUp:YES];
+    }
+}
+-(void)keyboardWillHide{
+    if (self.view.frame.origin.y < 0)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    int offset = 40;
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect rect = self.view.frame;
+        if (movedUp)
+        {
+            rect.origin.y -= offset;
+            rect.size.height += offset;
+        }
+        else
+        {
+            rect.origin.y += offset;
+            rect.size.height -= offset;
+        }
+        self.view.frame = rect;
+    }];
+}
+
+
 
 /*
 #pragma mark - Navigation
