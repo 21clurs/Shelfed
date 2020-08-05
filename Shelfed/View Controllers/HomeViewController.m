@@ -190,12 +190,9 @@ UIRefreshControl *refreshControl;
     self.searchBar.showsCancelButton = YES;
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    NSString *searchableText = searchText;
-    searchableText = [[searchableText componentsSeparatedByCharactersInSet:[NSCharacterSet punctuationCharacterSet]] componentsJoinedByString:@""];
-    searchableText = [[searchableText componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsJoinedByString:@"+"];
     
     __weak typeof(self) weakSelf = self;
-    [manager searchBooks:searchableText andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+    [manager searchBooks:searchText andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         __strong typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             NSLog(@"Error searching!");

@@ -53,8 +53,8 @@
     }];
 }
 - (void)toggleFavorite{
-    __weak typeof(self) weakSelf = self;
     if(self.inFavorites == YES){
+        __weak typeof(self) weakSelf = self;
         [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
                 __strong typeof(self) strongSelf = weakSelf;
@@ -73,6 +73,7 @@
         }];
     }
     else if(self.inFavorites == NO){
+        __weak typeof(self) weakSelf = self;
         [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
                 __strong typeof(self) strongSelf = weakSelf;

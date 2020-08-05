@@ -74,37 +74,37 @@
                 temp = [temp filteredArrayUsingPredicate:predicate];
         }
     }
-    
+
+    NSPredicate *genrePredicate;
+    NSMutableSet *categoriesFromGenresSet = [[NSMutableSet alloc] init];
+    bool othersSelected = NO;
     for(NSString *genre in genreArray){
-        NSPredicate *predicate;
         if([genre isEqualToString:@"Other"]){
-            NSArray *otherHelperArr = [[NSArray alloc] initWithObjects:@"Fiction",@"Nonfiction",@"Juvenile Fiction",@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil];
-            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                for(NSString *category in evaluatedBook.categories){
-                    if([otherHelperArr containsObject:category])
-                        return false;
-                }
-                return true;
-            }];
+            othersSelected = YES;
         }
         else{
-            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                return ([evaluatedBook.categories containsObject:genre]);
-            }];
+            [categoriesFromGenresSet addObject:genre];
+            if([genre isEqualToString:@"Nonfiction"]){
+                [categoriesFromGenresSet addObjectsFromArray:[[NSArray alloc] initWithObjects:@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil]];
+            }
         }
-        if([genre isEqualToString:@"Nonfiction"]){
-            NSArray *nonfictionHelperArr = [[NSArray alloc] initWithObjects:@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil];
-            predicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-                for(NSString *category in evaluatedBook.categories){
-                    if([nonfictionHelperArr containsObject:category])
-                        return true;
-                }
-                return false;
-            }];
-        }
-        if(predicate!=nil)
-            temp = [[temp filteredArrayUsingPredicate:predicate] mutableCopy];
     }
+    NSSet *othersHelperSet = [[NSSet alloc] initWithArray:[[NSArray alloc] initWithObjects:@"Fiction",@"Nonfiction",@"Juvenile Fiction",@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil]];
+    genrePredicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+           if(othersSelected == YES){
+               for(NSString *category in evaluatedBook.categories){
+                   if([othersHelperSet containsObject:category])
+                       return true;
+               }
+           }
+           for(NSString *category in evaluatedBook.categories){
+               if([categoriesFromGenresSet containsObject:category])
+                   return true;
+           }
+           return false;
+       }];
+    if(genrePredicate!=nil)
+        temp = [[temp filteredArrayUsingPredicate:genrePredicate] mutableCopy];
     return temp;
 }
 

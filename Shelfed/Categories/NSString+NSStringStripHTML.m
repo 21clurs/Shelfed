@@ -15,6 +15,6 @@
     while ((r = [string rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
     string = [string stringByReplacingCharactersInRange:r withString:@""];
     return string;
-    // https://stackoverflow.com/questions/277055/remove-html-tags-from-an-nsstring-on-the-iphone
+    
 }
 @end

@@ -50,6 +50,7 @@
 		F9D0E62924D4E40200FB26B0 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = F9D0E62824D4E40200FB26B0 /* FacebookCore */; };
 		F9D0E66D24D8D1A100FB26B0 /* UploadDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D0E66C24D8D1A100FB26B0 /* UploadDetailsViewController.m */; };
 		F9D0E67024DA050200FB26B0 /* NSString+NSStringStripHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D0E66F24DA050200FB26B0 /* NSString+NSStringStripHTML.m */; };
+		F9D0E67624DB4E9A00FB26B0 /* BookCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D0E67524DB4E9A00FB26B0 /* BookCollectionCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,8 @@
 		F9D0E66C24D8D1A100FB26B0 /* UploadDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadDetailsViewController.m; sourceTree = "<group>"; };
 		F9D0E66E24DA050200FB26B0 /* NSString+NSStringStripHTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+NSStringStripHTML.h"; sourceTree = "<group>"; };
 		F9D0E66F24DA050200FB26B0 /* NSString+NSStringStripHTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSStringStripHTML.m"; sourceTree = "<group>"; };
+		F9D0E67424DB4E9A00FB26B0 /* BookCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookCollectionCell.h; sourceTree = "<group>"; };
+		F9D0E67524DB4E9A00FB26B0 /* BookCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookCollectionCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +259,8 @@
 				F9A6A30D24C770A8000FE6F0 /* ShelfCollectionCell.m */,
 				F992B81724CB8E260044A4CF /* UploadCollectionCell.h */,
 				F992B81824CB8E260044A4CF /* UploadCollectionCell.m */,
+				F9D0E67424DB4E9A00FB26B0 /* BookCollectionCell.h */,
+				F9D0E67524DB4E9A00FB26B0 /* BookCollectionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -641,6 +646,7 @@
 				F992B81C24CF381B0044A4CF /* UIImage+UIImageUploadAdditions.m in Sources */,
 				F9A6A2FA24C64152000FE6F0 /* AddRemoveBooksHelper.m in Sources */,
 				F9A6A30E24C770A8000FE6F0 /* ShelfCollectionCell.m in Sources */,
+				F9D0E67624DB4E9A00FB26B0 /* BookCollectionCell.m in Sources */,
 				F9A6A30924C7497E000FE6F0 /* ShelfViewController.m in Sources */,
 				F9D0E61F24D37F3400FB26B0 /* Filter.m in Sources */,
 				F9A6A31724C8F020000FE6F0 /* SelectShelfViewController.m in Sources */,

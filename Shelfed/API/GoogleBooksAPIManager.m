@@ -25,11 +25,13 @@ NSInteger loadBy = 20;
 }
 
 -(void)searchBooks: (NSString *)searchString andCompletion:(void(^)(NSArray *books, NSError *error))completion{
-    if([searchString isEqualToString:@""]){
+    NSString *searchableString = [self makeSearchable:searchString];
+    
+    if([searchableString isEqualToString:@""]){
         currentSearchString = @"the";
     }
     else{
-        currentSearchString = searchString;
+        currentSearchString = searchableString;
     }
     currentSearchIndex = 0;
     [self loadHelper:completion];
@@ -81,10 +83,37 @@ NSInteger loadBy = 20;
         else{
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             completion(dataDictionary, nil);
-            //completion(dataDictionary[@"volumeInfo"],nil);
         }
     }];
     [task resume];
+}
+
+-(void)getBooksForAuthors: (NSString *)authorsString andCompletion: (void(^)(NSArray *books, NSError *error))completion{
+    NSString *authorsSearchableString = [self makeSearchable:authorsString];
+    
+    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=inauthor:%@&maxResults=%ld&startIndex=%ld&key=%@", baseURLString, authorsSearchableString, loadBy, currentSearchIndex, apiKey];
+    NSURL *url = [NSURL URLWithString:queryString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(error!=nil){
+            NSLog(@"%@", [error localizedDescription]);
+            completion(nil, error);
+        }
+        else{
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSArray *items = dataDictionary[@"items"];
+            NSArray *booksArray = [Book booksWithDictionaries:items];
+            completion(booksArray,nil);
+        }
+    }];
+    [task resume];
+}
+
+-(NSString *)makeSearchable:(NSString *)string{
+    NSString *searchableString = [[string componentsSeparatedByCharactersInSet:[NSCharacterSet punctuationCharacterSet]] componentsJoinedByString:@""];
+    searchableString = [[string componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsJoinedByString:@"+"];
+    return searchableString;
 }
 
 @end
