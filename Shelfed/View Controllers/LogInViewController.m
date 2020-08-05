@@ -112,7 +112,12 @@
     }];
 }
 
-
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    return UIInterfaceOrientationPortrait;
+}
 
 /*
 #pragma mark - Navigation

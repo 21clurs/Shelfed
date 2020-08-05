@@ -41,16 +41,17 @@
 
 - (void)setUpload:(Upload *)upload{
     _upload = upload;
-    
+    __weak typeof(self) weakSelf = self;
     [AddRemoveBooksHelper getBookForID:upload.associatedBookID withCompletion:^(Book * _Nonnull book, NSError * _Nullable error) {
+        __strong typeof(self) strongSelf = weakSelf;
         if(book!=nil){
-            self.bookTitle = book.title;
-            [self.bookTitleLabel setText:self.bookTitle];
-            self.dateUploaded = upload.createdAt;
+            strongSelf.bookTitle = book.title;
+            [strongSelf.bookTitleLabel setText:strongSelf.bookTitle];
+            strongSelf.dateUploaded = upload.createdAt;
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"MMMM d, yyyy";
             
-            [self.uploadDateLabel setText:[formatter stringFromDate:self.dateUploaded]];
+            [strongSelf.uploadDateLabel setText:[formatter stringFromDate:strongSelf.dateUploaded]];
         }
     }];
 }
@@ -69,11 +70,13 @@
 
 - (IBAction)didTapDelete:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Upload"];
+    __weak typeof(self) weakSelf = self;
     [query getObjectInBackgroundWithId:self.upload.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        __strong typeof(self) strongSelf = weakSelf;
         if(object!= nil){
             [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                [self.delegate didDeleteUpload];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [strongSelf.delegate didDeleteUpload];
+                [strongSelf dismissViewControllerAnimated:YES completion:nil];
             }];
         }
     }];

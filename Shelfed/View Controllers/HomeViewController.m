@@ -97,14 +97,14 @@ UIRefreshControl *refreshControl;
             [alert addAction:okAction];
             
             UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self reloadFeed];
+                [strongSelf reloadFeed];
             }];
             [alert addAction:retryAction];
             
-            [self presentViewController:alert animated:YES completion:nil];
+            [strongSelf presentViewController:alert animated:YES completion:nil];
         }
         else{
-            self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            strongSelf.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             strongSelf.books = [books mutableCopy];
             [strongSelf.tableView reloadData];
         }

@@ -51,13 +51,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
-    
+    __weak typeof(self) weakSelf = self;
     [AddRemoveBooksHelper addBook:self.addBook toArray:self.shelvesArray[indexPath.row] withCompletion:^(NSError * _Nonnull error) {
+        __strong typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             NSLog(@"Error adding book to shelf");
         }
         else{
-            [self.delegate didUpdateShelf];
+            [strongSelf.delegate didUpdateShelf];
         }
         [self dismissViewControllerAnimated:YES completion:^{}];
     }];

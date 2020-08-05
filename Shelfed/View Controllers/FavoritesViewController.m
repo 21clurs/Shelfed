@@ -48,7 +48,9 @@
 }
 
 -(void)queryBooksWithQuery:(PFQuery *)query{
+    __weak typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
+        __strong typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error getting favorites" message:@"There was an error loading your favorites" preferredStyle:UIAlertControllerStyleAlert];
 
@@ -56,20 +58,20 @@
             [alert addAction:okAction];
             
             UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self reloadFavorites];
+                [strongSelf reloadFavorites];
             }];
             [alert addAction:retryAction];
 
-            [self presentViewController:alert animated:YES completion:nil];
+            [strongSelf presentViewController:alert animated:YES completion:nil];
         }
         else{
-            self.favoriteBooks = [books mutableCopy];
-            if(self.filtersDictionary!=nil)
-               [self appliedFilters:self.filtersDictionary];
+            strongSelf.favoriteBooks = [books mutableCopy];
+            if(strongSelf.filtersDictionary!=nil)
+               [strongSelf appliedFilters:strongSelf.filtersDictionary];
             else
-                self.filteredBooks = self.favoriteBooks;
-            [self checkForEmptyDataSet];
-            [self.tableView reloadData];
+                strongSelf.filteredBooks = strongSelf.favoriteBooks;
+            [strongSelf checkForEmptyDataSet];
+            [strongSelf.tableView reloadData];
         }
     }];
 }
@@ -125,13 +127,13 @@
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
+    __weak typeof(self) weakSelf = self;
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        
-        Book *bookToRemove = self.filteredBooks[indexPath.row];
-        
+        __strong typeof(self) strongSelf = weakSelf;
+        Book *bookToRemove = strongSelf.filteredBooks[indexPath.row];
         [AddRemoveBooksHelper removeFromFavorites:bookToRemove withCompletion:^(NSError * _Nullable error) {
             if(error == nil){
-                [self reloadFavorites];
+                [strongSelf reloadFavorites];
                 completionHandler(YES);
             }
         }];

@@ -58,15 +58,17 @@
     PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
     PFQuery *relationQuery = [relation query];
     [relationQuery whereKey:@"bookID" equalTo:self.book.bookID];
+    __weak typeof (self) weakSelf = self;
     [relationQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        __strong typeof (self) strongSelf = weakSelf;
         if(object!=nil){
-            self.isFavorite = YES;
+            strongSelf.isFavorite = YES;
             //self.book = (Book *) object;
         }
         else{
-            self.isFavorite = NO;
+            strongSelf.isFavorite = NO;
         }
-        [self setupView];
+        [strongSelf setupView];
     }];
 }
 
@@ -94,52 +96,59 @@
     
     self.descriptionLabel.alpha = 0;
     GoogleBooksAPIManager *manager = [[GoogleBooksAPIManager alloc] init];
+    __weak typeof (self) weakSelf = self;
     [manager getBookWithBookID:self.book.bookID andCompletion:^(NSDictionary * _Nonnull bookDict, NSError * _Nonnull error) {
+        __strong typeof (self) strongSelf = weakSelf;
         NSDictionary *volumeInfo = bookDict[@"volumeInfo"];
         if(volumeInfo[@"description"] != nil)
-            self.descriptionLabel.text = [volumeInfo[@"description"] stringByStrippingHTML];
+            strongSelf.descriptionLabel.text = [volumeInfo[@"description"] stringByStrippingHTML];
         else
-            self.descriptionLabel.text = @"No description available.";
+            strongSelf.descriptionLabel.text = @"No description available.";
         [UIView animateWithDuration:0.2 animations:^{
-            self.descriptionLabel.alpha = 1;
-            self.publishedLabel.alpha = 1;
-            self.categoriesLabel.alpha = 1;
-            self.yearPublishedLabel.alpha = 1;
-            self.categoriesStringLabel.alpha = 1;
+            strongSelf.descriptionLabel.alpha = 1;
+            strongSelf.publishedLabel.alpha = 1;
+            strongSelf.categoriesLabel.alpha = 1;
+            strongSelf.yearPublishedLabel.alpha = 1;
+            strongSelf.categoriesStringLabel.alpha = 1;
         }];
     }];
     
     self.alsoByAuthorLabel.alpha = 0;
     self.authorCollectionView.alpha = 0;
     [manager getBooksForAuthors:self.book.authorsString andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
-        self.authorsBooksArray = books;
-        [self.authorCollectionView reloadData];
+        __strong typeof (self) strongSelf = weakSelf;
+        strongSelf.authorsBooksArray = books;
+        [strongSelf.authorCollectionView reloadData];
         [UIView animateWithDuration:0.1 animations:^{
-            self.alsoByAuthorLabel.alpha = 1;
-            self.authorCollectionView.alpha = 1;
+            strongSelf.alsoByAuthorLabel.alpha = 1;
+            strongSelf.authorCollectionView.alpha = 1;
         }];
     }];
 }
 -(void)refreshFavoriteButton{
     if (self.isFavorite == YES){
+        __weak typeof (self) weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
             self.favoriteButton.transform = CGAffineTransformMakeScale(.8, .8);
         } completion:^(BOOL finished) {
+            __strong typeof(self) strongSelf = weakSelf;
             [UIView animateWithDuration:0.1 animations:^{
-                [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-                [self.favoriteButton setTintColor:[UIColor redColor]];
-                self.favoriteButton.transform = CGAffineTransformIdentity;
+                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+                [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
+                strongSelf.favoriteButton.transform = CGAffineTransformIdentity;
             }];
         }];
     }
     else{
+        __weak typeof (self) weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
             self.favoriteButton.transform = CGAffineTransformMakeScale(.8, .8);
         } completion:^(BOOL finished) {
+            __strong typeof(self) strongSelf = weakSelf;
             [UIView animateWithDuration:0.1 animations:^{
-                [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-                [self.favoriteButton setTintColor:[UIColor blackColor]];
-                self.favoriteButton.transform = CGAffineTransformIdentity;
+                [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+                [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
+                strongSelf.favoriteButton.transform = CGAffineTransformIdentity;
             }];
         }];
     }

@@ -37,18 +37,19 @@
     PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
     PFQuery *query = [relation query];
     [query whereKey:@"bookID" equalTo:book.bookID];
+    __weak typeof(self) weakSelf = self;
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        __strong typeof(self) strongSelf = weakSelf;
         if(object!=nil){
-            
-            [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-            [self.favoriteButton setTintColor:[UIColor redColor]];
-            self.inFavorites = YES;
+            [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+            [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
+            strongSelf.inFavorites = YES;
         }
         else{
             
-            [self.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-            [self.favoriteButton setTintColor:[UIColor blackColor]];
-            self.inFavorites = NO;
+            [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+            [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
+            strongSelf.inFavorites = NO;
         }
     }];
 }

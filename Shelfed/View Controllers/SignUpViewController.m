@@ -134,6 +134,15 @@
         self.view.frame = rect;
     }];
 }
+
+
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    return UIInterfaceOrientationPortrait;
+}
+
 /*
 #pragma mark - Navigation
 

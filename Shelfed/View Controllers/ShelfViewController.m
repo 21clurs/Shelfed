@@ -52,7 +52,9 @@
 }
 
 - (void) queryBooksWithQueryt:(PFQuery *)query{
+    __weak typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
+        __strong typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error getting shelf" message:@"There was an error loading your shelf" preferredStyle:UIAlertControllerStyleAlert];
 
@@ -60,17 +62,17 @@
             [alert addAction:okAction];
             
             UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self reloadShelf];
+                [strongSelf reloadShelf];
             }];
             [alert addAction:retryAction];
 
-            [self presentViewController:alert animated:YES completion:nil];
+            [strongSelf presentViewController:alert animated:YES completion:nil];
         }
         else{
-            self.booksInShelf = books;
-            self.filteredBooksInShelf = self.booksInShelf;
-            [self checkForEmptyDataSet];
-            [self.tableView reloadData];
+            strongSelf.booksInShelf = books;
+            strongSelf.filteredBooksInShelf = self.booksInShelf;
+            [strongSelf checkForEmptyDataSet];
+            [strongSelf.tableView reloadData];
         }
     }];
 }
@@ -153,11 +155,12 @@
     //[self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
 }
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
+    __weak typeof(self) weakSelf = self;
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        
-        Book *bookToRemove = self.filteredBooksInShelf[indexPath.row];
-        [AddRemoveBooksHelper removeBook:bookToRemove fromArray:self.shelfName withCompletion:^(NSError * _Nonnull error) {
-            [self reloadShelf];
+        __strong typeof(self) strongSelf = weakSelf;
+        Book *bookToRemove = strongSelf.filteredBooksInShelf[indexPath.row];
+        [AddRemoveBooksHelper removeBook:bookToRemove fromArray:strongSelf.shelfName withCompletion:^(NSError * _Nonnull error) {
+            [strongSelf reloadShelf];
             completionHandler(YES);
         }];
     }];

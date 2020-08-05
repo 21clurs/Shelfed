@@ -45,18 +45,22 @@
     PFQuery *relationQuery = [relation query];
     if(self.book != nil){
         [relationQuery whereKey:@"associatedBookID" equalTo:self.book.bookID];
+        __weak typeof(self) weakSelf = self;
         [relationQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            __strong typeof(self) strongSelf = weakSelf;
             if(objects){
-                self.uploads = objects;
-                [self.collectionView reloadData];
+                strongSelf.uploads = objects;
+                [strongSelf.collectionView reloadData];
             }
         }];
     }
     else{
+        __weak typeof(self) weakSelf = self;
         [relationQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            __strong typeof(self) strongSelf = weakSelf;
             if(objects){
-                self.uploads = objects;
-                [self.collectionView reloadData];
+                strongSelf.uploads = objects;
+                [strongSelf.collectionView reloadData];
             }
         }];
     }
@@ -157,11 +161,12 @@
     NSData *imageData = UIImagePNGRepresentation(resizedImage);
     
     Upload *upload = [[Upload alloc] initWithImageFile:imageData andBook:self.book];
-
+    __weak typeof(self) weakSelf = self;
     [upload saveUploadToParseWithCompletion:^(NSError * _Nonnull error) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        __strong typeof(self) strongSelf = weakSelf;
+        [strongSelf dismissViewControllerAnimated:YES completion:nil];
         if(error==nil){
-            [self getUserUploads];
+            [strongSelf getUserUploads];
         }
     }];
  
@@ -171,7 +176,6 @@
 - (void)didDeleteUpload{
     [self getUserUploads];
 }
-
 
 #pragma mark - Navigation
 
@@ -197,6 +201,5 @@
         uploadDetailsViewController.delegate = self;
     }
 }
-
 
 @end

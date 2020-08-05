@@ -43,7 +43,6 @@
     [actionSheet addAction:cameraAction];
 
     UIAlertAction *libraryAction = [UIAlertAction actionWithTitle:@"Choose from Photos" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
         [self openGallery];
     }];
     [actionSheet addAction:libraryAction];
