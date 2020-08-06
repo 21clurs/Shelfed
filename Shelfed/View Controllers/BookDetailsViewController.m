@@ -104,6 +104,15 @@
             strongSelf.descriptionLabel.text = [volumeInfo[@"description"] stringByStrippingHTML];
         else
             strongSelf.descriptionLabel.text = @"No description available.";
+        if(volumeInfo[@"categories"]!=nil){
+            NSMutableSet<NSString *> *categoriesSet = [[NSMutableSet alloc] init];
+            for(NSString *categoryStr in volumeInfo[@"categories"]){
+                NSArray *temp = [categoryStr componentsSeparatedByString:@" / "];
+                [categoriesSet addObjectsFromArray:temp];
+            }
+            [categoriesSet removeObject:@"General"];
+            strongSelf.categoriesStringLabel.text = [[categoriesSet allObjects]  componentsJoinedByString:@", "];
+        }
         [UIView animateWithDuration:0.2 animations:^{
             strongSelf.descriptionLabel.alpha = 1;
             strongSelf.publishedLabel.alpha = 1;
