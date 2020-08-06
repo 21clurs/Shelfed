@@ -16,12 +16,12 @@
 #import "FilterSelectionViewController.h"
 #import "Filter.h"
 #import "FilterDisplayCollectionCell.h"
+#import "FilterDisplayContainerViewController.h"
 
-@interface FavoritesViewController () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FilterDisplayCollectionCellDelegate,FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
+@interface FavoritesViewController () <FilterDisplayContainerViewControllerDelegate,UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UICollectionView *filtersCollectionView;
-@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterDisplayHeight;
+@property (nonatomic) FilterDisplayContainerViewController *filterDisplayContainerViewController;
 @property (strong, nonatomic) NSMutableArray<Book *> *favoriteBooks;
 @property (strong, nonatomic) NSArray<Book *> *filteredBooks;
 @property (strong, nonatomic) NSDictionary<NSNumber *, NSArray<Filter *> *> *filtersDictionary;
@@ -42,14 +42,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    
-    self.filtersCollectionView.delegate = self;
-    self.filtersCollectionView.dataSource = self;
-    
-    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.flowLayout.minimumLineSpacing = 4;
-    self.flowLayout.minimumInteritemSpacing = 0;
-    self.flowLayout.sectionInset = UIEdgeInsetsMake(4, 8, 4, 8);
     
     [self.tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
 }
@@ -85,7 +77,6 @@
                 strongSelf.filteredBooks = strongSelf.favoriteBooks;
             [strongSelf checkForEmptyDataSet];
             [strongSelf.tableView reloadData];
-            [strongSelf.filtersCollectionView reloadData];
         }
     }];
 }
@@ -109,6 +100,17 @@
     }
 }
 
+#pragma mark - FilterDisplayContainerViewControllerDelegate
+- (void)didRemoveFilter{
+    [self reloadFavorites];
+}
+- (void)noFiltersApplied{
+    self.filterDisplayHeight.constant=0;
+}
+- (void)filtersApplied{
+    self.filterDisplayHeight.constant=36;
+}
+
 #pragma mark - FilterSelectionViewControllerDelegate
 -(void)appliedFilters:(NSDictionary<NSNumber *, NSArray<Filter *> *> *)appliedFilters{
     self.filtersDictionary = appliedFilters;
@@ -124,7 +126,8 @@
     self.filteredBooks = [Filter appliedFilters:appliedFilters toBookArray:self.favoriteBooks];
     [self checkForEmptyDataSet];
     [self.tableView reloadData];
-    [self.filtersCollectionView reloadData];
+    self.filterDisplayContainerViewController.filtersDictionary = self.filtersDictionary;
+    // [self.filtersCollectionView reloadData];
 }
 
 #pragma mark - BookCellNibDelegate
@@ -174,24 +177,6 @@
     UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
     return config;
 }
-#pragma mark - UICollectionViewDataSource
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if(self.appliedFilterArray.count ==0)
-        self.collectionViewHeight.constant = 0;
-    else
-        self.collectionViewHeight.constant = 36;
-    return self.appliedFilterArray.count;
-}
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    FilterDisplayCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"filterDisplayCell" forIndexPath:indexPath];
-    cell.filter = self.appliedFilterArray[indexPath.item];
-    cell.delegate = self;
-    return cell;
-}
-#pragma mark - FilterDisplayCollectionCellDelegate
--(void)removedFilter{
-    [self reloadFavorites];
-}
 
 #pragma mark - DZNEmptyDataSetSource
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView{
@@ -226,6 +211,13 @@
         FilterSelectionViewController *filterSelectionViewController = (FilterSelectionViewController *)[navigationController topViewController];
         filterSelectionViewController.filtersDataSource = self.filtersDictionary;
         filterSelectionViewController.delegate = self;
+    }
+    else if ([segue.identifier isEqualToString:@"viewControllerContainerSeque"])
+    {
+      if([segue.destinationViewController isKindOfClass:[FilterDisplayContainerViewController class]]) {
+          self.filterDisplayContainerViewController = segue.destinationViewController;
+          self.filterDisplayContainerViewController.delegate = self;
+      }
     }
 }
 

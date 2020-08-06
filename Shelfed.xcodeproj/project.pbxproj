@@ -11,6 +11,7 @@
 		3FE109ABF5922379434D5B71 /* Pods_Shelfed_ShelfedUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0FB2D8352425B14B70AA868 /* Pods_Shelfed_ShelfedUITests.framework */; };
 		5198474A5F2D7E8D1BD7AC33 /* Pods_ShelfedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76EC0EC0C2294444FC4EB328 /* Pods_ShelfedTests.framework */; };
 		F914AD7924DC780400575498 /* FilterDisplayCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F914AD7824DC780400575498 /* FilterDisplayCollectionCell.m */; };
+		F914AD7D24DCBF6B00575498 /* FilterDisplayContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F914AD7C24DCBF6B00575498 /* FilterDisplayContainerViewController.m */; };
 		F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4524BD0EFF0073FA7C /* HomeViewController.m */; };
 		F9400F4924BD0F240073FA7C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */; };
 		F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */; };
@@ -83,6 +84,8 @@
 		E4AD4F155BC60619236DE25F /* Pods-ShelfedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShelfedTests.release.xcconfig"; path = "Target Support Files/Pods-ShelfedTests/Pods-ShelfedTests.release.xcconfig"; sourceTree = "<group>"; };
 		F914AD7724DC780400575498 /* FilterDisplayCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterDisplayCollectionCell.h; sourceTree = "<group>"; };
 		F914AD7824DC780400575498 /* FilterDisplayCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterDisplayCollectionCell.m; sourceTree = "<group>"; };
+		F914AD7B24DCBF6B00575498 /* FilterDisplayContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterDisplayContainerViewController.h; sourceTree = "<group>"; };
+		F914AD7C24DCBF6B00575498 /* FilterDisplayContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterDisplayContainerViewController.m; sourceTree = "<group>"; };
 		F9400F4424BD0EFF0073FA7C /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		F9400F4524BD0EFF0073FA7C /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		F9400F4724BD0F240073FA7C /* BookDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookDetailsViewController.h; sourceTree = "<group>"; };
@@ -215,6 +218,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F914AD7A24DCBEEA00575498 /* Container Views */ = {
+			isa = PBXGroup;
+			children = (
+				F992B80E24C9FFE50044A4CF /* UploadPhotoViewController.h */,
+				F992B80F24C9FFE50044A4CF /* UploadPhotoViewController.m */,
+				F914AD7B24DCBF6B00575498 /* FilterDisplayContainerViewController.h */,
+				F914AD7C24DCBF6B00575498 /* FilterDisplayContainerViewController.m */,
+			);
+			path = "Container Views";
+			sourceTree = "<group>";
+		};
 		F9400F4324BD0EDA0073FA7C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,8 +250,6 @@
 				F9A6A30824C7497E000FE6F0 /* ShelfViewController.m */,
 				F9A6A31524C8F020000FE6F0 /* SelectShelfViewController.h */,
 				F9A6A31624C8F020000FE6F0 /* SelectShelfViewController.m */,
-				F992B80E24C9FFE50044A4CF /* UploadPhotoViewController.h */,
-				F992B80F24C9FFE50044A4CF /* UploadPhotoViewController.m */,
 				F992B81424CB43830044A4CF /* UploadCollectionViewController.h */,
 				F992B81524CB43830044A4CF /* UploadCollectionViewController.m */,
 				F992B81D24CF986F0044A4CF /* FilterSelectionViewController.h */,
@@ -365,6 +377,7 @@
 				F9A6A30A24C76987000FE6F0 /* Models */,
 				F9400F4E24BD187E0073FA7C /* API */,
 				F9400F4A24BD10990073FA7C /* Views */,
+				F914AD7A24DCBEEA00575498 /* Container Views */,
 				F9400F4324BD0EDA0073FA7C /* View Controllers */,
 				F9BCCAAF24BCEB3900B3CE42 /* AppDelegate.h */,
 				F9BCCAB024BCEB3900B3CE42 /* AppDelegate.m */,
@@ -674,6 +687,7 @@
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
 				F992B82D24D0D1630044A4CF /* FilterByGenreCell.m in Sources */,
 				F9D0E67024DA050200FB26B0 /* NSString+NSStringStripHTML.m in Sources */,
+				F914AD7D24DCBF6B00575498 /* FilterDisplayContainerViewController.m in Sources */,
 				F914AD7924DC780400575498 /* FilterDisplayCollectionCell.m in Sources */,
 				F9B862DE24BF706B000C2E0C /* ProfileViewController.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,

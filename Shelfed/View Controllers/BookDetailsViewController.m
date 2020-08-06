@@ -131,7 +131,7 @@
     if(![self.book.authorsString containsString:@"Unknown"]){
         [manager getBooksForAuthors:self.book.authorsString andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
             __strong typeof (self) strongSelf = weakSelf;
-            if(books!=nil){
+            if(books!=nil && books.count>0){
                 strongSelf.authorsBooksArray = books;
                 [strongSelf.authorCollectionView reloadData];
                 [UIView animateWithDuration:0.1 animations:^{
