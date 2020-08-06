@@ -94,7 +94,7 @@
         genrePredicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
                if(othersSelected == YES){
                    for(NSString *category in evaluatedBook.categories){
-                       if([othersHelperSet containsObject:category])
+                       if(![othersHelperSet containsObject:category])
                            return true;
                    }
                }
