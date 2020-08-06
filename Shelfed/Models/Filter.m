@@ -78,31 +78,33 @@
     NSPredicate *genrePredicate;
     NSMutableSet *categoriesFromGenresSet = [[NSMutableSet alloc] init];
     bool othersSelected = NO;
-    for(NSString *genre in genreArray){
-        if([genre isEqualToString:@"Other"]){
-            othersSelected = YES;
-        }
-        else{
-            [categoriesFromGenresSet addObject:genre];
-            if([genre isEqualToString:@"Nonfiction"]){
-                [categoriesFromGenresSet addObjectsFromArray:[[NSArray alloc] initWithObjects:@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil]];
+    if(genreArray.count > 0){
+        for(NSString *genre in genreArray){
+            if([genre isEqualToString:@"Other"]){
+                othersSelected = YES;
+            }
+            else{
+                [categoriesFromGenresSet addObject:genre];
+                if([genre isEqualToString:@"Nonfiction"]){
+                    [categoriesFromGenresSet addObjectsFromArray:[[NSArray alloc] initWithObjects:@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil]];
+                }
             }
         }
-    }
-    NSSet *othersHelperSet = [[NSSet alloc] initWithArray:[[NSArray alloc] initWithObjects:@"Fiction",@"Nonfiction",@"Juvenile Fiction",@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil]];
-    genrePredicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
-           if(othersSelected == YES){
+        NSSet *othersHelperSet = [[NSSet alloc] initWithArray:[[NSArray alloc] initWithObjects:@"Fiction",@"Nonfiction",@"Juvenile Fiction",@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil]];
+        genrePredicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
+               if(othersSelected == YES){
+                   for(NSString *category in evaluatedBook.categories){
+                       if([othersHelperSet containsObject:category])
+                           return true;
+                   }
+               }
                for(NSString *category in evaluatedBook.categories){
-                   if([othersHelperSet containsObject:category])
+                   if([categoriesFromGenresSet containsObject:category])
                        return true;
                }
-           }
-           for(NSString *category in evaluatedBook.categories){
-               if([categoriesFromGenresSet containsObject:category])
-                   return true;
-           }
-           return false;
-       }];
+               return false;
+           }];
+    }
     if(genrePredicate!=nil)
         temp = [[temp filteredArrayUsingPredicate:genrePredicate] mutableCopy];
     return temp;
