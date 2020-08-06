@@ -10,6 +10,7 @@
 		003E5CB4953560D0BBDA01AC /* Pods_Shelfed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8257179F205155EB11ADF4 /* Pods_Shelfed.framework */; };
 		3FE109ABF5922379434D5B71 /* Pods_Shelfed_ShelfedUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0FB2D8352425B14B70AA868 /* Pods_Shelfed_ShelfedUITests.framework */; };
 		5198474A5F2D7E8D1BD7AC33 /* Pods_ShelfedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76EC0EC0C2294444FC4EB328 /* Pods_ShelfedTests.framework */; };
+		F914AD7924DC780400575498 /* FilterDisplayCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F914AD7824DC780400575498 /* FilterDisplayCollectionCell.m */; };
 		F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4524BD0EFF0073FA7C /* HomeViewController.m */; };
 		F9400F4924BD0F240073FA7C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */; };
 		F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */; };
@@ -80,6 +81,8 @@
 		AFF7DFB6DE8C4DEB1C6B397E /* Pods-Shelfed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shelfed.release.xcconfig"; path = "Target Support Files/Pods-Shelfed/Pods-Shelfed.release.xcconfig"; sourceTree = "<group>"; };
 		E0FB2D8352425B14B70AA868 /* Pods_Shelfed_ShelfedUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shelfed_ShelfedUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4AD4F155BC60619236DE25F /* Pods-ShelfedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShelfedTests.release.xcconfig"; path = "Target Support Files/Pods-ShelfedTests/Pods-ShelfedTests.release.xcconfig"; sourceTree = "<group>"; };
+		F914AD7724DC780400575498 /* FilterDisplayCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterDisplayCollectionCell.h; sourceTree = "<group>"; };
+		F914AD7824DC780400575498 /* FilterDisplayCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterDisplayCollectionCell.m; sourceTree = "<group>"; };
 		F9400F4424BD0EFF0073FA7C /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		F9400F4524BD0EFF0073FA7C /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		F9400F4724BD0F240073FA7C /* BookDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookDetailsViewController.h; sourceTree = "<group>"; };
@@ -261,6 +264,8 @@
 				F992B81824CB8E260044A4CF /* UploadCollectionCell.m */,
 				F9D0E67424DB4E9A00FB26B0 /* BookCollectionCell.h */,
 				F9D0E67524DB4E9A00FB26B0 /* BookCollectionCell.m */,
+				F914AD7724DC780400575498 /* FilterDisplayCollectionCell.h */,
+				F914AD7824DC780400575498 /* FilterDisplayCollectionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -669,6 +674,7 @@
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
 				F992B82D24D0D1630044A4CF /* FilterByGenreCell.m in Sources */,
 				F9D0E67024DA050200FB26B0 /* NSString+NSStringStripHTML.m in Sources */,
+				F914AD7924DC780400575498 /* FilterDisplayCollectionCell.m in Sources */,
 				F9B862DE24BF706B000C2E0C /* ProfileViewController.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
 				F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */,
