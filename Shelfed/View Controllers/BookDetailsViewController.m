@@ -24,8 +24,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *publishedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *categoriesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pagesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yearPublishedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *categoriesStringLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numPagesLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *alsoByAuthorLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *authorCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
@@ -37,8 +40,13 @@
 
 @implementation BookDetailsViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setLabelAlphas:0];
+    [self setCollectionViewAlpha:0];
+    
     self.authorCollectionView.delegate = self;
     self.authorCollectionView.dataSource = self;
     
@@ -63,7 +71,6 @@
         __strong typeof (self) strongSelf = weakSelf;
         if(object!=nil){
             strongSelf.isFavorite = YES;
-            //self.book = (Book *) object;
         }
         else{
             strongSelf.isFavorite = NO;
@@ -73,6 +80,7 @@
 }
 
 -(void)setupView{
+    
     self.titleLabel.text = self.book.title;
     self.authorLabel.text = self.book.authorsString;
     if(self.book.coverArtThumbnail!=nil){
@@ -83,18 +91,15 @@
     }
     [self refreshFavoriteButton];
     
-    self.publishedLabel.alpha = 0;
-    self.categoriesLabel.alpha = 0;
-    self.yearPublishedLabel.alpha = 0;
-    self.categoriesStringLabel.alpha = 0;
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyy";
     [self.yearPublishedLabel setText:[formatter stringFromDate:self.book.publishedDate]];
     
-    [self.categoriesStringLabel setText:[self.book.categories componentsJoinedByString:@", "]];
+    if(self.book.pages!=nil)
+        self.numPagesLabel.text = [NSString stringWithFormat:@"%@", self.book.pages];
+    else
+        self.numPagesLabel.text = @"Not Available";
     
-    self.descriptionLabel.alpha = 0;
     GoogleBooksAPIManager *manager = [[GoogleBooksAPIManager alloc] init];
     __weak typeof (self) weakSelf = self;
     [manager getBookWithBookID:self.book.bookID andCompletion:^(NSDictionary * _Nonnull bookDict, NSError * _Nonnull error) {
@@ -113,27 +118,38 @@
             [categoriesSet removeObject:@"General"];
             strongSelf.categoriesStringLabel.text = [[categoriesSet allObjects]  componentsJoinedByString:@", "];
         }
+        else
+            strongSelf.categoriesStringLabel.text = [self.book.categories componentsJoinedByString:@", "];
         [UIView animateWithDuration:0.2 animations:^{
-            strongSelf.descriptionLabel.alpha = 1;
-            strongSelf.publishedLabel.alpha = 1;
-            strongSelf.categoriesLabel.alpha = 1;
-            strongSelf.yearPublishedLabel.alpha = 1;
-            strongSelf.categoriesStringLabel.alpha = 1;
+            [strongSelf setLabelAlphas:1];
         }];
     }];
     
-    self.alsoByAuthorLabel.alpha = 0;
-    self.authorCollectionView.alpha = 0;
     [manager getBooksForAuthors:self.book.authorsString andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         __strong typeof (self) strongSelf = weakSelf;
-        strongSelf.authorsBooksArray = books;
-        [strongSelf.authorCollectionView reloadData];
-        [UIView animateWithDuration:0.1 animations:^{
-            strongSelf.alsoByAuthorLabel.alpha = 1;
-            strongSelf.authorCollectionView.alpha = 1;
-        }];
+        if(books!=nil){
+            strongSelf.authorsBooksArray = books;
+            [strongSelf.authorCollectionView reloadData];
+            [UIView animateWithDuration:0.1 animations:^{
+                [strongSelf setCollectionViewAlpha:1];
+            }];
+        }
     }];
 }
+-(void)setLabelAlphas:(int)alpha{
+    self.publishedLabel.alpha = alpha;
+    self.categoriesLabel.alpha = alpha;
+    self.pagesLabel.alpha = alpha;
+    self.yearPublishedLabel.alpha = alpha;
+    self.categoriesStringLabel.alpha = alpha;
+    self.numPagesLabel.alpha = alpha;
+    self.descriptionLabel.alpha = alpha;
+}
+-(void)setCollectionViewAlpha:(int)alpha{
+    self.alsoByAuthorLabel.alpha = alpha;
+    self.authorCollectionView.alpha = alpha;
+}
+
 -(void)refreshFavoriteButton{
     if (self.isFavorite == YES){
         __weak typeof (self) weakSelf = self;
