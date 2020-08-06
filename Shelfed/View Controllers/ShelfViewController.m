@@ -70,7 +70,10 @@
         }
         else{
             strongSelf.booksInShelf = books;
-            strongSelf.filteredBooksInShelf = self.booksInShelf;
+            if(strongSelf.filtersDictionary!=nil)
+               [strongSelf appliedFilters:strongSelf.filtersDictionary];
+            else
+                strongSelf.filteredBooksInShelf = strongSelf.booksInShelf;
             [strongSelf checkForEmptyDataSet];
             [strongSelf.tableView reloadData];
         }
