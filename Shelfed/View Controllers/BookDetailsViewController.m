@@ -118,23 +118,28 @@
             [categoriesSet removeObject:@"General"];
             strongSelf.categoriesStringLabel.text = [[categoriesSet allObjects]  componentsJoinedByString:@", "];
         }
-        else
-            strongSelf.categoriesStringLabel.text = [self.book.categories componentsJoinedByString:@", "];
+        else{
+            if(self.book.categories == nil)
+                strongSelf.categoriesStringLabel.text = @"None";
+            else
+                strongSelf.categoriesStringLabel.text = [self.book.categories componentsJoinedByString:@", "];
+        }
         [UIView animateWithDuration:0.2 animations:^{
             [strongSelf setLabelAlphas:1];
         }];
     }];
-    
-    [manager getBooksForAuthors:self.book.authorsString andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
-        __strong typeof (self) strongSelf = weakSelf;
-        if(books!=nil){
-            strongSelf.authorsBooksArray = books;
-            [strongSelf.authorCollectionView reloadData];
-            [UIView animateWithDuration:0.1 animations:^{
-                [strongSelf setCollectionViewAlpha:1];
-            }];
-        }
-    }];
+    if(![self.book.authorsString containsString:@"Unknown"]){
+        [manager getBooksForAuthors:self.book.authorsString andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+            __strong typeof (self) strongSelf = weakSelf;
+            if(books!=nil){
+                strongSelf.authorsBooksArray = books;
+                [strongSelf.authorCollectionView reloadData];
+                [UIView animateWithDuration:0.1 animations:^{
+                    [strongSelf setCollectionViewAlpha:1];
+                }];
+            }
+        }];
+    }
 }
 -(void)setLabelAlphas:(int)alpha{
     self.publishedLabel.alpha = alpha;
