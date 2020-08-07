@@ -44,9 +44,10 @@
         if(bookToAdd !=nil){
             [relation addObject:bookToAdd];
         }
-        [PFUser.currentUser saveInBackground];
-        
-        completion(nil);
+        [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(succeeded==YES)
+                completion(nil);
+        }];
     }];
 }
 
