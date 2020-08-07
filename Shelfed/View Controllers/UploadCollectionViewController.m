@@ -43,6 +43,7 @@
 -(void)getUserUploads{
     PFRelation *relation = [PFUser.currentUser relationForKey:@"userUploads"];
     PFQuery *relationQuery = [relation query];
+    [relationQuery orderByAscending:@"createdAt"];
     if(self.book != nil){
         [relationQuery whereKey:@"associatedBookID" equalTo:self.book.bookID];
         __weak __typeof(self) weakSelf = self;
