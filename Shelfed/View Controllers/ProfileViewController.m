@@ -90,6 +90,10 @@
 - (void)containerViewController:(UploadPhotoViewController *)uploadPhotoViewController presentImagePicker:(UIImagePickerController *)imagePicker{
     [self presentViewController:imagePicker animated:YES completion:nil];
 }
+- (void)removeCurrentPhoto{
+    
+    
+}
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

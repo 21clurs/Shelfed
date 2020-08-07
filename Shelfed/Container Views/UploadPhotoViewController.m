@@ -21,12 +21,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self loadProfilePhoto];
+}
+
+- (void)loadProfilePhoto{
     if(PFUser.currentUser[@"profileImage"]){
         self.profilePhotoView.file = PFUser.currentUser[@"profileImage"];
+        self.updateIconView.image = [UIImage systemImageNamed:@"pencil.circle.fill"];
     }
     else{
+        self.profilePhotoView.file = nil;
         self.profilePhotoView.image = [UIImage imageNamed:@"default_profile_image"];
+        self.updateIconView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
     }
     [self.profilePhotoView loadInBackground];
 }
@@ -47,6 +53,11 @@
     }];
     [actionSheet addAction:libraryAction];
     
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"Remove Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self removePhoto];
+    }];
+    [actionSheet addAction:removeAction];
+    
     [self.delegate containerViewController:self presentActionSheet:actionSheet];
 }
 
@@ -58,6 +69,15 @@
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     [self.delegate containerViewController:self presentImagePicker:imagePickerController];
+}
+
+-(void) removePhoto{
+    [PFUser.currentUser removeObjectForKey:@"profileImage"];
+    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(succeeded){
+            [self loadProfilePhoto];
+        }
+    }];
 }
 
 -(void) openCamera{

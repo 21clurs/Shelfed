@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol UploadPhotoViewControllerDelegate <NSObject>
 - (void)containerViewController:(UploadPhotoViewController *)uploadPhotoViewController presentActionSheet:(UIAlertController *)actionSheet;
 - (void)containerViewController:(UploadPhotoViewController *)uploadPhotoViewController presentImagePicker:(UIImagePickerController *)imagePicker;
+- (void)removeCurrentPhoto;
 
 @end
 

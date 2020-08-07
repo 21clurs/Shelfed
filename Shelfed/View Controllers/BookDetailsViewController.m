@@ -19,6 +19,7 @@
 @interface BookDetailsViewController () <SelectShelfViewControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *coverArtView;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *yearPublishedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *categoriesStringLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numPagesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *inShelfLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *alsoByAuthorLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *authorCollectionView;
@@ -46,6 +48,8 @@
     
     [self setLabelAlphas:0];
     [self setCollectionViewAlpha:0];
+    [self setBasicLabels];
+    [self checkInShelves];
     
     self.authorCollectionView.delegate = self;
     self.authorCollectionView.dataSource = self;
@@ -56,10 +60,20 @@
     self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
+-(void)setBasicLabels{
+    self.titleLabel.text = self.book.title;
+    self.authorLabel.text = self.book.authorsString;
+    if(self.book.coverArtThumbnail!=nil){
+        [self.coverArtView setImageWithURL:[NSURL URLWithString: self.book.coverArtThumbnail]];
+    }
+    else{
+        self.coverArtView.image = [UIImage imageNamed:@"NoImageAvailable"];
+    }
+}
+
 - (void)setBook:(Book *)book{
     _book = book;
     [self checkFavorite];
-    
 }
 
 -(void)checkFavorite{
@@ -79,16 +93,33 @@
     }];
 }
 
+-(void)checkInShelves{
+    PFQuery *readQuery = [[PFUser.currentUser relationForKey:@"Read"] query];
+    [readQuery whereKey:@"bookID" equalTo:self.book.bookID];
+    __weak __typeof (self) weakSelf = self;
+    [readQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        __strong __typeof (self) strongSelf = weakSelf;
+        if(object!=nil){
+            strongSelf.inShelfLabel.text = @"Read";
+            self.inShelfLabel.backgroundColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
+            return;
+        }
+    }];
+    PFQuery *readingQuery = [[PFUser.currentUser relationForKey:@"Reading"] query];
+    [readingQuery whereKey:@"bookID" equalTo:self.book.bookID];
+    [readingQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        __strong __typeof (self) strongSelf = weakSelf;
+        if(object!=nil){
+            strongSelf.inShelfLabel.text = @"Reading";
+            self.inShelfLabel.backgroundColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
+            return;
+        }
+    }];
+    self.inShelfLabel.text = @"Not in Shelf";
+    self.inShelfLabel.backgroundColor = [UIColor grayColor];
+}
+
 -(void)setupView{
-    
-    self.titleLabel.text = self.book.title;
-    self.authorLabel.text = self.book.authorsString;
-    if(self.book.coverArtThumbnail!=nil){
-        [self.coverArtView setImageWithURL:[NSURL URLWithString: self.book.coverArtThumbnail]];
-    }
-    else{
-        self.coverArtView.image = [UIImage imageNamed:@"NoImageAvailable"];
-    }
     [self refreshFavoriteButton];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -105,6 +136,10 @@
     [manager getBookWithBookID:self.book.bookID andCompletion:^(NSDictionary * _Nonnull bookDict, NSError * _Nonnull error) {
         __strong __typeof (self) strongSelf = weakSelf;
         NSDictionary *volumeInfo = bookDict[@"volumeInfo"];
+        if(volumeInfo[@"subtitle"]!=nil)
+            strongSelf.subtitleLabel.text = volumeInfo[@"subtitle"];
+        else
+            [strongSelf.subtitleLabel setText:nil];
         if(volumeInfo[@"description"] != nil)
             strongSelf.descriptionLabel.text = [volumeInfo[@"description"] stringByStrippingHTML];
         else
@@ -142,6 +177,8 @@
     }
 }
 -(void)setLabelAlphas:(int)alpha{
+    self.authorLabel.alpha = alpha;
+    self.subtitleLabel.alpha = alpha;
     self.publishedLabel.alpha = alpha;
     self.categoriesLabel.alpha = alpha;
     self.pagesLabel.alpha = alpha;
@@ -208,7 +245,7 @@
 
 #pragma mark - SelectShelfViewControllerDelegate
 - (void)didUpdateShelf{
-    //No-Op
+    [self checkInShelves];
 }
 
 #pragma mark - UICollectionViewDataSource
