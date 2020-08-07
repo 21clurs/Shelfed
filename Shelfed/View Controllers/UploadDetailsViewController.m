@@ -41,9 +41,9 @@
 
 - (void)setUpload:(Upload *)upload{
     _upload = upload;
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [AddRemoveBooksHelper getBookForID:upload.associatedBookID withCompletion:^(Book * _Nonnull book, NSError * _Nullable error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         if(book!=nil){
             strongSelf.bookTitle = book.title;
             [strongSelf.bookTitleLabel setText:strongSelf.bookTitle];
@@ -70,9 +70,9 @@
 
 - (IBAction)didTapDelete:(id)sender {
     PFQuery *query = [PFQuery queryWithClassName:@"Upload"];
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [query getObjectInBackgroundWithId:self.upload.objectId block:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         if(object!= nil){
             [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 [strongSelf.delegate didDeleteUpload];

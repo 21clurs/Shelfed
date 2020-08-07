@@ -84,9 +84,9 @@ UIRefreshControl *refreshControl;
 }
 
 - (void)reloadFeed{
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [manager reloadBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
 
         [refreshControl endRefreshing];
         if(error!=nil){
@@ -113,9 +113,9 @@ UIRefreshControl *refreshControl;
 }
 
 - (void)loadMore{
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [manager loadMoreBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         if(books){
             strongSelf.isMoreDataLoading = false;
             
@@ -191,9 +191,9 @@ UIRefreshControl *refreshControl;
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [manager searchBooks:searchText andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             NSLog(@"Error searching!");
         }
@@ -208,9 +208,9 @@ UIRefreshControl *refreshControl;
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
-    __weak typeof (self) weakSelf = self;
+    __weak __typeof (self) weakSelf = self;
     [manager searchBooks:@"" andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             NSLog(@"Error searching!");
         }

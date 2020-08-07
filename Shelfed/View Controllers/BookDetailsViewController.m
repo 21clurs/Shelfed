@@ -66,9 +66,9 @@
     PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
     PFQuery *relationQuery = [relation query];
     [relationQuery whereKey:@"bookID" equalTo:self.book.bookID];
-    __weak typeof (self) weakSelf = self;
+    __weak __typeof (self) weakSelf = self;
     [relationQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        __strong typeof (self) strongSelf = weakSelf;
+        __strong __typeof (self) strongSelf = weakSelf;
         if(object!=nil){
             strongSelf.isFavorite = YES;
         }
@@ -101,9 +101,9 @@
         self.numPagesLabel.text = @"Not Available";
     
     GoogleBooksAPIManager *manager = [[GoogleBooksAPIManager alloc] init];
-    __weak typeof (self) weakSelf = self;
+    __weak __typeof (self) weakSelf = self;
     [manager getBookWithBookID:self.book.bookID andCompletion:^(NSDictionary * _Nonnull bookDict, NSError * _Nonnull error) {
-        __strong typeof (self) strongSelf = weakSelf;
+        __strong __typeof (self) strongSelf = weakSelf;
         NSDictionary *volumeInfo = bookDict[@"volumeInfo"];
         if(volumeInfo[@"description"] != nil)
             strongSelf.descriptionLabel.text = [volumeInfo[@"description"] stringByStrippingHTML];
@@ -130,7 +130,7 @@
     }];
     if(![self.book.authorsString containsString:@"Unknown"]){
         [manager getBooksForAuthors:self.book.authorsString andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
-            __strong typeof (self) strongSelf = weakSelf;
+            __strong __typeof (self) strongSelf = weakSelf;
             if(books!=nil && books.count>0){
                 strongSelf.authorsBooksArray = books;
                 [strongSelf.authorCollectionView reloadData];
@@ -157,11 +157,11 @@
 
 -(void)refreshFavoriteButton{
     if (self.isFavorite == YES){
-        __weak typeof (self) weakSelf = self;
+        __weak __typeof (self) weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
             self.favoriteButton.transform = CGAffineTransformMakeScale(.8, .8);
         } completion:^(BOOL finished) {
-            __strong typeof(self) strongSelf = weakSelf;
+            __strong __typeof(self) strongSelf = weakSelf;
             [UIView animateWithDuration:0.1 animations:^{
                 [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
                 [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
@@ -170,11 +170,11 @@
         }];
     }
     else{
-        __weak typeof (self) weakSelf = self;
+        __weak __typeof (self) weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
             self.favoriteButton.transform = CGAffineTransformMakeScale(.8, .8);
         } completion:^(BOOL finished) {
-            __strong typeof(self) strongSelf = weakSelf;
+            __strong __typeof(self) strongSelf = weakSelf;
             [UIView animateWithDuration:0.1 animations:^{
                 [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
                 [strongSelf.favoriteButton setTintColor:[UIColor blackColor]];
@@ -185,10 +185,10 @@
 }
 
 - (IBAction)didTapFavorite:(id)sender {
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     if(self.isFavorite == YES){
         [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
-            __strong typeof(self) strongSelf = weakSelf;
+            __strong __typeof(self) strongSelf = weakSelf;
             if(!error){
                 strongSelf.isFavorite = NO;
                 [strongSelf refreshFavoriteButton];
@@ -197,7 +197,7 @@
     }
     else{
         [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
-            __strong typeof(self) strongSelf = weakSelf;
+            __strong __typeof(self) strongSelf = weakSelf;
             if(!error){
                 strongSelf.isFavorite = YES;
                 [strongSelf refreshFavoriteButton];

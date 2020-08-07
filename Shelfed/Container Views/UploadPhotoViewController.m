@@ -76,9 +76,9 @@
 
 - (void)didSelectPhoto:(NSData *)imageData{
     PFUser.currentUser[@"profileImage"] = [PFFileObject fileObjectWithName:@"profile_image.png" data:imageData];
-   __weak typeof(self) weakSelf = self;
+   __weak __typeof(self) weakSelf = self;
    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-       __strong typeof(self) strongSelf = weakSelf;
+       __strong __typeof(self) strongSelf = weakSelf;
        if(error != nil){
            NSLog(@"Error updating profile image");
            [strongSelf dismissViewControllerAnimated:YES completion:nil];

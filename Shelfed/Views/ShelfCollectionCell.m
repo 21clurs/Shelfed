@@ -15,6 +15,12 @@
     
     self.shelfNameLabel.text = shelfName;
     
+    if([shelfName isEqualToString:@"Read"]){
+        [self.shelfIconView setImage:[UIImage imageNamed:@"Read"]];
+    }
+    else if([shelfName isEqualToString:@"Reading"]){
+        [self.shelfIconView setImage:[UIImage imageNamed:@"Reading"]];
+    }
     /*
     if([shelfName isEqualToString:@"Read"]){
         [self.shelfPicView setImage:[UIImage imageNamed:@"BookShelf1"]];

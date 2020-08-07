@@ -45,9 +45,9 @@
     PFQuery *relationQuery = [relation query];
     if(self.book != nil){
         [relationQuery whereKey:@"associatedBookID" equalTo:self.book.bookID];
-        __weak typeof(self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         [relationQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-            __strong typeof(self) strongSelf = weakSelf;
+            __strong __typeof(self) strongSelf = weakSelf;
             if(objects){
                 strongSelf.uploads = objects;
                 [strongSelf.collectionView reloadData];
@@ -55,9 +55,9 @@
         }];
     }
     else{
-        __weak typeof(self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         [relationQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-            __strong typeof(self) strongSelf = weakSelf;
+            __strong __typeof(self) strongSelf = weakSelf;
             if(objects){
                 strongSelf.uploads = objects;
                 [strongSelf.collectionView reloadData];
@@ -112,7 +112,16 @@
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     int numberOfCellsPerRow = 3;
-    CGFloat cellWidth = (self.collectionView.frame.size.width - self.flowLayout.sectionInset.left - self.flowLayout.sectionInset.right - self.flowLayout.minimumInteritemSpacing*(numberOfCellsPerRow-1))/numberOfCellsPerRow;
+    CGFloat shortEdge;
+    if(self.collectionView.frame.size.width>self.collectionView.frame.size.height){
+        shortEdge = self.collectionView.frame.size.height;
+    }
+    else{
+        shortEdge = self.collectionView.frame.size.width;
+    }
+    
+    
+    CGFloat cellWidth = (shortEdge - self.flowLayout.sectionInset.left - self.flowLayout.sectionInset.right - self.flowLayout.minimumInteritemSpacing*(numberOfCellsPerRow-1))/numberOfCellsPerRow;
     cellWidth = floor(cellWidth);
     CGFloat cellHeight = cellWidth;
     return CGSizeMake(cellWidth, cellHeight);
@@ -161,15 +170,15 @@
     NSData *imageData = UIImagePNGRepresentation(resizedImage);
     
     Upload *upload = [[Upload alloc] initWithImageFile:imageData andBook:self.book];
-    __weak typeof(self) weakSelf = self;
-    [upload saveUploadToParseWithCompletion:^(NSError * _Nonnull error) {
-        __strong typeof(self) strongSelf = weakSelf;
+    __weak __typeof(self) weakSelf = self;
+    
+    [Upload saveUploadToParse:upload WithCompletion:^(NSError * _Nonnull error) {
+        __strong __typeof(self) strongSelf = weakSelf;
         [strongSelf dismissViewControllerAnimated:YES completion:nil];
         if(error==nil){
             [strongSelf getUserUploads];
         }
     }];
- 
 };
 
 #pragma mark - UploadDetailsViewControllerDelegate

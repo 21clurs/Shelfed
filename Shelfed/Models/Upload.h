@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic)NSString *associatedBookID;
 
 - (id)initWithImageFile:(NSData *)imageData andBook:(Book *)book;
-- (void)saveUploadToParseWithCompletion: (void(^)(NSError *error))completion;
++ (void)saveUploadToParse:(Upload *)upload WithCompletion: (void(^)(NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

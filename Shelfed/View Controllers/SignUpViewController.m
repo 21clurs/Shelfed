@@ -39,9 +39,9 @@
     if([self.passwordConfirmField.text isEqualToString:self.passwordField.text]){
         newUser.password = self.passwordField.text;
         
-        __weak typeof(self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-            __strong typeof(self) strongSelf = weakSelf;
+            __strong __typeof(self) strongSelf = weakSelf;
             if (error != nil) {
                 //NSLog(@"Error: %@", error.localizedDescription);
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error Signing Up" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
@@ -62,7 +62,7 @@
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
         [alert addAction:okAction];
         
-        __weak typeof(self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         [self presentViewController:alert animated:YES completion:^{
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
         }];

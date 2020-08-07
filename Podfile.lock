@@ -37,6 +37,7 @@ PODS:
     - Bolts/Tasks (= 1.9.1)
   - Parse/UI (1.18.0):
     - Parse/Core
+  - UICollectionViewLeftAlignedLayout (1.0.2)
 
 DEPENDENCIES:
   - AFNetworking
@@ -47,6 +48,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - Parse
   - Parse/UI
+  - UICollectionViewLeftAlignedLayout
 
 SPEC REPOS:
   trunk:
@@ -58,6 +60,7 @@ SPEC REPOS:
     - FBSDKShareKit
     - MBProgressHUD
     - Parse
+    - UICollectionViewLeftAlignedLayout
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -68,7 +71,8 @@ SPEC CHECKSUMS:
   FBSDKShareKit: 00a055c1999b099596e00212dd1c0600c6697019
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
+  UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
-PODFILE CHECKSUM: ca9c83da33c6c79e120b723979c7790941b396b0
+PODFILE CHECKSUM: bacc60895de5828d70eb6c24886fd0082860f4c8
 
 COCOAPODS: 1.9.3

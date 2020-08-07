@@ -14,6 +14,7 @@ target 'Shelfed' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
+  pod 'UICollectionViewLeftAlignedLayout'
 
   target 'ShelfedTests' do
     inherit! :search_paths

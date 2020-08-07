@@ -15,7 +15,6 @@
 #import "SelectShelfViewController.h"
 #import "FilterSelectionViewController.h"
 #import "Filter.h"
-#import "FilterDisplayCollectionCell.h"
 #import "FilterDisplayContainerViewController.h"
 
 @interface FavoritesViewController () <FilterDisplayContainerViewControllerDelegate,UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
@@ -53,9 +52,9 @@
 }
 
 -(void)queryBooksWithQuery:(PFQuery *)query{
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error getting favorites" message:@"There was an error loading your favorites" preferredStyle:UIAlertControllerStyleAlert];
 
@@ -160,7 +159,7 @@
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         __strong typeof(self) strongSelf = weakSelf;
         Book *bookToRemove = strongSelf.filteredBooks[indexPath.row];

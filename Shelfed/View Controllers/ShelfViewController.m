@@ -14,9 +14,12 @@
 #import "SelectShelfViewController.h"
 #import "Filter.h"
 #import "FilterSelectionViewController.h"
+#import "FilterDisplayContainerViewController.h"
 
-@interface ShelfViewController () <UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
+@interface ShelfViewController () <FilterDisplayContainerViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterDisplayHeight;
+@property (nonatomic) FilterDisplayContainerViewController *filterDisplayContainerViewController;
 @property (strong, nonatomic) NSArray<Book *> *booksInShelf;
 @property (strong, nonatomic) NSArray<Book *> *filteredBooksInShelf;
 @property (strong, nonatomic) NSDictionary<NSNumber *, NSArray<Filter *> *> *filtersDictionary;
@@ -52,9 +55,9 @@
 }
 
 - (void) queryBooksWithQueryt:(PFQuery *)query{
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray<Book *> * _Nullable books, NSError * _Nullable error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         if(error!=nil){
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error getting shelf" message:@"There was an error loading your shelf" preferredStyle:UIAlertControllerStyleAlert];
 
@@ -121,11 +124,23 @@
     }
 }
 
+#pragma mark - FilterDisplayContainerViewControllerDelegate
+- (void)didRemoveFilter{
+    [self reloadShelf];
+}
+- (void)noFiltersApplied{
+    self.filterDisplayHeight.constant=0;
+}
+- (void)filtersApplied{
+    self.filterDisplayHeight.constant=36;
+}
+
 #pragma mark - FilterSelectionViewControllerDelegate
 -(void)appliedFilters:(NSDictionary<NSNumber *, NSArray<Filter *> *> *)appliedFilters{
     self.filtersDictionary = appliedFilters;
     self.filteredBooksInShelf = [Filter appliedFilters:appliedFilters toBookArray:self.booksInShelf];
     [self.tableView reloadData];
+    self.filterDisplayContainerViewController.filtersDictionary = self.filtersDictionary;
 }
 
 #pragma mark - BookCellNibDelegate
@@ -158,9 +173,9 @@
     //[self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
 }
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:nil handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         Book *bookToRemove = strongSelf.filteredBooksInShelf[indexPath.row];
         [AddRemoveBooksHelper removeBook:bookToRemove fromArray:strongSelf.shelfName withCompletion:^(NSError * _Nonnull error) {
             [strongSelf reloadShelf];
@@ -209,6 +224,13 @@
         FilterSelectionViewController *filterSelectionViewController = (FilterSelectionViewController *)[navigationController topViewController];
         filterSelectionViewController.filtersDataSource = self.filtersDictionary;
         filterSelectionViewController.delegate = self;
+    }
+    else if ([segue.identifier isEqualToString:@"viewControllerContainerSeque"])
+    {
+      if([segue.destinationViewController isKindOfClass:[FilterDisplayContainerViewController class]]) {
+          self.filterDisplayContainerViewController = segue.destinationViewController;
+          self.filterDisplayContainerViewController.delegate = self;
+      }
     }
 }
 

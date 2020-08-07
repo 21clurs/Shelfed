@@ -37,9 +37,9 @@
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
             

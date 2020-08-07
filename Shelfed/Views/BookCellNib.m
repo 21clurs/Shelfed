@@ -37,9 +37,9 @@
     PFRelation *relation = [PFUser.currentUser relationForKey:@"favorites"];
     PFQuery *query = [relation query];
     [query whereKey:@"bookID" equalTo:book.bookID];
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong __typeof(self) strongSelf = weakSelf;
         if(object!=nil){
             [strongSelf.favoriteButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
             [strongSelf.favoriteButton setTintColor:[UIColor redColor]];
@@ -55,10 +55,10 @@
 }
 - (void)toggleFavorite{
     if(self.inFavorites == YES){
-        __weak typeof(self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         [AddRemoveBooksHelper removeFromFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
-                __strong typeof(self) strongSelf = weakSelf;
+                __strong __typeof(self) strongSelf = weakSelf;
                 [UIView animateWithDuration:0.1 animations:^{
                     strongSelf.favoriteButton.transform = CGAffineTransformMakeScale(.8, .8);
                 } completion:^(BOOL finished) {
@@ -74,10 +74,10 @@
         }];
     }
     else if(self.inFavorites == NO){
-        __weak typeof(self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             if(!error){
-                __strong typeof(self) strongSelf = weakSelf;
+                __strong __typeof(self) strongSelf = weakSelf;
                 [UIView animateWithDuration:0.1 animations:^{
                     strongSelf.favoriteButton.transform = CGAffineTransformMakeScale(.8, .8);
                 } completion:^(BOOL finished) {
