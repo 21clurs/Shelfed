@@ -59,8 +59,10 @@
             if(bookToRemove != nil){
                 PFRelation *relation = [PFUser.currentUser relationForKey:arrayName];
                 [relation removeObject:bookToRemove];
-                [PFUser.currentUser saveInBackground];
-                completion(nil);
+                [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                    if(succeeded == YES)
+                        completion(nil);
+                } ];
             }
         }];
     }
