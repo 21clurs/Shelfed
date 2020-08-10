@@ -385,11 +385,17 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HaK-DX-lFR">
                                                     <rect key="frame" x="20" y="8" width="40" height="40"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="HpQ-FC-o8E"/>
                                                         <constraint firstAttribute="height" constant="40" id="vaF-BU-wN0"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shelf Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Udz-4C-VHa">
                                                     <rect key="frame" x="68" y="15.5" width="107" height="26"/>
@@ -1262,10 +1268,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eq0-kd-wMJ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="703"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbR-UI-ECR">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="703"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mKX-qY-Q2k">
                                                 <rect key="frame" x="0.0" y="20" width="414" height="134.5"/>
@@ -1448,10 +1454,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Eq0-kd-wMJ" secondAttribute="bottom" id="FR1-mn-x8C"/>
+                            <constraint firstItem="Eq0-kd-wMJ" firstAttribute="bottom" secondItem="8NZ-hW-vYy" secondAttribute="bottom" id="26o-W0-Wh3"/>
                             <constraint firstItem="Eq0-kd-wMJ" firstAttribute="leading" secondItem="iS3-Mz-0h2" secondAttribute="leading" id="XzG-BK-HmB"/>
+                            <constraint firstItem="Eq0-kd-wMJ" firstAttribute="top" secondItem="8NZ-hW-vYy" secondAttribute="top" id="aal-Nz-KwV"/>
                             <constraint firstAttribute="trailing" secondItem="Eq0-kd-wMJ" secondAttribute="trailing" id="dKE-cu-vdc"/>
-                            <constraint firstItem="Eq0-kd-wMJ" firstAttribute="top" secondItem="iS3-Mz-0h2" secondAttribute="top" id="mKl-r6-ouh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8NZ-hW-vYy"/>
                     </view>

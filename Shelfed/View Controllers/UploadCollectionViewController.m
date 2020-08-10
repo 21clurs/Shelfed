@@ -15,9 +15,11 @@
 #import "UploadDetailsViewController.h"
 #import "FBSDKCoreKit.h"
 #import "FBSDKShareKit.h"
+#import "UIScrollView+EmptyDataSet.h"
+
 @import Parse;
 
-@interface UploadCollectionViewController () < UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UploadDetailsViewControllerDelegate>
+@interface UploadCollectionViewController () < UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UploadDetailsViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (strong,nonatomic) NSArray<Upload *> *uploads;
@@ -33,6 +35,9 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    
+    self.collectionView.emptyDataSetSource = self;
+    self.collectionView.emptyDataSetDelegate = self;
     
     self.flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     self.flowLayout.minimumLineSpacing = 1;
@@ -185,6 +190,18 @@
 #pragma mark - UploadDetailsViewControllerDelegate
 - (void)didDeleteUpload{
     [self getUserUploads];
+}
+
+#pragma mark - DZNEmptyDataSetSource
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView{
+    UIImage *placeholderImage =  [UIImage systemImageNamed:@"book"];
+    return placeholderImage;
+}
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
+    NSString *text = @"Upload photos to books to see them here!";
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0f],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
 #pragma mark - Navigation

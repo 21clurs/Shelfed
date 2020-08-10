@@ -26,10 +26,10 @@
     
     self.shelfNameLabel.text = shelfName;
     if([shelfName isEqualToString:@"Read"]){
-        [self.shelfIconView setImage:[UIImage imageNamed:@"Read-Blue"]];
+        [self.shelfIconView setImage:[UIImage imageNamed:@"Read"]];
     }
     else if([shelfName isEqualToString:@"Reading"]){
-        [self.shelfIconView setImage:[UIImage imageNamed:@"Reading-Blue"]];
+        [self.shelfIconView setImage:[UIImage imageNamed:@"Reading"]];
     }
 }
 

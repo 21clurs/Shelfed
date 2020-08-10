@@ -13,6 +13,7 @@
 
 @interface UploadPhotoViewController () < UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *updateIconView;
+@property (weak, nonatomic) IBOutlet UIImageView *updateIconBGView;
 @property (weak, nonatomic) IBOutlet PFImageView *profilePhotoView;
 
 @end
@@ -27,12 +28,14 @@
 - (void)loadProfilePhoto{
     if(PFUser.currentUser[@"profileImage"]){
         self.profilePhotoView.file = PFUser.currentUser[@"profileImage"];
-        self.updateIconView.image = [UIImage systemImageNamed:@"pencil.circle.fill"];
+        self.updateIconBGView.alpha = 0;
+        self.updateIconView.alpha = 0;
     }
     else{
         self.profilePhotoView.file = nil;
         self.profilePhotoView.image = [UIImage imageNamed:@"default_profile_image"];
-        self.updateIconView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
+        self.updateIconBGView.alpha = 1;
+        self.updateIconView.alpha = 1;
     }
     [self.profilePhotoView loadInBackground];
 }
