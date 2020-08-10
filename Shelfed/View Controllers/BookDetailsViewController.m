@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *alsoByAuthorLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *authorCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
+@property (weak, nonatomic) IBOutlet UIImageView *heartOverlayView;
 
 @property (nonatomic) bool isFavorite;
 @property (strong, nonatomic) NSArray<Book *> *authorsBooksArray;
@@ -232,15 +233,32 @@
             }
         }];
     }
+    
     else{
         [AddRemoveBooksHelper addToFavorites:self.book withCompletion:^(NSError * _Nonnull error) {
             __strong __typeof(self) strongSelf = weakSelf;
             if(!error){
                 strongSelf.isFavorite = YES;
+                
+                if([sender isKindOfClass:[UIGestureRecognizer class]]){
+                    [UIView animateWithDuration:0.2 animations:^{
+                        strongSelf.heartOverlayView.alpha = 1;
+                        strongSelf.heartOverlayView.transform =CGAffineTransformMakeScale(1.2, 1.2);
+                    } completion:^(BOOL finished) {
+                        [UIView animateWithDuration:0.2 animations:^{
+                            strongSelf.heartOverlayView.transform = CGAffineTransformIdentity;
+                            strongSelf.heartOverlayView.alpha = 0;
+                        }];
+                    }];
+                }
+                
                 [strongSelf refreshFavoriteButton];
             }
         }];
     }
+}
+- (IBAction)didDoubleTap:(id)sender {
+    [self didTapFavorite:sender];
 }
 
 #pragma mark - SelectShelfViewControllerDelegate

@@ -31,7 +31,11 @@ UIRefreshControl *refreshControl;
 
 @implementation HomeViewController
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)viewWillAppear:(BOOL)animated{
     [self reloadFeed];
 }
 - (void)viewWillDisappear:(BOOL)animated{
@@ -61,6 +65,7 @@ UIRefreshControl *refreshControl;
     //self.definesPresentationContext = YES;
     
     manager = [GoogleBooksAPIManager new];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLoggedOut:) name:@"LogoutNotification" object:nil];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
     
@@ -104,12 +109,23 @@ UIRefreshControl *refreshControl;
             [strongSelf presentViewController:alert animated:YES completion:nil];
         }
         else{
-            strongSelf.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            [self checkForEmptyDataSet];
             strongSelf.books = [books mutableCopy];
             [strongSelf.tableView reloadData];
         }
         [MBProgressHUD hideHUDForView:strongSelf.view animated:YES];
     }];
+}
+
+-(void)checkForEmptyDataSet{
+    if(self.books.count>0){
+        [self.tableView setUserInteractionEnabled:YES];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    }
+    else{
+        [self.tableView setUserInteractionEnabled:NO];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
 }
 
 - (void)loadMore{
@@ -155,6 +171,11 @@ UIRefreshControl *refreshControl;
         NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
         [self performSegueWithIdentifier:@"bookDetailsSegue" sender:indexPath];
     }
+}
+
+-(void)userLoggedOut:(NSNotification *) notification{
+    if([[notification name] isEqualToString:@"LogoutNotification"])
+        [manager logout];
 }
 
 #pragma mark - BookCellNibDelegate

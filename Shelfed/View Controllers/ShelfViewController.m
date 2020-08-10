@@ -112,15 +112,19 @@
 }
 
 -(void)checkForEmptyDataSet{
-    if(self.filteredBooksInShelf.count>0){
+    if(self.filteredBooksInShelf.count > 0){
+        [self.tableView setUserInteractionEnabled:YES];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
     else{
+        [self.tableView setUserInteractionEnabled:NO];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        if(self.booksInShelf.count <= 0){
+            self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+        }
     }
 }
 
@@ -139,6 +143,7 @@
 -(void)appliedFilters:(NSDictionary<NSNumber *, NSArray<Filter *> *> *)appliedFilters{
     self.filtersDictionary = appliedFilters;
     self.filteredBooksInShelf = [Filter appliedFilters:appliedFilters toBookArray:self.booksInShelf];
+    [self checkForEmptyDataSet];
     [self.tableView reloadData];
     self.filterDisplayContainerViewController.filtersDictionary = self.filtersDictionary;
 }

@@ -24,6 +24,11 @@ NSInteger loadBy = 20;
     return self;
 }
 
+-(void)logout{
+    currentSearchString  = @"";
+    currentSearchIndex = nil;
+}
+
 -(void)searchBooks: (NSString *)searchString andCompletion:(void(^)(NSArray *books, NSError *error))completion{
     NSString *searchableString = [self makeSearchable:searchString];
     

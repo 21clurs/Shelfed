@@ -82,11 +82,13 @@
 
 -(void)checkForEmptyDataSet{
     if(self.filteredBooks.count>0){
+        [self.tableView setUserInteractionEnabled:YES];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
     else{
+        [self.tableView setUserInteractionEnabled:NO];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         if(self.appliedFilterArray.count>0){
             self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];

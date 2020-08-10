@@ -47,6 +47,8 @@
 }
 
 - (IBAction)didTapLogOut:(id)sender {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"LogoutNotification" object:self];
+    
     SceneDelegate *sceneDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     LogInViewController *logInViewController = [storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
