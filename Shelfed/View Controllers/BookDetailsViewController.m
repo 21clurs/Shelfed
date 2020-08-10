@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *heartOverlayView;
 
 @property (nonatomic) bool isFavorite;
+@property (nonatomic) bool isInShelf;
 @property (strong, nonatomic) NSArray<Book *> *authorsBooksArray;
 
 @end
@@ -101,8 +102,9 @@
     [readQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         __strong __typeof (self) strongSelf = weakSelf;
         if(object!=nil){
+            strongSelf.isInShelf = YES;
             strongSelf.inShelfLabel.text = @"Read";
-            self.inShelfLabel.backgroundColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
+            strongSelf.inShelfLabel.backgroundColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
             return;
         }
     }];
@@ -111,11 +113,13 @@
     [readingQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         __strong __typeof (self) strongSelf = weakSelf;
         if(object!=nil){
+            strongSelf.isInShelf = YES;
             strongSelf.inShelfLabel.text = @"Reading";
-            self.inShelfLabel.backgroundColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
+            strongSelf.inShelfLabel.backgroundColor = [UIColor colorWithRed:10/255.0 green:0 blue:86/255.0 alpha:1];
             return;
         }
     }];
+    self.isInShelf = NO;
     self.inShelfLabel.text = @"Not in Shelf";
     self.inShelfLabel.backgroundColor = [UIColor grayColor];
 }
@@ -239,28 +243,49 @@
             __strong __typeof(self) strongSelf = weakSelf;
             if(!error){
                 strongSelf.isFavorite = YES;
-                
                 if([sender isKindOfClass:[UIGestureRecognizer class]]){
-                    [UIView animateWithDuration:0.2 animations:^{
-                        strongSelf.heartOverlayView.alpha = 1;
-                        strongSelf.heartOverlayView.transform =CGAffineTransformMakeScale(1.2, 1.2);
-                    } completion:^(BOOL finished) {
-                        [UIView animateWithDuration:0.2 animations:^{
-                            strongSelf.heartOverlayView.transform = CGAffineTransformIdentity;
-                            strongSelf.heartOverlayView.alpha = 0;
-                        }];
-                    }];
+                    [strongSelf heartOverlayAnimation];
                 }
-                
                 [strongSelf refreshFavoriteButton];
             }
         }];
     }
 }
+
+- (void)heartOverlayAnimation{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.heartOverlayView.alpha = 1;
+        self.heartOverlayView.transform =CGAffineTransformMakeScale(1.2, 1.2);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.heartOverlayView.transform = CGAffineTransformIdentity;
+            self.heartOverlayView.alpha = 0;
+        }];
+    }];
+}
+
 - (IBAction)didDoubleTap:(id)sender {
     [self didTapFavorite:sender];
 }
-
+- (IBAction)didTapShelfLabel:(id)sender {
+    if(self.isInShelf){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Remove from Shelf?" message:[NSString stringWithFormat:@"Please confirm to remove title from your %@ shelf",self.inShelfLabel.text]  preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirmRemoveAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [AddRemoveBooksHelper removeBook:self.book fromArray:self.inShelfLabel.text withCompletion:^(NSError * _Nonnull error) {
+                if(error==nil){
+                    [self checkInShelves];
+                }
+            }];
+        }];
+        [alert addAction:confirmRemoveAction];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    else{
+        [self performSegueWithIdentifier:@"selectShelfSegue" sender:self];
+    }
+}
 #pragma mark - SelectShelfViewControllerDelegate
 - (void)didUpdateShelf{
     [self checkInShelves];

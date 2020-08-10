@@ -571,6 +571,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
+                                                        <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstItem="NgR-pS-TXf" firstAttribute="top" secondItem="LXJ-g7-iH5" secondAttribute="top" id="4kU-3B-5fA"/>
                                                             <constraint firstAttribute="trailing" secondItem="NgR-pS-TXf" secondAttribute="trailing" id="Xcc-5C-0Le"/>
@@ -582,6 +583,9 @@
                                                                 <integer key="value" value="4"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="TOB-D9-gJM" appends="YES" id="25s-hV-TF5"/>
+                                                        </connections>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6Gj-5z-Phm">
                                                         <rect key="frame" x="0.0" y="30" width="90" height="30"/>
@@ -737,6 +741,11 @@
                 <tapGestureRecognizer numberOfTapsRequired="2" id="cjP-0c-Zvs">
                     <connections>
                         <action selector="didDoubleTap:" destination="jQ3-HB-y6c" id="bXZ-oK-SFd"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="TOB-D9-gJM">
+                    <connections>
+                        <action selector="didTapShelfLabel:" destination="jQ3-HB-y6c" id="bnf-EC-gZr"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
