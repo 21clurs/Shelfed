@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *readBooksLabel;
 @property (weak, nonatomic) IBOutlet UILabel *readingBooksLabel;
 
-
 @property (nonatomic) UploadPhotoViewController *uploadPhotoViewController;
 
 @end

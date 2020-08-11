@@ -12,6 +12,9 @@
 		5198474A5F2D7E8D1BD7AC33 /* Pods_ShelfedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76EC0EC0C2294444FC4EB328 /* Pods_ShelfedTests.framework */; };
 		F914AD7924DC780400575498 /* FilterDisplayCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F914AD7824DC780400575498 /* FilterDisplayCollectionCell.m */; };
 		F914AD7D24DCBF6B00575498 /* FilterDisplayContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F914AD7C24DCBF6B00575498 /* FilterDisplayContainerViewController.m */; };
+		F914AD8024E20AB800575498 /* AccountSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F914AD7F24E20AB800575498 /* AccountSettingsController.m */; };
+		F914AD8424E2F07C00575498 /* SetPasswordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F914AD8324E2F07C00575498 /* SetPasswordCell.m */; };
+		F914AD8724E2FC7400575498 /* SetUsernameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F914AD8624E2FC7400575498 /* SetUsernameCell.m */; };
 		F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4524BD0EFF0073FA7C /* HomeViewController.m */; };
 		F9400F4924BD0F240073FA7C /* BookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F4824BD0F240073FA7C /* BookDetailsViewController.m */; };
 		F9400F5424BE355D0073FA7C /* GoogleBooksAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F9400F5324BE355D0073FA7C /* GoogleBooksAPIManager.m */; };
@@ -86,6 +89,12 @@
 		F914AD7824DC780400575498 /* FilterDisplayCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterDisplayCollectionCell.m; sourceTree = "<group>"; };
 		F914AD7B24DCBF6B00575498 /* FilterDisplayContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterDisplayContainerViewController.h; sourceTree = "<group>"; };
 		F914AD7C24DCBF6B00575498 /* FilterDisplayContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterDisplayContainerViewController.m; sourceTree = "<group>"; };
+		F914AD7E24E20AB800575498 /* AccountSettingsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountSettingsController.h; sourceTree = "<group>"; };
+		F914AD7F24E20AB800575498 /* AccountSettingsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountSettingsController.m; sourceTree = "<group>"; };
+		F914AD8224E2F07C00575498 /* SetPasswordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetPasswordCell.h; sourceTree = "<group>"; };
+		F914AD8324E2F07C00575498 /* SetPasswordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetPasswordCell.m; sourceTree = "<group>"; };
+		F914AD8524E2FC7300575498 /* SetUsernameCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetUsernameCell.h; sourceTree = "<group>"; };
+		F914AD8624E2FC7400575498 /* SetUsernameCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetUsernameCell.m; sourceTree = "<group>"; };
 		F9400F4424BD0EFF0073FA7C /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		F9400F4524BD0EFF0073FA7C /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		F9400F4724BD0F240073FA7C /* BookDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookDetailsViewController.h; sourceTree = "<group>"; };
@@ -229,6 +238,17 @@
 			path = "Container Views";
 			sourceTree = "<group>";
 		};
+		F914AD8124E2F05000575498 /* Account Setting Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F914AD8224E2F07C00575498 /* SetPasswordCell.h */,
+				F914AD8324E2F07C00575498 /* SetPasswordCell.m */,
+				F914AD8524E2FC7300575498 /* SetUsernameCell.h */,
+				F914AD8624E2FC7400575498 /* SetUsernameCell.m */,
+			);
+			path = "Account Setting Cells";
+			sourceTree = "<group>";
+		};
 		F9400F4324BD0EDA0073FA7C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +276,8 @@
 				F992B81E24CF986F0044A4CF /* FilterSelectionViewController.m */,
 				F9D0E66B24D8D1A100FB26B0 /* UploadDetailsViewController.h */,
 				F9D0E66C24D8D1A100FB26B0 /* UploadDetailsViewController.m */,
+				F914AD7E24E20AB800575498 /* AccountSettingsController.h */,
+				F914AD7F24E20AB800575498 /* AccountSettingsController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -263,6 +285,7 @@
 		F9400F4A24BD10990073FA7C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F914AD8124E2F05000575498 /* Account Setting Cells */,
 				F992B82124D0D0960044A4CF /* Filtering Cell Views */,
 				F9A6A31224C88F43000FE6F0 /* BookCellNib.h */,
 				F9A6A31324C88F43000FE6F0 /* BookCellNib.m */,
@@ -685,11 +708,14 @@
 				F992B82424D0D1090044A4CF /* FilterByPublishCell.m in Sources */,
 				F9A6A2F424C0C257000FE6F0 /* ShelfCell.m in Sources */,
 				F9B862DB24BF6845000C2E0C /* LogInViewController.m in Sources */,
+				F914AD8424E2F07C00575498 /* SetPasswordCell.m in Sources */,
 				F992B82D24D0D1630044A4CF /* FilterByGenreCell.m in Sources */,
 				F9D0E67024DA050200FB26B0 /* NSString+NSStringStripHTML.m in Sources */,
 				F914AD7D24DCBF6B00575498 /* FilterDisplayContainerViewController.m in Sources */,
 				F914AD7924DC780400575498 /* FilterDisplayCollectionCell.m in Sources */,
 				F9B862DE24BF706B000C2E0C /* ProfileViewController.m in Sources */,
+				F914AD8024E20AB800575498 /* AccountSettingsController.m in Sources */,
+				F914AD8724E2FC7400575498 /* SetUsernameCell.m in Sources */,
 				F9400F4624BD0EFF0073FA7C /* HomeViewController.m in Sources */,
 				F9A6A2F124C0BD5F000FE6F0 /* ShelvesViewController.m in Sources */,
 			);
