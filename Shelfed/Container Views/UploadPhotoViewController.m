@@ -28,12 +28,21 @@
 - (void)loadProfilePhoto{
     if(PFUser.currentUser[@"profileImage"]){
         self.profilePhotoView.file = PFUser.currentUser[@"profileImage"];
-        self.updateIconBGView.alpha = 0;
-        self.updateIconView.alpha = 0;
+        if (self.showEdit==NO){
+            self.updateIconView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
+            self.updateIconBGView.alpha = 0;
+            self.updateIconView.alpha = 0;
+        }
+        else{
+            self.updateIconView.image = [UIImage systemImageNamed:@"pencil.circle.fill"];
+            self.updateIconBGView.alpha = 1;
+            self.updateIconView.alpha = 1;
+        }
     }
     else{
         self.profilePhotoView.file = nil;
         self.profilePhotoView.image = [UIImage imageNamed:@"default_profile_image"];
+        self.updateIconView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
         self.updateIconBGView.alpha = 1;
         self.updateIconView.alpha = 1;
     }

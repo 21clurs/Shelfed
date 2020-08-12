@@ -107,8 +107,10 @@ bool usernameSaved;
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"selectPhotoSegue"]){
-        if([segue.destinationViewController isKindOfClass:[UploadPhotoViewController class]])
+        if([segue.destinationViewController isKindOfClass:[UploadPhotoViewController class]]){
             self.uploadPhotoViewController = [segue destinationViewController];
+            self.uploadPhotoViewController.showEdit = YES;
+        }
     }
 }
 

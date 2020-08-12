@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UploadPhotoViewController : UIViewController
 @property (weak,nonatomic)id<UploadPhotoViewControllerDelegate> delegate;
+@property (nonatomic) bool showEdit;
 -(void)onTap;
 @end
 

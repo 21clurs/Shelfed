@@ -1209,9 +1209,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wg7-BB-jKg">
-                                                    <rect key="frame" x="370" y="4.5" width="24" height="35"/>
-                                                    <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="checkmark.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="wg7-BB-jKg">
+                                                    <rect key="frame" x="370" y="4" width="24" height="36"/>
+                                                    <color key="tintColor" red="0.085752494629999995" green="0.091344438489999999" blue="0.37593317030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="24" id="65V-vQ-vth"/>
                                                         <constraint firstAttribute="height" constant="36" id="gJR-9a-9QZ"/>
@@ -1222,6 +1222,7 @@
                                                 <constraint firstItem="VfR-Eq-Nof" firstAttribute="top" secondItem="K85-38-s8v" secondAttribute="top" constant="4" id="46Z-w5-vMl"/>
                                                 <constraint firstAttribute="bottom" secondItem="VfR-Eq-Nof" secondAttribute="bottom" constant="4" id="7Zh-gw-lIa"/>
                                                 <constraint firstItem="wg7-BB-jKg" firstAttribute="leading" secondItem="VfR-Eq-Nof" secondAttribute="trailing" id="Emo-UW-wvY"/>
+                                                <constraint firstAttribute="trailing" secondItem="VfR-Eq-Nof" secondAttribute="trailing" constant="20" id="J5F-Um-VTl"/>
                                                 <constraint firstItem="AnR-Vz-k9U" firstAttribute="leading" secondItem="K85-38-s8v" secondAttribute="leadingMargin" id="JzI-rJ-ePN"/>
                                                 <constraint firstItem="AnR-Vz-k9U" firstAttribute="top" secondItem="K85-38-s8v" secondAttribute="topMargin" id="KY6-OR-8IC"/>
                                                 <constraint firstAttribute="trailing" secondItem="wg7-BB-jKg" secondAttribute="trailing" constant="20" id="gIC-Ao-8gc"/>
@@ -1232,7 +1233,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="usernameCheckView" destination="wg7-BB-jKg" id="0mj-9e-CFv"/>
                                             <outlet property="usernameField" destination="VfR-Eq-Nof" id="Fup-9c-Sif"/>
                                         </connections>
                                     </tableViewCell>
@@ -1256,21 +1256,21 @@
                                                     <rect key="frame" x="120" y="11" width="274" height="53"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="NewPW" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nrY-Z8-C8J">
-                                                            <rect key="frame" x="0.0" y="0.0" width="274" height="24.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="274" height="13"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                         </textField>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="vTZ-ld-gGq">
-                                                            <rect key="frame" x="0.0" y="28.5" width="274" height="24.5"/>
+                                                            <rect key="frame" x="0.0" y="17" width="274" height="36"/>
                                                             <subviews>
                                                                 <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="ConfirmPW" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vk8-le-j5C">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="246" height="24.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="246" height="36"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                                 </textField>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="E1j-Co-P3h">
-                                                                    <rect key="frame" x="250" y="0.5" width="24" height="23.5"/>
-                                                                    <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <rect key="frame" x="250" y="0.5" width="24" height="35"/>
+                                                                    <color key="tintColor" red="0.085752494633197784" green="0.091344438493251801" blue="0.37593317031860352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="36" id="OEd-AH-0q4"/>
                                                                         <constraint firstAttribute="width" constant="24" id="eTt-r0-XqP"/>
@@ -1279,9 +1279,6 @@
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="vTZ-ld-gGq" firstAttribute="height" secondItem="nrY-Z8-C8J" secondAttribute="height" id="Qj9-J7-9qC"/>
-                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
@@ -1943,7 +1940,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="KqS-ZN-6VP"/>
         <segue reference="Vg5-nC-Hnj"/>
-        <segue reference="IlP-IV-pOc"/>
+        <segue reference="lZu-H2-1xT"/>
         <segue reference="JAJ-4x-lDL"/>
         <segue reference="ei2-QH-qVv"/>
         <segue reference="x8N-C0-dZc"/>
@@ -1955,6 +1952,7 @@
         <image name="book.fill" catalog="system" width="128" height="100"/>
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="checkmark.circle.fill" width="128" height="121"/>
         <image name="default_profile_image" width="170" height="170"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>
