@@ -1209,9 +1209,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="checkmark.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="wg7-BB-jKg">
-                                                    <rect key="frame" x="370" y="4" width="24" height="36"/>
-                                                    <color key="tintColor" red="0.085752494629999995" green="0.091344438489999999" blue="0.37593317030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wg7-BB-jKg">
+                                                    <rect key="frame" x="370" y="4.5" width="24" height="35"/>
+                                                    <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="24" id="65V-vQ-vth"/>
                                                         <constraint firstAttribute="height" constant="36" id="gJR-9a-9QZ"/>
@@ -1221,18 +1221,18 @@
                                             <constraints>
                                                 <constraint firstItem="VfR-Eq-Nof" firstAttribute="top" secondItem="K85-38-s8v" secondAttribute="top" constant="4" id="46Z-w5-vMl"/>
                                                 <constraint firstAttribute="bottom" secondItem="VfR-Eq-Nof" secondAttribute="bottom" constant="4" id="7Zh-gw-lIa"/>
-                                                <constraint firstItem="wg7-BB-jKg" firstAttribute="leading" secondItem="VfR-Eq-Nof" secondAttribute="trailing" id="Emo-UW-wvY"/>
-                                                <constraint firstAttribute="trailing" secondItem="VfR-Eq-Nof" secondAttribute="trailing" constant="20" id="J5F-Um-VTl"/>
                                                 <constraint firstItem="AnR-Vz-k9U" firstAttribute="leading" secondItem="K85-38-s8v" secondAttribute="leadingMargin" id="JzI-rJ-ePN"/>
                                                 <constraint firstItem="AnR-Vz-k9U" firstAttribute="top" secondItem="K85-38-s8v" secondAttribute="topMargin" id="KY6-OR-8IC"/>
-                                                <constraint firstAttribute="trailing" secondItem="wg7-BB-jKg" secondAttribute="trailing" constant="20" id="gIC-Ao-8gc"/>
+                                                <constraint firstItem="wg7-BB-jKg" firstAttribute="leading" secondItem="VfR-Eq-Nof" secondAttribute="trailing" id="eil-hq-upA"/>
                                                 <constraint firstItem="VfR-Eq-Nof" firstAttribute="leading" secondItem="K85-38-s8v" secondAttribute="leading" constant="120" id="hxZ-v1-hQ5"/>
+                                                <constraint firstAttribute="trailing" secondItem="wg7-BB-jKg" secondAttribute="trailing" constant="20" id="jfQ-wz-my4"/>
                                                 <constraint firstItem="VfR-Eq-Nof" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="AnR-Vz-k9U" secondAttribute="trailing" constant="8" id="m4d-kw-ceb"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="AnR-Vz-k9U" secondAttribute="bottom" id="w8l-lN-G3H"/>
                                                 <constraint firstItem="wg7-BB-jKg" firstAttribute="top" secondItem="VfR-Eq-Nof" secondAttribute="top" id="ysM-Sa-0OI"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="usernameCheckView" destination="wg7-BB-jKg" id="N55-FK-uPT"/>
                                             <outlet property="usernameField" destination="VfR-Eq-Nof" id="Fup-9c-Sif"/>
                                         </connections>
                                     </tableViewCell>
@@ -1940,7 +1940,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="KqS-ZN-6VP"/>
         <segue reference="Vg5-nC-Hnj"/>
-        <segue reference="lZu-H2-1xT"/>
+        <segue reference="IlP-IV-pOc"/>
         <segue reference="JAJ-4x-lDL"/>
         <segue reference="ei2-QH-qVv"/>
         <segue reference="x8N-C0-dZc"/>
@@ -1952,7 +1952,6 @@
         <image name="book.fill" catalog="system" width="128" height="100"/>
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="checkmark.circle.fill" width="128" height="121"/>
         <image name="default_profile_image" width="170" height="170"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="heart" catalog="system" width="128" height="109"/>

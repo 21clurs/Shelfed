@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getBookForID: (NSString *)bookID withCompletion:(void(^)(Book *book, NSError * _Nullable error)) completion;
 + (void)addBook: (Book *)book toArray:(NSString *)arrayName withCompletion:(void(^)(NSError *error))completion;
 + (void)removeBook: (Book *)book fromArray:(NSString *)arrayName withCompletion:(void(^)(NSError *error))completion;
++ (void)addToParse:(Book *)addBook withCompletion:(void(^)(Book * _Nullable bookToAdd, NSError * _Nullable error))completion;
 
 @end
 

@@ -16,6 +16,7 @@
 #import "FBSDKCoreKit.h"
 #import "FBSDKShareKit.h"
 #import "UIScrollView+EmptyDataSet.h"
+#import "AddRemoveBooksHelper.h"
 
 @import Parse;
 
@@ -185,6 +186,7 @@
             [strongSelf getUserUploads];
         }
     }];
+    [AddRemoveBooksHelper addToParse:self.book withCompletion:^(Book * _Nullable bookToAdd, NSError * _Nullable error) {}];
 };
 
 #pragma mark - UploadDetailsViewControllerDelegate
