@@ -43,14 +43,6 @@ NSInteger loadBy = 20;
     [self loadHelper:completion];
 }
 
--(void)reloadBooks:(void(^)(NSArray *books, NSError *error))completion{
-    if(currentSearchString==nil || [currentSearchString isEqualToString:@""]){
-        currentSearchString = @"the";
-    }
-    currentSearchIndex=0;
-    [self loadHelper:completion];
-}
-
 -(void)reloadBooksAuthor:(nullable NSString *)author withCompletion:(void(^)(NSArray *books, NSError *error))completion{
     if(currentSearchString==nil || [currentSearchString isEqualToString:@""]){
         currentSearchString = @"the";
