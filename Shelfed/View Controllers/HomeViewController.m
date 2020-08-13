@@ -51,12 +51,16 @@ UIRefreshControl *refreshControl;
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     
-    self.searchBar = [[UISearchBar alloc] init];
-    self.searchBar.delegate = self;
-    [self.searchBar sizeToFit];
-    self.searchBar.placeholder = @"Search for books";
-    self.navigationItem.titleView = self.searchBar;
-
+    if(self.authorString==nil){
+        self.searchBar = [[UISearchBar alloc] init];
+        self.searchBar.delegate = self;
+        [self.searchBar sizeToFit];
+        self.searchBar.placeholder = @"Search for books";
+        self.navigationItem.titleView = self.searchBar;
+    }
+    else{
+        self.navigationItem.title = [NSString stringWithFormat:@"Books by %@",self.authorString];
+    }
     //UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     //self.navigationItem.searchController = searchController;
     //self.navigationItem.hidesSearchBarWhenScrolling = false;
@@ -90,7 +94,7 @@ UIRefreshControl *refreshControl;
 
 - (void)reloadFeed{
     __weak __typeof(self) weakSelf = self;
-    [manager reloadBooks:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+    [manager reloadBooksAuthor:self.authorString withCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
         __strong __typeof(self) strongSelf = weakSelf;
 
         [refreshControl endRefreshing];

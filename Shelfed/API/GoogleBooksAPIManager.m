@@ -15,6 +15,7 @@ static NSString *const apiKey = @"AIzaSyCrGgWjsndS7vfcYaC-CpyqlktNDSnVnzE";
 @implementation GoogleBooksAPIManager
 
 NSString *currentSearchString;
+NSString *authorString;
 NSInteger currentSearchIndex;
 NSInteger loadBy = 20;
 
@@ -50,13 +51,28 @@ NSInteger loadBy = 20;
     [self loadHelper:completion];
 }
 
+-(void)reloadBooksAuthor:(nullable NSString *)author withCompletion:(void(^)(NSArray *books, NSError *error))completion{
+    if(currentSearchString==nil || [currentSearchString isEqualToString:@""]){
+        currentSearchString = @"the";
+    }
+    authorString = author;
+    currentSearchIndex=0;
+    [self loadHelper:completion];
+}
+
 -(void)loadMoreBooks: (void(^)(NSArray *books, NSError *error))completion{
     currentSearchIndex += loadBy;
     [self loadHelper:completion];
 }
 
 -(void)loadHelper: (void(^)(NSArray *books, NSError *error))completion{
-    NSString *queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=%ld&startIndex=%ld&key=%@", baseURLString, currentSearchString, loadBy, currentSearchIndex, apiKey];
+    NSString *queryString;
+    if(authorString==nil)
+        queryString = [NSString stringWithFormat:@"%@volumes?q=%@&maxResults=%ld&startIndex=%ld&key=%@", baseURLString, currentSearchString, loadBy, currentSearchIndex, apiKey];
+    else{
+        NSString *authorSearchableString = [self makeSearchable:authorString];
+        queryString = [NSString stringWithFormat:@"%@volumes?q=inauthor:%@&maxResults=%ld&startIndex=%ld&key=%@", baseURLString, authorSearchableString, loadBy, currentSearchIndex, apiKey];
+    }
     NSURL *url = [NSURL URLWithString:queryString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     

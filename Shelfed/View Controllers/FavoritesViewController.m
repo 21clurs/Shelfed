@@ -17,7 +17,7 @@
 #import "Filter.h"
 #import "FilterDisplayContainerViewController.h"
 
-@interface FavoritesViewController () <FilterDisplayContainerViewControllerDelegate,UITableViewDelegate, UITableViewDataSource, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
+@interface FavoritesViewController () <FilterDisplayContainerViewControllerDelegate,UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FilterSelectionViewControllerDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, BookCellNibDelegate, SelectShelfViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterDisplayHeight;
 @property (nonatomic) FilterDisplayContainerViewController *filterDisplayContainerViewController;
@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSArray<Book *> *filteredBooks;
 @property (strong, nonatomic) NSDictionary<NSNumber *, NSArray<Filter *> *> *filtersDictionary;
 @property (strong, nonatomic) NSMutableArray<Filter *> *appliedFilterArray;
+@property (strong, nonatomic) UISearchBar *searchBar;
 @end
 
 @implementation FavoritesViewController
@@ -43,6 +44,13 @@
     self.tableView.emptyDataSetDelegate = self;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"BookCellNib" bundle:nil] forCellReuseIdentifier:@"bookReusableCell"];
+/*
+    self.searchBar = [[UISearchBar alloc] init];
+    self.searchBar.delegate = self;
+    [self.searchBar sizeToFit];
+    self.searchBar.placeholder = @"Search for books";
+    self.navigationItem.titleView = self.searchBar;
+ */
 }
 
 -(void) reloadFavorites{
@@ -177,6 +185,35 @@
     deleteAction.backgroundColor = [UIColor systemRedColor];
     UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
     return config;
+}
+
+#pragma mark - UISearchBarDelegate
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    self.searchBar.showsCancelButton = YES;
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    /*
+    __weak __typeof(self) weakSelf = self;
+    [manager searchBooks:searchText andCompletion:^(NSArray * _Nonnull books, NSError * _Nonnull error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if(error!=nil){
+            NSLog(@"Error searching!");
+        }
+        else{
+            strongSelf.books = [books mutableCopy];
+            [strongSelf.tableView reloadData];
+        }
+    }];
+     */
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+    
+    self.filteredBooks = self.favoriteBooks;
+    [self.tableView reloadData];
 }
 
 #pragma mark - DZNEmptyDataSetSource

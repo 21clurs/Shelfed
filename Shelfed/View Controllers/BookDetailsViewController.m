@@ -15,6 +15,7 @@
 #import "GoogleBooksAPIManager.h"
 #import "NSString+NSStringStripHTML.h"
 #import "BookCollectionCell.h"
+#import "HomeViewController.h"
 
 @interface BookDetailsViewController () <SelectShelfViewControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -293,13 +294,19 @@
 
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.authorsBooksArray.count;
+    return self.authorsBooksArray.count + 1;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    BookCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"bookCollectionCell" forIndexPath:indexPath];
-    cell.book = self.authorsBooksArray[indexPath.item];
-    return cell;
+    if(indexPath.item>=self.authorsBooksArray.count){
+        UICollectionViewCell *seeMoreCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"seeMoreCell" forIndexPath:indexPath];
+        return seeMoreCell;
+    }
+    else{
+        BookCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"bookCollectionCell" forIndexPath:indexPath];
+        cell.book = self.authorsBooksArray[indexPath.item];
+        return cell;
+    }
 }
 
 #pragma mark - Navigation
@@ -322,6 +329,10 @@
         
         BookDetailsViewController *bookDetailsViewController = [segue destinationViewController];
         bookDetailsViewController.book = book;
+    }
+    else if ([segue.identifier isEqualToString:@"SeeMoreAuthorSegue"]){
+        HomeViewController *homeViewController = [segue destinationViewController];
+        homeViewController.authorString = self.book.authorsString;
     }
 }
 
