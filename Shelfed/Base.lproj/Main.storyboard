@@ -1306,7 +1306,7 @@
                                                                 </textField>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="E1j-Co-P3h">
                                                                     <rect key="frame" x="250" y="0.5" width="24" height="35"/>
-                                                                    <color key="tintColor" red="0.085752494633197784" green="0.091344438493251801" blue="0.37593317031860352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="36" id="OEd-AH-0q4"/>
                                                                         <constraint firstAttribute="width" constant="24" id="eTt-r0-XqP"/>

@@ -86,11 +86,11 @@
             else{
                 [categoriesFromGenresSet addObject:genre];
                 if([genre isEqualToString:@"Nonfiction"]){
-                    [categoriesFromGenresSet addObjectsFromArray:[[NSArray alloc] initWithObjects:@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil]];
+                    [categoriesFromGenresSet addObjectsFromArray:[[NSArray alloc] initWithObjects:@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",@"Biography & Autobiography",@"Literary Criticism",nil]];
                 }
             }
         }
-        NSSet *othersHelperSet = [[NSSet alloc] initWithArray:[[NSArray alloc] initWithObjects:@"Fiction",@"Nonfiction",@"Juvenile Fiction",@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",nil]];
+        NSSet *othersHelperSet = [[NSSet alloc] initWithArray:[[NSArray alloc] initWithObjects:@"Fiction",@"Nonfiction",@"Juvenile Fiction",@"Art",@"Science",@"History",@"Music",@"Computers",@"English",@"Social Science",@"Biography & Autobiography",@"Literary Criticism",nil]];
         genrePredicate = [NSPredicate predicateWithBlock:^BOOL(Book *evaluatedBook, NSDictionary *bindings) {
                if(othersSelected == YES){
                    for(NSString *category in evaluatedBook.categories){
